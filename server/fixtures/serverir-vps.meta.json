@@ -1,0 +1,252 @@
+{
+  "id": "serverir-vps",
+  "url": "https://server.ir/vps/iran/",
+  "status": 200,
+  "finalUrl": "https://server.ir/vps/iran/",
+  "checkedAt": "2026-10-09T17:55:40.502Z",
+  "hash": "1dfa3b00a8e6cd1b56586e9f31be5adb0eb3721a9c8a6788ba22e034ea92516d",
+  "bytes": 427863,
+  "title": "سرور مجازی ایران نامحدود | خرید سرور مجازی ایران | VPS ایران",
+  "links": [
+    {
+      "url": "https://server.ir/cloud-server/",
+      "text": "سرور ابری"
+    },
+    {
+      "url": "https://server.ir/vps/",
+      "text": "سرور مجازی"
+    },
+    {
+      "url": "https://server.ir/vps/iran/",
+      "text": "سرور مجازی ایران"
+    },
+    {
+      "url": "https://server.ir/vps/foreign/",
+      "text": "سرور مجازی خارج"
+    },
+    {
+      "url": "https://server.ir/cloud-services/hourly-vps/",
+      "text": "سرور ساعتی"
+    },
+    {
+      "url": "https://server.ir/vps/foreign/hetzner-cloud/",
+      "text": "سرور مجازی هتزنر"
+    },
+    {
+      "url": "https://server.ir/vps/foreign/usa/",
+      "text": "سرور آمریکا"
+    },
+    {
+      "url": "https://server.ir/vps/foreign/turkey/",
+      "text": "سرور ترکیه"
+    },
+    {
+      "url": "https://server.ir/vps/foreign/universal/",
+      "text": "سرور هلند"
+    },
+    {
+      "url": "https://server.ir/vps/foreign/france/",
+      "text": "سرور فرانسه"
+    },
+    {
+      "url": "https://server.ir/vps/cpu-optimized/",
+      "text": "سرور مجازی با پردازنده بهینه"
+    },
+    {
+      "url": "https://server.ir/vps-trade/",
+      "text": "سرور ترید"
+    },
+    {
+      "url": "https://server.ir/vps-trade-iran/",
+      "text": "سرور بورس"
+    },
+    {
+      "url": "https://server.ir/vps/freeserver/",
+      "text": "سرور رایگان"
+    },
+    {
+      "url": "https://server.ir/vps/mikrotik/",
+      "text": "سرور میکروتیک"
+    },
+    {
+      "url": "https://server.ir/n8n-vps/",
+      "text": "سرور N8N"
+    },
+    {
+      "url": "https://server.ir/dedicated-server/",
+      "text": "سرور اختصاصی"
+    },
+    {
+      "url": "https://server.ir/dedicated-server/iran/",
+      "text": "سرور اختصاصی ایران"
+    },
+    {
+      "url": "https://server.ir/dedicated-server/foreign/",
+      "text": "سرور اختصاصی خارج"
+    },
+    {
+      "url": "https://server.ir/dedicated-server/foreign/hetzner/",
+      "text": "سرور اختصاصی هتزنر"
+    },
+    {
+      "url": "https://server.ir/dedicated-server/germany/",
+      "text": "سرور اختصاصی آلمان"
+    },
+    {
+      "url": "https://server.ir/dedicated-server/france/",
+      "text": "سرور اختصاصی فرانسه"
+    },
+    {
+      "url": "https://server.ir/dedicated-server/netherlands/",
+      "text": "سرور اختصاصی هلند"
+    },
+    {
+      "url": "https://server.ir/gpu-server/",
+      "text": "سرور اختصاصی گرافیکی"
+    },
+    {
+      "url": "https://server.ir/vps/iran/#",
+      "text": "CentOS"
+    },
+    {
+      "url": "https://server.ir/hosting/",
+      "text": "هاست وب‌سایت"
+    },
+    {
+      "url": "https://server.ir/hosting/wordpress/",
+      "text": "هاست وردپرس"
+    },
+    {
+      "url": "https://server.ir/hosting/linux/",
+      "text": "هاست لینوکسcPanel - Litespeed - SSD"
+    },
+    {
+      "url": "https://server.ir/hosting/windows/",
+      "text": "هاست ویندوز"
+    },
+    {
+      "url": "https://server.ir/laravel-host/",
+      "text": "هاست لاراول"
+    },
+    {
+      "url": "https://server.ir/framework-hosting/",
+      "text": "هاست فریمورکدسترسی آزاد به ترمینال"
+    },
+    {
+      "url": "https://server.ir/hosting/iran/",
+      "text": "هاست ایران"
+    },
+    {
+      "url": "https://server.ir/hosting/foreign/",
+      "text": "هاست خارج"
+    },
+    {
+      "url": "https://server.ir/hosting/download/",
+      "text": "هاست دانلود"
+    },
+    {
+      "url": "https://server.ir/hosting/freehost/",
+      "text": "هاست رایگان"
+    },
+    {
+      "url": "https://server.ir/hosting/hosting-reseller/",
+      "text": "نمایندگی هاست لینوکس"
+    },
+    {
+      "url": "https://cloud.server.ir/",
+      "text": "داشبورد ابری"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=l823ooo3p4&wallet_id=ez62o751vp&plan_id=nlvypnjvjx",
+      "text": "2,430,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=l823ooo3p4&wallet_id=ez62o751vp&plan_id=gzv8030574",
+      "text": "1,750,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=l823ooo3p4&wallet_id=ez62o751vp&plan_id=7x5pm8w5kq",
+      "text": "1,120,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=zegqlexdvl&wallet_id=ez62o751vp&plan_id=0wvdxde6rz",
+      "text": "1,320,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=ol6x8lp5ek",
+      "text": "1,590,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=8xv2k80ver",
+      "text": "3,990,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=qwv40lm6r9",
+      "text": "5,590,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=w46k2jz6o1",
+      "text": "7,190,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=2&datacenter_id=1zrd1l346y&wallet_id=ez62o751vp&plan_id=yqwv4086r9",
+      "text": "1,690,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=2&datacenter_id=1zrd1l346y&wallet_id=ez62o751vp&plan_id=w405gep6n2",
+      "text": "2,590,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=2&datacenter_id=1zrd1l346y&wallet_id=ez62o751vp&plan_id=08xv2k9ver",
+      "text": "3,100,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=2&datacenter_id=1zrd1l346y&wallet_id=ez62o751vp&plan_id=9pdvnjo6zx",
+      "text": "7,040,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=x76wjzw54y",
+      "text": "1,890,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=wl5mgwy5mq",
+      "text": "1,390,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=4z5rxy85wl",
+      "text": "2,290,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=405ge3k6n2",
+      "text": "2,490,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=ymvz8wmv9n",
+      "text": "679,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=m46ol3q691",
+      "text": "3,190,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/create-server?plan_type_id=10&datacenter_id=wvk375d0x8&wallet_id=ez62o751vp&plan_id=p2vql8y5n9",
+      "text": "989,000تومان"
+    },
+    {
+      "url": "https://cloud.server.ir/fa/",
+      "text": "ورود به داشبورد ابری"
+    },
+    {
+      "url": "https://server.ir/vps/iran/#tab1",
+      "text": "خدمات و ثبت سفارش"
+    },
+    {
+      "url": "https://server.ir/vps/iran/#tab2",
+      "text": "پشتیبانی فنی"
+    },
+    {
+      "url": "https://server.ir/vps/iran/#tab3",
+      "text": "مالی و پرداخت"
+    }
+  ]
+}

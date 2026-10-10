@@ -1,0 +1,210 @@
+import { expandedProviders, expandedSources } from "./expanded-catalog.mjs";
+export const providers = [
+  {
+    id: "arvan",
+    aliases: ["آروان", "اروان", "اروان کلاد"],
+    name: "آروان‌کلاد",
+    en: "ArvanCloud",
+    color: "#e2f1ec",
+    ink: "#258575",
+    mark: "A",
+    url: "https://www.arvancloud.ir",
+    description: "سرور ابری با منابع قابل تنظیم و پرداخت بر اساس مصرف",
+  },
+  {
+    id: "liara",
+    name: "لیارا",
+    en: "Liara",
+    color: "#e7edff",
+    ink: "#5072de",
+    mark: "L",
+    url: "https://liara.ir",
+    description: "سرور مجازی ابری و میزبانی وردپرس با تعرفه ساعتی",
+  },
+  {
+    id: "iranserver",
+    name: "ایران‌سرور",
+    en: "IranServer",
+    color: "#fae5df",
+    ink: "#d15e42",
+    mark: "I",
+    url: "https://www.iranserver.com",
+    description: "سرور مجازی و میزبانی وب با پلن‌های مشخص",
+  },
+  {
+    id: "netafraz",
+    name: "نت‌افراز",
+    en: "Netafraz",
+    color: "#eee6f8",
+    ink: "#8856b6",
+    mark: "N",
+    url: "https://www.netafraz.com",
+    description: "میزبانی لینوکس با پلن‌های اقتصادی و استاندارد",
+  },
+];
+export const sources = [
+  {
+    id: "arvan-vps",
+    providerId: "arvan",
+    name: "تعرفهٔ سرور ابری آروان",
+    url: "https://www.arvancloud.ir/fa/pricing/cloud-server",
+  },
+  {
+    id: "liara",
+    providerId: "liara",
+    name: "تعرفهٔ سرور و وردپرس لیارا",
+    url: "https://liara.ir/pricing/",
+  },
+  {
+    id: "iranserver-vps",
+    providerId: "iranserver",
+    name: "پلن‌های سرور مجازی ایران",
+    url: "https://www.iranserver.com/vps/iran/",
+  },
+  {
+    id: "netafraz-host",
+    providerId: "netafraz",
+    name: "هاست اقتصادی نت‌افراز",
+    url: "https://www.netafraz.com/میزبانی-وب-اقتصادی",
+  },
+  {
+    id: "netafraz-standard",
+    providerId: "netafraz",
+    name: "هاست استاندارد نت‌افراز",
+    url: "https://www.netafraz.com/میزبانی-وب-استاندارد",
+  },
+];
+providers.push(...expandedProviders);
+sources.push(...expandedSources);
+export const stamp = "2026-10-09T17:17:44.000Z";
+export const defaults = {
+  trafficGB: null,
+  trafficRate: null,
+  ipMonthly: null,
+  vatRate: null,
+  diskType: "نامشخص",
+  period: 1,
+  cpu: null,
+  ram: null,
+  region: "unknown",
+  billing: "monthly",
+  mode: "snapshot",
+  verifiedAt: stamp,
+  notes: [],
+  custom: false,
+};
+export const makeOffer = (o) => ({ ...defaults, ...o });
+export function arvanOffers(
+  rates = { cpu: 210000, ram: 163500, disk: 15000, ip: 195000, traffic: 1800 },
+  verifiedAt = stamp,
+  mode = "snapshot",
+) {
+  // Configurations computed from official unit tariffs, not advertised plan names.
+  return [
+    [1, 1, 20],
+    [1, 2, 20],
+    [1, 4, 40],
+    [2, 4, 40],
+    [2, 8, 40],
+    [4, 8, 80],
+    [4, 16, 80],
+    [8, 16, 160],
+    [8, 32, 120],
+    [16, 64, 160],
+    [16, 32, 320],
+    [32, 64, 640],
+  ].map(([cpu, ram, disk]) =>
+    makeOffer({
+      id: `arvan-${cpu}-${ram}-${disk}`,
+      providerId: "arvan",
+      sourceId: "arvan-vps",
+      type: "vps",
+      name: `پیکربندی پایه ${cpu} / ${ram}`,
+      cpu,
+      ram,
+      disk,
+      region: "ir",
+      diskType: "SSD",
+      price: cpu * rates.cpu + ram * rates.ram + disk * rates.disk,
+      ipMonthly: rates.ip,
+      trafficGB: 250,
+      trafficRate: rates.traffic,
+      billing: "hourly",
+      custom: true,
+      rates,
+      verifiedAt,
+      mode,
+      notes: [
+        "مبلغ از تعرفهٔ هر هسته، هر گیگابایت RAM و SSD محاسبه شده است.",
+        "۲۵۰ گیگابایت ترافیک رایگان به مجموع حساب تعلق دارد؛ برآورد برای حساب بدون مصرف قبلی است.",
+        "آپلود رایگان است؛ ترافیک دانلود به سرور محاسبه می‌شود.",
+      ],
+      url: sources[0].url,
+      checkoutUrl: "https://panel.arvancloud.ir",
+    }),
+  );
+}
+export const snapshots = [
+  ...arvanOffers(),
+  ...[
+    ["E1", 1.5, 80, 470000, 1050000],
+    ["E2", 3, 120, 740000, 1650000],
+    ["برنزی لایت", 5, 150, 910000, 2150000],
+  ].flatMap(([name, disk, traffic, ir, eu]) =>
+    ["ir", "eu"].map((region) =>
+      makeOffer({
+        id: `netafraz-${String(name).replace(/\s/g, "-")}-${region}`,
+        providerId: "netafraz",
+        sourceId: "netafraz-host",
+        type: "hosting",
+        name: String(name),
+        disk,
+        trafficGB: traffic,
+        price: (region === "ir" ? ir : eu) / 3,
+        upfront: region === "ir" ? ir : eu,
+        period: 3,
+        billing: "quarterly",
+        region,
+        ipMonthly: 0,
+        vatRate: 0.1,
+        notes: [
+          "پرداخت حداقل سه‌ماهه است؛ عدد ماهانه معادل یک‌سوم مبلغ دوره است.",
+          "بکاپ هفتگی و SSL در صفحهٔ رسمی ذکر شده‌اند.",
+          "محدودیت بازدید و اندازهٔ دیتابیس دارد؛ برای دانلود با اتصال هم‌زمان بالا طراحی نشده است.",
+        ],
+        url: sources[3].url,
+        checkoutUrl: sources[3].url,
+      }),
+    ),
+  ),
+  ...[
+    ["برنزی", 15, 150, 1220000, 3640000, 3],
+    ["نقره‌ای", 25, 250, 590000, 1760000, 1],
+    ["طلایی", 50, null, 960000, 3160000, 1],
+  ].flatMap(([name, disk, traffic, ir, eu, period]) =>
+    ["ir", "eu"].map((region) =>
+      makeOffer({
+        id: `netafraz-standard-${disk}-${region}`,
+        providerId: "netafraz",
+        sourceId: "netafraz-standard",
+        type: "hosting",
+        name: String(name),
+        disk,
+        trafficGB: traffic,
+        trafficUnlimited: traffic === null,
+        price: (region === "ir" ? ir : eu) / period,
+        upfront: region === "ir" ? ir : eu,
+        period,
+        region,
+        ipMonthly: 0,
+        vatRate: 0.1,
+        notes: [
+          "بکاپ هفتگی، SSL و پنل DirectAdmin در منبع ذکر شده‌اند.",
+          "برای دانلود با اتصال هم‌زمان بالا طراحی نشده است.",
+        ],
+        url: sources[4].url,
+        checkoutUrl: sources[4].url,
+      }),
+    ),
+  ),
+];

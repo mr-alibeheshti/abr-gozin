@@ -1,0 +1,225 @@
+[
+  {
+    "id": "afagh",
+    "source": "https://afagh.info/wp-content/themes/afagh/assets/logo-selected.webp",
+    "file": "/logos/afagh.webp",
+    "checkedAt": "2026-10-09T18:18:32.898Z",
+    "sha256": "561c34a4dee5c71e18a9176876148b567da65f0401374168a359a3c572b5c5b3"
+  },
+  {
+    "id": "arvan",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/archive/b/b8/20241029052759%21Logo-header-desktop-v6.svg",
+    "file": "/logos/arvan.svg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Logo-header-desktop-v6.svg",
+    "note": "Official Arvan symbol mirrored on Wikimedia Commons; official website unavailable from this network.",
+    "checkedAt": "2026-10-09T18:20:25.921Z",
+    "sha256": "39f5df0897db7177c3009487621eb66a2d01355bcd9990e54110ad8b9e4a392f"
+  },
+  {
+    "id": "azaronline",
+    "source": "https://azaronline.com/assets/logo-3ae93401.svg",
+    "file": "/logos/azaronline.svg",
+    "checkedAt": "2026-10-09T18:18:32.596Z",
+    "sha256": "f2fcde5b9200d9234ffe2570472c4f36715f57235519f6ad88a32dadbf14cd5d",
+    "compact": {
+      "source": "https://azaronline.com/favicon.svg",
+      "file": "/logos/azaronline-compact.svg",
+      "checkedAt": "2026-10-09T20:30:27.684Z",
+      "sha256": "1057cc655375bc1c423ee8c5415fe6617d69660a03bdc6c85acc228145829c9d"
+    }
+  },
+  {
+    "id": "bertina",
+    "source": "https://www.bertina.ir/images/misc/logo.png",
+    "file": "/logos/bertina.png",
+    "checkedAt": "2026-10-09T18:18:32.394Z",
+    "sha256": "6394c6d8bd8dc4028714f833e7adc28efd653eeba95b94a6a6b4e6502c122e67"
+  },
+  {
+    "id": "hidata",
+    "source": "https://hidata.org/",
+    "file": "/logos/hidata.svg",
+    "selector": "a.logo-hover svg",
+    "checkedAt": "2026-10-09T18:18:33.392Z",
+    "sha256": "31459dbe1b79bc5477003f3f08e417d4b2d6769d764af5cd8be8f4300622a4de"
+  },
+  {
+    "id": "hostnegar",
+    "source": "https://hostnegar.com/assets/images/لوگو-هاست-نگار-2.webp",
+    "file": "/logos/hostnegar.webp",
+    "checkedAt": "2026-10-09T18:18:32.982Z",
+    "sha256": "8eaafeb13ca397833ada69929d4b48e132fb2eb2e30c948d7efe3e8ab2dd65a1"
+  },
+  {
+    "id": "iranhost",
+    "source": "https://iranhost.com/assets/images/new-iranHost-Logo-1.svg",
+    "file": "/logos/iranhost.svg",
+    "checkedAt": "2026-10-09T18:18:31.991Z",
+    "sha256": "c1c28ce19f90f529306f6609d10e0c0d800e78dc798f5d117cbf1a9bdcd2ad25",
+    "compact": {
+      "source": "https://iranhost.com/assets/images/fav/fa_icon.ico",
+      "file": "/logos/iranhost-compact.png",
+      "checkedAt": "2026-10-09T20:30:27.597Z",
+      "sha256": "ca83545e2aca9aadad01c9b4a8427e15747a6779a6ba7e8eb8daf0b99e0509a7",
+      "note": "Official favicon converted to PNG, maximum 64 pixels."
+    }
+  },
+  {
+    "id": "iranserver",
+    "source": "https://www.iranserver.com/assets/images/logo/iranserver-logo.svg",
+    "file": "/logos/iranserver.svg",
+    "checkedAt": "2026-10-09T18:18:31.500Z",
+    "sha256": "633869d7560e275358d6f2d357880511290b371b90caeae0dea57bab564660eb",
+    "compact": {
+      "source": "https://www.iranserver.com/assets/images/favicon.png",
+      "file": "/logos/iranserver-compact.png",
+      "checkedAt": "2026-10-09T20:30:25.959Z",
+      "sha256": "64bc87058a76ace0e7938f2a738cb0189478760a7ee318ec0592b071f354c166"
+    }
+  },
+  {
+    "id": "liara",
+    "source": "https://liara.ir/assets/images/liara-logo.svg",
+    "file": "/logos/liara.svg",
+    "checkedAt": "2026-10-09T18:18:31.473Z",
+    "sha256": "82d61fac14196ca84c132b0368db84c1ec3062642e439923c287c8480d4c2101",
+    "compact": {
+      "source": "https://liara.ir/assets/favicon.ico",
+      "file": "/logos/liara-compact.png",
+      "checkedAt": "2026-10-09T20:30:25.493Z",
+      "sha256": "c4ce28596ea94e68fbefb2898cd9a8c06c0ffee28f7331e128903d59e0a5fd5f",
+      "note": "Official favicon converted to PNG, maximum 64 pixels."
+    }
+  },
+  {
+    "id": "mehrhost",
+    "source": "https://mehrhost.com/img/logo-color.webp",
+    "file": "/logos/mehrhost.webp",
+    "checkedAt": "2026-10-09T18:18:33.133Z",
+    "sha256": "7a4980bf41234406b09df3525e708f440d5fd06daf275e7c3bd441e1b312c56d",
+    "compact": {
+      "source": "https://mehrhost.com/img/favicon.png",
+      "file": "/logos/mehrhost-compact.png",
+      "checkedAt": "2026-10-09T20:30:28.006Z",
+      "sha256": "23174e1b3a0fffe06704a13c9226528b1b979bd8a4d973c99547a758a75d29ad"
+    }
+  },
+  {
+    "id": "mihanhosting",
+    "source": "https://mihanhosting.ir/wp-content/uploads/2021/10/new-logo-1.png",
+    "file": "/logos/mihanhosting.png",
+    "checkedAt": "2026-10-09T18:18:33.342Z",
+    "sha256": "46b4d7d7c7168cd2c117bc5d46fa999b23907fe595de9d8065a7285db16e505a",
+    "compact": {
+      "source": "https://mihanhosting.ir/wp-content/uploads/2021/11/cropped-logo-copy-500-192x192.png",
+      "file": "/logos/mihanhosting-compact.png",
+      "checkedAt": "2026-10-09T20:30:28.048Z",
+      "sha256": "99b0110bab24282c94b14535a9a6a15acf5aea671b3bae5abf80d5adc8ed64bb"
+    }
+  },
+  {
+    "id": "mihanwebhost",
+    "source": "https://mihanwebhost.com/images/logo-s/active-logo/logo.svg",
+    "file": "/logos/mihanwebhost.svg",
+    "checkedAt": "2026-10-09T18:18:31.988Z",
+    "sha256": "1f7fffbf1f9cf33e0947329e47833b9b98a2d8180e7f2e0da6d06d6868594a2d",
+    "compact": {
+      "source": "https://mihanwebhost.com/images/pagesicon/android-chrome-192x192.png",
+      "file": "/logos/mihanwebhost-compact.png",
+      "checkedAt": "2026-10-09T20:30:26.134Z",
+      "sha256": "8d251d344590818920b840821d16b6adba9bb1a4350964cc06c2fad6ad17dfc4"
+    }
+  },
+  {
+    "id": "mizbanfa",
+    "source": "https://mizbanfa.net/wp-content/uploads/2024/02/mizbanfa-logo-b.png",
+    "file": "/logos/mizbanfa.png",
+    "checkedAt": "2026-10-09T18:18:32.032Z",
+    "sha256": "d116ee34e6e79170940028bc10b5aee56cf68610edc44e0d7a1f74f138c5fee9",
+    "compact": {
+      "source": "https://mizbanfa.net/wp-content/uploads/2026/07/mizbanfa-brand-icon.png",
+      "file": "/logos/mizbanfa-compact.png",
+      "checkedAt": "2026-10-09T20:30:27.232Z",
+      "sha256": "8b9b7ae4fe8e4e07c175f903cb07a018d61ef312bbdbc70680b13852c109152a"
+    }
+  },
+  {
+    "id": "netafraz",
+    "source": "https://www.netafraz.com/images/logo-black.png",
+    "file": "/logos/netafraz.png",
+    "checkedAt": "2026-10-09T18:18:31.823Z",
+    "sha256": "d45397a3725413eef71a2ea51e16f86bdaceae8f2aaa5edf6d95ecc29226dfec"
+  },
+  {
+    "id": "onlineserver",
+    "source": "https://onlineserver.ir/_next/static/media/OnlineServer.0lyihooo2268j.svg",
+    "file": "/logos/onlineserver.svg",
+    "checkedAt": "2026-10-09T18:18:32.483Z",
+    "sha256": "2af14e625731688e15bc141d58db92ae2d1e0efe94e9682bdefbf6440bcc2ee6"
+  },
+  {
+    "id": "parsvds",
+    "source": "https://parsvds.com/wp-content/uploads/2021/08/Logo-Site-new-min-4.png",
+    "file": "/logos/parsvds.png",
+    "checkedAt": "2026-10-09T18:18:31.687Z",
+    "sha256": "b9fb52a19d085061e90831d2a1fcd9c42cb927701850628be957cfafae7f4e23",
+    "compact": {
+      "source": "https://parsvds.com/images/favicon.png",
+      "file": "/logos/parsvds-compact.png",
+      "checkedAt": "2026-10-09T20:30:25.697Z",
+      "sha256": "3c77e916b5d6b25deb3f64b214605c66d9c466728fe39fec17291e38d9909479"
+    }
+  },
+  {
+    "id": "payamonline",
+    "source": "https://payamonline.com/wp-content/themes/payam-online/assets/images/payamonline-colored.svg",
+    "file": "/logos/payamonline.svg",
+    "checkedAt": "2026-10-09T18:18:31.822Z",
+    "sha256": "b2fbaf7e59346213c31b77c9c8963af9e8c2eb13bed17eba7b2a888f0124d338",
+    "compact": {
+      "source": "https://payamonline.com/wp-content/uploads/2026/07/cropped-faveicon-192x192.png",
+      "file": "/logos/payamonline-compact.png",
+      "checkedAt": "2026-10-09T20:30:26.554Z",
+      "sha256": "39aee272e5407cef4d3df24f511a80b306097ae15abcfa9ad1c7afd13cd0764e"
+    }
+  },
+  {
+    "id": "serverir",
+    "source": "https://server.ir/wp-content/uploads/2025/04/server-01.webp",
+    "file": "/logos/serverir.webp",
+    "checkedAt": "2026-10-09T18:18:31.955Z",
+    "sha256": "4c6a772bd95362567d89eb2db65a68ef3361d5adc8c5a2ae4fad4f546e68d663",
+    "compact": {
+      "source": "https://server.ir/wp-content/uploads/2024/12/cropped-cropped-Server-favicon-min-1-192x192.png-192x192.png",
+      "file": "/logos/serverir-compact.png",
+      "checkedAt": "2026-10-09T20:30:26.629Z",
+      "sha256": "2fa162d07e78f4e4e9059c3b9687af700d943e5d296eb62826cfa3dcba1cc9ac"
+    }
+  },
+  {
+    "id": "talahost",
+    "source": "https://www.talahost.com/themes/talahost-20260824/images/logo.svg",
+    "file": "/logos/talahost.svg",
+    "checkedAt": "2026-10-09T18:18:32.906Z",
+    "sha256": "16d13265d00c67cf52cad2a23dd8e411189f9f048945b5277d9eed3e5e5f4a1c",
+    "compact": {
+      "source": "https://www.talahost.com/themes/talahost-20260824/images/talahost-icon.svg",
+      "file": "/logos/talahost-compact.svg",
+      "checkedAt": "2026-10-09T20:30:27.913Z",
+      "sha256": "e8c5144b09efcf06f4e729bf3b184a562654f49fc707f74f8186a2037b2f8c6a"
+    }
+  },
+  {
+    "id": "webdade",
+    "source": "https://webdade.com/wp-content/uploads/2025/03/Asset-14.svg",
+    "file": "/logos/webdade.svg",
+    "checkedAt": "2026-10-09T18:18:32.848Z",
+    "sha256": "ffe419671e844f63c7f08e8a9f046d2df88d30e4c1418b715d623a1c441e88d3",
+    "compact": {
+      "source": "https://webdade.com/wp-content/uploads/2026/02/cropped-webdade-logo-2025-192x192.png",
+      "file": "/logos/webdade-compact.png",
+      "checkedAt": "2026-10-09T20:30:27.857Z",
+      "sha256": "51a178f98f498b5c183572617aeae30591d87f8a3a814cf8faa31b5708ee14f6"
+    }
+  }
+]
