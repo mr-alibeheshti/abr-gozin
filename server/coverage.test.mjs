@@ -27,9 +27,9 @@ const all = expandedSources.flatMap((s) =>
   parseExpanded(s, fixture(s.id), stamp, aux),
 );
 const find = (id) => all.find((o) => o.id === id);
-test("20 distinct providers each have usable plans, official provenance and stable extraction", () => {
-  assert.equal(providers.length, 20);
-  assert.equal(new Set(baseline.map((o) => o.providerId)).size, 20);
+test("22 distinct providers each have usable plans, official provenance and stable extraction", () => {
+  assert.equal(providers.length, 22);
+  assert.equal(new Set(baseline.map((o) => o.providerId)).size, 22);
   for (const s of expandedSources) {
     const parsed = all.filter((o) => o.sourceId === s.id),
       seed = baseline.filter((o) => o.sourceId === s.id);
@@ -54,8 +54,8 @@ test("20 distinct providers each have usable plans, official provenance and stab
       assert.ok(Number.isFinite(estimate(o).total));
     }
   }
-  assert.equal(all.length, 153);
-  assert.equal(baseline.length, 198);
+  assert.equal(all.length, 160);
+  assert.equal(baseline.length, 205);
 });
 test("Currency, compact MB/TB, annual equivalents and capacity are not misrepresented", () => {
   assert.equal(number("۱٫۲۸"), 1.28);
@@ -90,6 +90,33 @@ test("Source-specific monthly fields ignore another active billing cycle", () =>
   $(".show-price").text("99999999 تومان");
   const parsed = parseExpanded(s, $.html(), stamp);
   assert.equal(parsed[0].price, 2430000);
+});
+test("Saba and Webramz use monthly amounts, preserve published capacity, and obey workload floors", () => {
+  const saba = expandedSources.find((s) => s.providerId === "saba"),
+    $ = load(fixture(saba.id));
+  $(".price-amount").text("1");
+  const offers = parseExpanded(saba, $.html(), stamp);
+  assert.equal(offers[0].price, 274000);
+  assert.equal(offers[0].ram, 2.5);
+  assert.equal(offers[0].disk, 2);
+  assert.equal(offers[0].region, "unknown");
+  assert.equal(
+    new URL(offers[0].checkoutUrl).searchParams.get("billingcycle"),
+    "monthly",
+  );
+  assert.equal(find("webramz-VDS-20e").price, 1580000);
+  assert.equal(find("webramz-VDS-20e").trafficGB, 200);
+  assert.equal(find("webramz-VDS-20e").ipMonthly, 0);
+  const wp = searchOffers(all, {
+    provider: "saba",
+    type: "hosting",
+    workload: "wordpress",
+    resourceMode: "minimum",
+  });
+  assert.ok(wp.totalOffers > 0);
+  assert.ok(wp.groups.flatMap((g) => g.offers).every((o) => o.disk >= 5));
+  $(".wp-price-card").first().removeAttr("data-monthly");
+  assert.throws(() => parseExpanded(saba, $.html(), stamp), /قیمت/);
 });
 test("Sources reject changed/empty schemas and missing auxiliary prices without invented fallback", () => {
   for (const s of expandedSources)
@@ -171,7 +198,7 @@ test("Coverage upgrade preserves choices and history and does not resurrect an e
   s.replace("netafraz-host", []);
   s.db.close();
   s = createStore(path);
-  assert.equal(new Set(s.offers().map((o) => o.providerId)).size, 20);
+  assert.equal(new Set(s.offers().map((o) => o.providerId)).size, 22);
   assert.equal(
     s.offers().filter((o) => o.sourceId === "netafraz-host").length,
     0,

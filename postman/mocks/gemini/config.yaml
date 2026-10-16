@@ -1,0 +1,10 @@
+version: 1
+name: Gemini contract
+slug: gemini-contract
+protocol: http
+interceptRequests: true
+port: 4909
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

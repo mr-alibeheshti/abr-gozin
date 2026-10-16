@@ -144,6 +144,24 @@ const entries = [
     "host",
     "https://mehrhost.com/",
   ],
+  [
+    "saba",
+    "صباهاست",
+    "SabaHost",
+    "https://saba.host",
+    "هاست وردپرس با تعرفهٔ ماهانه و منابع اعلام‌شده",
+    "host",
+    "https://saba.host/hosts/wordpress-hosting",
+  ],
+  [
+    "webramz",
+    "وب‌رمز",
+    "Webramz",
+    "https://webramz.com",
+    "سرور مجازی ایران با دیسک NVMe و پرداخت ماهانه",
+    "vps",
+    "https://webramz.com/server/vps/iran",
+  ],
 ];
 const palette = [
   ["#e2f1ec", "#258575"],

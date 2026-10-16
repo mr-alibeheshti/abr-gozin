@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node server/index.mjs --dev",
+    "dev": "node --env-file-if-exists=.env server/index.mjs --dev",
     "build": "tsc --noEmit && vite build",
-    "start": "node server/index.mjs",
+    "start": "node --env-file-if-exists=.env server/index.mjs",
     "test": "node --test server/*.test.mjs",
     "refresh": "node scripts/refresh.mjs",
     "export:catalog": "node scripts/export-catalog.mjs"
@@ -18,6 +18,7 @@
     "lucide-react": "^0.468.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "undici": "7.30.0",
     "zod": "^4.1.0"
   },
   "devDependencies": {

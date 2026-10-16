@@ -40,6 +40,8 @@ const billing = (p) =>
         ? "quarterly"
         : "monthly";
 const checkoutHosts = new Set([
+  "client.saba.host",
+  "my.webramz.com",
   "my.parsvds.com",
   "my.payamonline.com",
   "mihanwebhost.com",
@@ -171,6 +173,100 @@ export function parseExpanded(source, html, stamp, aux = {}) {
     return textOf(row.eq(j + 1));
   };
   switch (source.providerId) {
+    case "saba":
+      $(".wp-price-card[data-pid]").each((i, e) => {
+        const card = $(e),
+          order = card.find(".wp-btn-order");
+        if (order.hasClass("disabled") || textOf(order).includes("تکمیل"))
+          return;
+        const value = (label) =>
+          card
+            .find(".wp-features-list li")
+            .filter((i, row) =>
+              textOf($(row).find(".feature-label")).includes(norm(label)),
+            )
+            .find(".feature-value");
+        const price = number(card.attr("data-monthly")),
+          name = card.find(".wp-plan-name").text().trim(),
+          traffic = textOf(value("ترافیک")),
+          checkout = new URL(link(order.attr("data-base-url"), source));
+        checkout.searchParams.set("billingcycle", "monthly");
+        if (
+          !/^WPH-\d+$/.test(name) ||
+          !traffic.includes("نامحدود") ||
+          ![number(textOf(value("CPU"))), gb(textOf(value("رم")))].every(
+            (x) => Number.isFinite(x) && x > 0,
+          ) ||
+          !/nvme/i.test(textOf(value("هارد")))
+        )
+          throw Error("ساختار تعرفهٔ وردپرس صباهاست تغییر کرده است.");
+        add(
+          {
+            id: "saba-" + name,
+            name,
+            type: "wordpress",
+            region: "unknown",
+            disk: gb(textOf(card.find(".wp-plan-space"))),
+            cpu: number(textOf(value("CPU"))),
+            ram: gb(textOf(value("رم"))),
+            diskType: "NVMe",
+            price,
+            upfront: price,
+            trafficUnlimited: true,
+            ipMonthly: 0,
+            checkoutUrl: checkout.href,
+            notes: [
+              "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف پرداخت سالانه لحاظ نشده است.",
+              "منابع مربوط به حساب هاست‌اند؛ محل دقیق این پلن در جدول اعلام نشده است.",
+            ],
+            evidence: { monthlyPrice: card.attr("data-monthly") },
+          },
+          card,
+        );
+      });
+      break;
+    case "webramz":
+      $(".plan").each((i, e) => {
+        const card = $(e),
+          name = card.find(".plan-name").text().trim();
+        if (!/^VDS-\d+e$/.test(name)) return;
+        const detail = (label) =>
+          card
+            .find(".plan-details li")
+            .filter((i, row) => textOf($(row)).includes(norm(label)))
+            .find("strong");
+        if (
+          textOf(detail("موقعیت")) !== "ایران" ||
+          !/nvme/i.test(textOf(card.find(".plan-details .disk strong"))) ||
+          number(textOf(detail("IP"))) !== 1
+        )
+          throw Error("مشخصات پلن وب‌رمز قابل تأیید نیست.");
+        const price = money(textOf(card.find(".monthly-price.top"))),
+          order = card.find('a[href*="cart.php"]');
+        add(
+          {
+            id: "webramz-" + name,
+            name,
+            type: "vps",
+            region: "ir",
+            disk: gb(textOf(card.find(".plan-details .disk strong"))),
+            cpu: capture(textOf(detail("پردازنده")), /^(\d+)x/i),
+            ram: gb(textOf(detail("رم"))),
+            diskType: "NVMe",
+            trafficGB: gb(textOf(detail("ترافیک ماهانه"))),
+            ipMonthly: number(textOf(detail("IP"))) === 1 ? 0 : null,
+            price,
+            upfront: price,
+            checkoutUrl: link(order.attr("href"), source),
+            notes: [
+              "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است.",
+              "مجازی‌ساز KVM و یک IP در جدول درج شده‌اند؛ تعرفهٔ ترافیک اضافه مشخص نیست.",
+            ],
+          },
+          card,
+        );
+      });
+      break;
     case "parsvds":
       $(".server-tabls-body.month .server-tabls-row-vps").each((i, e) => {
         const c = $(e),

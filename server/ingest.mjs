@@ -258,12 +258,28 @@ const allowed = new Set(
   }),
 );
 allowed.add("portal.mihanhosting.ir");
-export async function fetchHTML(url) {
+export async function fetchHTML(url, { simulationBase } = {}) {
+  let simulation;
+  if (simulationBase) {
+    simulation = new URL(simulationBase);
+    if (
+      simulation.protocol !== "http:" ||
+      !["127.0.0.1", "localhost"].includes(simulation.hostname) ||
+      simulation.username ||
+      simulation.password
+    )
+      throw new Error("شبیه‌ساز دریافت باید روی لوکال باشد");
+  }
   let target = new URL(url);
   for (let i = 0; i < 4; i++) {
     if (target.protocol !== "https:" || !allowed.has(target.hostname))
       throw new Error("مقصد دریافت مجاز نیست");
-    const res = await fetch(target, {
+    const requestURL = simulation
+      ? new URL(
+          `${simulation.href.replace(/\/$/, "")}/pricing?url=${encodeURIComponent(target.href)}`,
+        )
+      : target;
+    const res = await fetch(requestURL, {
       redirect: "manual",
       signal: AbortSignal.timeout(9000),
       headers: {

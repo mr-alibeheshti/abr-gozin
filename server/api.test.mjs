@@ -29,6 +29,11 @@ test("API validates requests, isolates sessions, persists choices, and uses offi
     await delay(100);
   }
   assert.ok(health?.ok, "test server starts");
+  const job = (await health.json()).job;
+  assert.equal(job.intervalHours, 72);
+  assert.equal(job.enabled, true);
+  assert.equal(job.state, "idle");
+  assert.ok(Date.parse(job.nextRunAt) > Date.now());
   const first = await fetch(origin + "/api/choices");
   const cookie = first.headers.get("set-cookie").split(";")[0];
   assert.match(first.headers.get("set-cookie"), /HttpOnly; SameSite=Strict/);
@@ -41,8 +46,26 @@ test("API validates requests, isolates sessions, persists choices, and uses offi
     baseline.filter((o) => o.type === "vps").length,
   );
   const catalog = await (await get("/api/catalog")).json();
-  assert.equal(catalog.providers.length, 20);
-  assert.equal(new Set(catalog.offers.map((o) => o.providerId)).size, 20);
+  assert.equal(catalog.providers.length, 22);
+  assert.equal(catalog.workloadGuide.length, 6);
+  for (const query of [
+    "workload=wordpress&scenario=node",
+    "dataGB=-1",
+    "backupCopies=1.5",
+  ])
+    assert.equal((await get("/api/search?" + query)).status, 400);
+  const sized = await (
+    await get(
+      "/api/search?workload=wordpress&scenario=store&resourceMode=minimum",
+    )
+  ).json();
+  assert.equal(sized.requirements.minimum.disk, 10);
+  assert.ok(
+    [...sized.groups, ...sized.similarGroups].every(
+      (g) => g.disk >= 10 && g.ram >= 2,
+    ),
+  );
+  assert.equal(new Set(catalog.offers.map((o) => o.providerId)).size, 22);
   for (const p of providers) {
     const filtered = await (await get("/api/search?provider=" + p.id)).json();
     assert.ok(filtered.totalOffers > 0, p.id + " has usable offers");
@@ -52,6 +75,37 @@ test("API validates requests, isolates sessions, persists choices, and uses offi
         .every((o) => o.providerId === p.id),
     );
   }
+  for (const query of [
+    "provider=liara,arvan",
+    "provider=liara&provider=arvan",
+  ]) {
+    const multi = await (await get("/api/search?" + query)).json();
+    assert.deepEqual(
+      new Set(multi.groups.flatMap((g) => g.offers.map((o) => o.providerId))),
+      new Set(["liara", "arvan"]),
+    );
+  }
+  assert.equal((await get("/api/search?provider=liara,made-up")).status, 400);
+  const dedicated = await (await get("/api/search?type=dedicated")).json();
+  assert.equal(dedicated.totalOffers, 0);
+  assert.deepEqual(dedicated.groups, []);
+  const descending = await (await get("/api/search?sort=price-desc")).json();
+  assert.deepEqual(
+    descending.groups.map((g) => g.min),
+    [...descending.groups.map((g) => g.min)].sort((a, b) => b - a),
+  );
+  const chatStatus = await (await get("/api/chat/status")).json();
+  assert.equal(chatStatus.configured, false);
+  assert.ok(!JSON.stringify(chatStatus).includes("GEMINI_API_KEY"));
+  const missingChat = await fetch(origin + "/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Origin: origin },
+    body: JSON.stringify({
+      messages: [{ role: "user", content: "هاست می‌خوام" }],
+    }),
+  });
+  assert.equal(missingChat.status, 503);
+  assert.equal((await missingChat.json()).code, "AI_NOT_CONFIGURED");
   const ids = result.groups.slice(0, 4).map((g) => g.id);
   const put = (value) =>
     fetch(origin + "/api/choices", {
@@ -127,7 +181,15 @@ test("API validates requests, isolates sessions, persists choices, and uses offi
     redirect: "manual",
   });
   assert.equal(redirect.status, 302);
-  assert.equal(redirect.headers.get("location"), "https://console.liara.ir");
+  const destination = new URL(redirect.headers.get("location"));
+  assert.equal(destination.origin, "https://console.liara.ir");
+  assert.equal(destination.searchParams.get("utm_source"), "abrgozin");
+  assert.equal(destination.searchParams.get("utm_medium"), "referral");
+  assert.equal(
+    destination.searchParams.get("utm_campaign"),
+    "hosting-comparison",
+  );
+  assert.equal(destination.searchParams.get("utm_content"), "checkout");
   assert.equal((await get("/go/missing")).status, 404);
   assert.equal((await get("/api/missing")).status, 404);
 });

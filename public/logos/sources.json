@@ -221,5 +221,31 @@
       "checkedAt": "2026-10-09T20:30:27.857Z",
       "sha256": "51a178f98f498b5c183572617aeae30591d87f8a3a814cf8faa31b5708ee14f6"
     }
+  },
+  {
+    "id": "saba",
+    "source": "https://saba.host/assets/images/logo.svg",
+    "file": "/logos/saba.svg",
+    "checkedAt": "2026-10-16T14:29:07.753Z",
+    "sha256": "13d76688c8b91dd6afc9918a0596394c7cfa2fb94302c4b2dc16b83bac44507a",
+    "compact": {
+      "source": "https://saba.host/images/favicon/favicon-96x96.png",
+      "file": "/logos/saba-compact.png",
+      "checkedAt": "2026-10-16T14:29:07.771Z",
+      "sha256": "9e12762b8d738710f42042eb3cd5ddae0813c4c004001202debb5a40f65e16ec"
+    }
+  },
+  {
+    "id": "webramz",
+    "source": "https://webramz.com/wp-content/uploads/2023/01/webramz-logo.svg",
+    "file": "/logos/webramz.svg",
+    "checkedAt": "2026-10-16T14:29:08.183Z",
+    "sha256": "8b6c3b9cf8de5274c2f9023d7db15a9cdf7835d981e37a7fef40f52a1e83e5c7",
+    "compact": {
+      "source": "https://webramz.com/favicon.svg",
+      "file": "/logos/webramz-compact.svg",
+      "checkedAt": "2026-10-16T14:29:08.217Z",
+      "sha256": "25a1a7ab67eac78cb43a41217db8c08b52034c61d613931eeae1880e08494e36"
+    }
   }
 ]

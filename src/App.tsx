@@ -35,6 +35,14 @@ import {
 } from "lucide-react";
 import "./styles.css";
 import { providerLogos } from "./provider-logos";
+import { formatPrice } from "./format-price";
+import { outboundLink } from "../shared/outbound-link.ts";
+import { ChatAssistant, type ChatFilters } from "./ChatAssistant";
+import {
+  WorkloadRequirements,
+  type Requirements,
+  type WorkloadGuide,
+} from "./WorkloadRequirements";
 
 type Estimate = {
   total: number;
@@ -115,6 +123,7 @@ type SearchResult = {
   similarGroups: Group[];
   similarTotalGroups: number;
   resourceFilters: Partial<Record<ResourceField, number>>;
+  requirements: Requirements;
   totalOffers: number;
   intent: { fields: Record<string, string | number> };
   filters: Record<string, unknown>;
@@ -122,6 +131,15 @@ type SearchResult = {
 };
 type Choices = { saved: string[]; compared: string[] };
 type Filters = {
+  scenario: string;
+  resourceMode: string;
+  minDisk: string;
+  minRam: string;
+  minCpu: string;
+  dataGB: string;
+  growthGB: string;
+  backupCopies: string;
+  gpu: string;
   type: string;
   workload: string;
   region: string;
@@ -156,11 +174,20 @@ const resourceLabels: Record<ResourceField, string> = {
 const differenceText = (d: Difference) =>
   `${d.field === "ram" ? "رم" : d.field === "disk" ? "دیسک" : "پردازنده"}: ${fa(d.actual)} ${d.field === "cpu" ? "هسته" : "GB"} به‌جای ${fa(d.requested)}`;
 const title = (g: Group) =>
-  g.type === "vps"
-    ? `سرور ${fa(g.ram || 0)} گیگابایت`
+  g.type !== "hosting"
+    ? `${g.type === "dedicated" ? "سرور اختصاصی" : "سرور"} ${fa(g.ram || 0)} گیگابایت`
     : `${g.serviceType === "wordpress" ? "وردپرس" : "هاست"} ${fa(g.disk)} گیگابایت`;
 const initial = new URLSearchParams(location.search);
 const defaults: Filters = {
+  scenario: "general",
+  resourceMode: "minimum",
+  minDisk: "",
+  minRam: "",
+  minCpu: "",
+  dataGB: "",
+  growthGB: "",
+  backupCopies: "",
+  gpu: "false",
   type: "all",
   workload: "all",
   region: "all",
@@ -332,11 +359,21 @@ function ServerArt() {
   );
 }
 export default function App() {
+  const [guides, setGuides] = useState<WorkloadGuide[]>([]);
   const [view, setView] = useState<View>("discover");
   const [filters, setFilters] = useState<Filters>(
     () =>
       Object.fromEntries(
-        Object.entries(defaults).map(([k, v]) => [k, initial.get(k) || v]),
+        Object.entries(defaults).map(([k, v]) => [
+          k,
+          k === "provider"
+            ? initial.getAll(k).join(",")
+            : k === "sort"
+              ? initial.get(k) === "price-desc"
+                ? "price-desc"
+                : "price"
+              : initial.get(k) || v,
+        ]),
       ) as Filters,
   );
   const [traffic, setTraffic] = useState(initial.get("traffic") || "200");
@@ -344,11 +381,6 @@ export default function App() {
   const [providers, setProviders] = useState<Provider[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
   const [statuses, setStatuses] = useState<Status[]>([]);
-  const [model, setModel] = useState<Model>({
-    state: "loading",
-    name: "multilingual-MiniLM",
-    error: null,
-  });
   const [choices, setChoices] = useState<Choices>({ saved: [], compared: [] });
   const [busyChoice, setBusyChoice] = useState(false);
   const [ready, setReady] = useState(false);
@@ -360,18 +392,21 @@ export default function App() {
   const [selected, setSelected] = useState<string | null>(null);
   const [about, setAbout] = useState(false);
   const [revision, setRevision] = useState(0);
-  const [job, setJob] = useState<Job>({
-    state: "idle",
-    done: 0,
-    total: 0,
-    finishedAt: null,
-  });
-  const [refreshError, setRefreshError] = useState("");
   const jobState = useRef("idle");
   const toastTimer = useRef<number | undefined>(undefined);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const providerPicker = useRef<HTMLDetailsElement>(null);
   const migrated = useRef(false);
   const provider = (id: string) => providers.find((p) => p.id === id);
+  useEffect(() => {
+    const dismiss = (event: PointerEvent) => {
+      const picker = providerPicker.current;
+      if (picker?.open && !picker.contains(event.target as Node))
+        picker.open = false;
+    };
+    document.addEventListener("pointerdown", dismiss);
+    return () => document.removeEventListener("pointerdown", dismiss);
+  }, []);
   function say(message: string) {
     setToast(message);
     clearTimeout(toastTimer.current);
@@ -384,6 +419,7 @@ export default function App() {
         const choice = await api<Choices>("/api/choices");
         const data = await api<{
           providers: Provider[];
+          workloadGuide: WorkloadGuide[];
           sources: Source[];
           status: Status[];
           model: Model;
@@ -400,7 +436,13 @@ export default function App() {
               ...Object.fromEntries(
                 Object.keys(defaults)
                   .filter((k) => legacy.filters[k] !== undefined)
-                  .map((k) => [k, String(legacy.filters[k])]),
+                  .map((k) => [
+                    k,
+                    k === "sort" &&
+                    !["price", "price-desc"].includes(String(legacy.filters[k]))
+                      ? "price"
+                      : String(legacy.filters[k]),
+                  ]),
               ),
               workload:
                 initial.get("workload") ||
@@ -410,9 +452,9 @@ export default function App() {
           migrated.current = true;
           setChoices(choice);
           setProviders(data.providers);
+          setGuides(data.workloadGuide);
           setSources(data.sources);
           setStatuses(data.status);
-          setModel(data.model);
           setReady(true);
         }
       } catch (e) {
@@ -448,7 +490,6 @@ export default function App() {
       .then(([data, all]) => {
         setResults(data);
         setAllGroups(all.groups);
-        setModel(data.model);
         setLoading(false);
       })
       .catch((e) => {
@@ -473,7 +514,6 @@ export default function App() {
           if (jobState.current === "running" && data.job.state !== "running")
             setRevision((r) => r + 1);
           jobState.current = data.job.state;
-          setJob(data.job);
           setStatuses(data.status);
         }
       } catch {}
@@ -497,24 +537,36 @@ export default function App() {
   function update(k: keyof Filters, v: string) {
     setFilters((f) => {
       if (k === "workload") {
-        const selectedWorkload = workloads.find((w) => w.id === v);
+        const w = workloads.find((w) => w.id === v);
         return {
           ...f,
           workload: v,
-          ...(selectedWorkload?.type !== "all" && selectedWorkload
-            ? { type: selectedWorkload.type }
+          scenario: "general",
+          dataGB: "",
+          growthGB: "",
+          backupCopies: "",
+          gpu: "false",
+          ...(w && w.type !== "all" && !["vps", "dedicated"].includes(f.type)
+            ? { type: w.type }
             : {}),
         };
       }
       if (k === "type") {
-        const workloadType = workloads.find((w) => w.id === f.workload)?.type;
+        const w = workloads.find((w) => w.id === f.workload);
+        const incompatible = v === "hosting" && w?.type === "vps";
         return {
           ...f,
           type: v,
-          workload:
-            v !== "all" && workloadType !== "all" && workloadType !== v
-              ? "all"
-              : f.workload,
+          ...(incompatible
+            ? {
+                workload: "all",
+                scenario: "general",
+                dataGB: "",
+                growthGB: "",
+                backupCopies: "",
+                gpu: "false",
+              }
+            : {}),
         };
       }
       return { ...f, [k]: v };
@@ -574,16 +626,6 @@ export default function App() {
     setFilters(defaults);
     setTraffic("200");
     setIp(true);
-  }
-  async function refresh() {
-    setRefreshError("");
-    try {
-      const data = await api<Job>("/api/refresh", { method: "POST" });
-      jobState.current = data.state;
-      setJob(data);
-    } catch (e) {
-      setRefreshError((e as Error).message);
-    }
   }
   async function share() {
     try {
@@ -655,12 +697,14 @@ export default function App() {
           <span
             className={`type-pill ${g.type === "hosting" ? "hosting" : ""}`}
           >
-            {g.type === "vps" ? <Server size={13} /> : <Globe2 size={13} />}{" "}
-            {g.type === "vps"
-              ? "سرور مجازی"
-              : g.serviceType === "wordpress"
-                ? "وردپرس مدیریت‌شده"
-                : "هاست اشتراکی"}
+            {g.type !== "hosting" ? <Server size={13} /> : <Globe2 size={13} />}{" "}
+            {g.type === "dedicated"
+              ? "سرور اختصاصی"
+              : g.type === "vps"
+                ? "سرور مجازی"
+                : g.serviceType === "wordpress"
+                  ? "وردپرس مدیریت‌شده"
+                  : "هاست اشتراکی"}
           </span>
           <button
             className={`icon-button save-button ${choices.saved.includes(g.id) ? "saved" : ""}`}
@@ -685,7 +729,7 @@ export default function App() {
             </button>
             <span className="location">
               <MapPin size={12} /> {region(g.region)} <i />{" "}
-              {g.type === "vps" ? "منابع قابل مقایسه" : "میزبانی وب"}
+              {g.type !== "hosting" ? "منابع قابل مقایسه" : "میزبانی وب"}
             </span>
           </div>
         </div>
@@ -751,7 +795,11 @@ export default function App() {
             </small>
           )}
           <div>
-            <strong>{fa(g.min)}</strong>
+            <strong>
+              <bdi className="price-number" dir="ltr">
+                {formatPrice(g.min)}
+              </bdi>
+            </strong>
             <small>تومان</small>
           </div>
         </div>
@@ -791,7 +839,7 @@ export default function App() {
           >
             <Logo />
             <span>
-              ابرگزین<small>ترب هاست و سرور</small>
+              ابرگزین<small>زیرساخت مناسب، انتخاب آگاهانه.</small>
             </span>
           </a>
           <nav aria-label="ناوبری اصلی">
@@ -892,8 +940,9 @@ export default function App() {
                           onChange={(e) => update("type", e.target.value)}
                         >
                           <option value="all">همهٔ سرویس‌ها</option>
-                          <option value="vps">سرور مجازی و ابری</option>
-                          <option value="hosting">هاست و وردپرس</option>
+                          <option value="hosting">هاست</option>
+                          <option value="vps">سرور مجازی</option>
+                          <option value="dedicated">سرور اختصاصی</option>
                         </select>
                       </label>
                       <label htmlFor="workload">
@@ -925,9 +974,32 @@ export default function App() {
                         </select>
                       </label>
                     </div>
+                    {guides.find((g) => g.id === filters.workload) && (
+                      <label className="scenario-select" htmlFor="scenario">
+                        <span>نوع پروژه</span>
+                        <select
+                          id="scenario"
+                          value={filters.scenario}
+                          onChange={(e) => update("scenario", e.target.value)}
+                        >
+                          <option value="general">هنوز مشخص نیست</option>
+                          {guides
+                            .find((g) => g.id === filters.workload)!
+                            .scenarios.map((s) => (
+                              <option key={s.id} value={s.id}>
+                                {s.name}
+                              </option>
+                            ))}
+                        </select>
+                      </label>
+                    )}
+                    <WorkloadRequirements
+                      value={!loading ? results?.requirements : undefined}
+                      questions
+                    />
                     <p className="configuration-help" id="workload-help">
-                      انتخاب کاربرد، نوع سرویس را تنظیم می‌کند؛ منابع مورد نیاز
-                      به برنامهٔ تو بستگی دارد.
+                      کاربرد و نوع پروژه، کف منابع را تنظیم می‌کنند. ظرفیت نهایی
+                      به داده‌ها، بار و نرم‌افزار پروژه بستگی دارد.
                     </p>
                   </section>
                   <section
@@ -935,8 +1007,23 @@ export default function App() {
                     aria-labelledby="resources-group-title"
                   >
                     <h3 id="resources-group-title">
-                      <Cpu size={18} /> منابع دقیق
+                      <Cpu size={18} /> منابع مورد نیاز
                     </h3>
+                    <label className="scenario-select" htmlFor="resource-mode">
+                      <span>روش مقایسهٔ منابع</span>
+                      <select
+                        id="resource-mode"
+                        value={filters.resourceMode}
+                        onChange={(e) => update("resourceMode", e.target.value)}
+                      >
+                        <option value="minimum">
+                          حداقل این مقدار یا بیشتر
+                        </option>
+                        <option value="exact">
+                          دقیقاً برابر؛ پیشنهاد نزدیک جدا
+                        </option>
+                      </select>
+                    </label>
                     <div className="parameter-grid resource-selectors">
                       {(["ram", "disk", "cpu"] as ResourceField[]).map(
                         (key) => {
@@ -951,7 +1038,12 @@ export default function App() {
                                 )
                                 .map((g) => g[key])
                                 .filter(
-                                  (n): n is number => n !== null && n > 0,
+                                  (n): n is number =>
+                                    n !== null &&
+                                    n > 0 &&
+                                    n >=
+                                      (results?.requirements?.minimum[key] ||
+                                        0),
                                 ),
                               ...(Number(value) > 0 ? [Number(value)] : []),
                             ]),
@@ -972,7 +1064,9 @@ export default function App() {
                                 value={value}
                                 onChange={(e) => update(key, e.target.value)}
                               >
-                                <option value="all">بدون محدودیت</option>
+                                <option value="all">
+                                  کف کاربرد؛ بدون مقدار بیشتر
+                                </option>
                                 {values.map((n) => (
                                   <option value={n} key={n}>
                                     {fa(n)}{" "}
@@ -986,10 +1080,65 @@ export default function App() {
                       )}
                     </div>
                     <p className="configuration-help">
-                      نتایج دقیق با مقدار انتخاب‌شده برابرند. پلن‌هایی با منابع
-                      اعلام‌نشده، در فیلتر همان منبع نمایش داده نمی‌شوند.
+                      {filters.resourceMode === "minimum"
+                        ? "منابع انتخاب‌شده حداقل‌اند؛ پلن کوچک‌تر پیشنهاد نمی‌شود."
+                        : "نتایج دقیق برابر با انتخاب‌اند؛ پیشنهادهای نزدیک هم کف کاربرد را رعایت می‌کنند."}{" "}
+                      منابع اعلام‌نشده، تطابق تأییدشده محسوب نمی‌شوند.
                     </p>
                   </section>
+                  <details className="sizing-inputs">
+                    <summary>
+                      حجم داده، رشد و نیازهای اندازه‌گیری‌شده (اختیاری)
+                    </summary>
+                    <p className="configuration-help">
+                      فقط مقدارهایی را که می‌دانی وارد کن؛ خالی یعنی نامشخص.
+                      تعداد محصول به حجم ساختگی تبدیل نمی‌شود.
+                    </p>
+                    <div className="parameter-grid">
+                      {(
+                        [
+                          ["dataGB", "حجم فعلی فایل و دیتابیس (GB)", 100000],
+                          [
+                            "growthGB",
+                            "رشد مورد انتظار در دورهٔ انتخابی (GB)",
+                            100000,
+                          ],
+                          [
+                            "backupCopies",
+                            "تعداد نسخهٔ بکاپ روی همین دیسک",
+                            30,
+                          ],
+                          ["minDisk", "حداقل دیسک مورد نیاز (GB)", 100000],
+                          ["minRam", "حداقل رم اندازه‌گیری‌شده (GB)", 4096],
+                          ["minCpu", "حداقل هستهٔ مورد نیاز", 1024],
+                        ] as [keyof Filters, string, number][]
+                      ).map(([key, label, max]) => (
+                        <label key={key} htmlFor={`sizing-${key}`}>
+                          <span>{label}</span>
+                          <input
+                            id={`sizing-${key}`}
+                            type="number"
+                            min="0"
+                            max={max}
+                            step={key === "backupCopies" ? "1" : "any"}
+                            value={filters[key]}
+                            placeholder="نامشخص"
+                            onChange={(e) => update(key, e.target.value)}
+                          />
+                        </label>
+                      ))}
+                    </div>
+                    <label className="sizing-gpu">
+                      <input
+                        type="checkbox"
+                        checked={filters.gpu === "true"}
+                        onChange={(e) =>
+                          update("gpu", String(e.target.checked))
+                        }
+                      />{" "}
+                      به GPU نیاز دارم (ظرفیت تأییدشده در کاتالوگ نداریم)
+                    </label>
+                  </details>
                   <section
                     className="configuration-group"
                     aria-labelledby="cost-group-title"
@@ -1022,26 +1171,89 @@ export default function App() {
                             .sort((a, b) => a - b)
                             .map((n) => (
                               <option key={n} value={n}>
-                                {fa(n)} تومان
+                                {formatPrice(n)} تومان
                               </option>
                             ))}
                         </select>
                       </label>
-                      <label htmlFor="provider">
-                        <span>ارائه‌دهنده</span>
-                        <select
-                          id="provider"
-                          value={filters.provider}
-                          onChange={(e) => update("provider", e.target.value)}
+                      <div className="provider-picker">
+                        <span id="provider-label">ارائه‌دهنده‌ها</span>
+                        <details
+                          ref={providerPicker}
+                          onKeyDown={(event) => {
+                            if (
+                              event.key === "Escape" &&
+                              providerPicker.current?.open
+                            ) {
+                              event.preventDefault();
+                              providerPicker.current.open = false;
+                              providerPicker.current
+                                .querySelector("summary")
+                                ?.focus();
+                            }
+                          }}
                         >
-                          <option value="">همهٔ ارائه‌دهنده‌ها</option>
-                          {providers.map((p) => (
-                            <option key={p.id} value={p.id}>
-                              {p.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+                          <summary aria-labelledby="provider-label provider-selection">
+                            <span id="provider-selection">
+                              {filters.provider
+                                ? providers
+                                    .filter((p) =>
+                                      filters.provider
+                                        .split(",")
+                                        .includes(p.id),
+                                    )
+                                    .map((p) => p.name)
+                                    .join("، ")
+                                : "همهٔ ارائه‌دهنده‌ها"}
+                            </span>
+                            <ChevronDown size={16} />
+                          </summary>
+                          <fieldset className="provider-options">
+                            <legend className="sr-only">
+                              انتخاب چند ارائه‌دهنده
+                            </legend>
+                            <div className="provider-options-heading">
+                              <span>چند گزینه را انتخاب کن</span>
+                              <button
+                                type="button"
+                                onClick={() => update("provider", "")}
+                                disabled={!filters.provider}
+                              >
+                                انتخاب همه
+                              </button>
+                            </div>
+                            {providers.map((p) => (
+                              <label key={p.id}>
+                                <input
+                                  type="checkbox"
+                                  aria-label={p.name}
+                                  checked={filters.provider
+                                    .split(",")
+                                    .includes(p.id)}
+                                  onChange={(e) =>
+                                    update(
+                                      "provider",
+                                      (e.target.checked
+                                        ? [
+                                            ...filters.provider
+                                              .split(",")
+                                              .filter(Boolean),
+                                            p.id,
+                                          ]
+                                        : filters.provider
+                                            .split(",")
+                                            .filter((id) => id !== p.id)
+                                      ).join(","),
+                                    )
+                                  }
+                                />
+                                <ProviderLogo provider={p} small />
+                                <span>{p.name}</span>
+                              </label>
+                            ))}
+                          </fieldset>
+                        </details>
+                      </div>
                       <label htmlFor="traffic">
                         <span>ترافیک ماهانه</span>
                         <select
@@ -1087,8 +1299,7 @@ export default function App() {
                           onChange={(e) => update("sort", e.target.value)}
                         >
                           <option value="price">کمترین هزینه</option>
-                          <option value="providers">بیشترین ارائه‌دهنده</option>
-                          <option value="ram">بیشترین رم</option>
+                          <option value="price-desc">بیشترین هزینه</option>
                         </select>
                       </label>
                     </div>
@@ -1177,13 +1388,17 @@ export default function App() {
                       <div>
                         <h3>
                           {Object.keys(results.resourceFilters).length
-                            ? "دقیقاً مطابق انتخاب شما"
+                            ? filters.resourceMode === "minimum"
+                              ? "مطابق حداقل منابع شما"
+                              : "دقیقاً مطابق انتخاب شما"
                             : "پیشنهادهای مطابق فیلترها"}
                         </h3>
                         <p>
                           {Object.keys(results.resourceFilters).length
-                            ? "مقدار منابع انتخاب‌شده با مشخصات این پلن‌ها برابر است."
-                            : "برای پیدا کردن پیکربندی دقیق، رم و فضای دیسک را انتخاب کن."}
+                            ? filters.resourceMode === "minimum"
+                              ? "این پلن‌ها حداقل منابع انتخاب‌شده و کف کاربرد را دارند."
+                              : "مقدار منابع انتخاب‌شده با مشخصات این پلن‌ها برابر است."
+                            : "کف منابع کاربرد در این پیشنهادها رعایت شده؛ جزئیات سازگاری را بررسی کن."}
                         </p>
                       </div>
                       <span>{fa(results.groups.length)} پیکربندی</span>
@@ -1218,14 +1433,18 @@ export default function App() {
                       <h3>
                         {view === "saved"
                           ? "هنوز چیزی ذخیره نکرده‌ای"
-                          : "پیکربندی دقیق با این شرایط پیدا نشد"}
+                          : filters.type === "dedicated"
+                            ? "هنوز پلن سرور اختصاصی نداریم"
+                            : "پیکربندی دقیق با این شرایط پیدا نشد"}
                       </h3>
                       <p>
                         {view === "saved"
                           ? "کنار پیکربندی‌های موردعلاقه‌ات، نشان ذخیره را بزن."
-                          : results?.similarGroups.length
-                            ? "پیشنهادهای نزدیک را در بخش بعدی ببین؛ تفاوت هر پلن با انتخاب تو مشخص شده است."
-                            : "مقادیر منابع یا سقف بودجه را تغییر بده. منابع اعلام‌نشده، تطابق دقیق محسوب نمی‌شوند."}
+                          : filters.type === "dedicated"
+                            ? "کاتالوگ فعلی شامل هاست و سرور مجازی است. پلن اختصاصی پس از دریافت و تأیید منبع رسمی اضافه می‌شود."
+                            : results?.similarGroups.length
+                              ? "پیشنهادهای نزدیک را در بخش بعدی ببین؛ تفاوت هر پلن با انتخاب تو مشخص شده است."
+                              : "مقادیر منابع یا سقف بودجه را تغییر بده. منابع اعلام‌نشده، تطابق دقیق محسوب نمی‌شوند."}
                       </p>
                       {!results?.similarGroups.length && (
                         <button
@@ -1235,7 +1454,7 @@ export default function App() {
                             reset();
                           }}
                         >
-                          دیدن همهٔ سرورها <ArrowLeft size={17} />
+                          دیدن همهٔ سرویس‌ها <ArrowLeft size={17} />
                         </button>
                       )}
                     </div>
@@ -1352,7 +1571,11 @@ export default function App() {
                             <strong>{title(g)}</strong>
                             <small>
                               {region(g.region)} ·{" "}
-                              {g.type === "vps" ? "سرور مجازی" : "میزبانی وب"}
+                              {g.type === "dedicated"
+                                ? "سرور اختصاصی"
+                                : g.type === "vps"
+                                  ? "سرور مجازی"
+                                  : "میزبانی وب"}
                             </small>
                           </th>
                         ))}
@@ -1364,7 +1587,10 @@ export default function App() {
                           name: "کمترین برآورد ماهانه",
                           render: (g: Group) => (
                             <span className="table-price">
-                              {fa(g.min)} <small>تومان</small>
+                              <bdi className="price-number" dir="ltr">
+                                {formatPrice(g.min)}
+                              </bdi>{" "}
+                              <small>تومان</small>
                             </span>
                           ),
                         },
@@ -1404,7 +1630,11 @@ export default function App() {
                                     small
                                   />
                                   <span>{provider(o.providerId)?.name}</span>
-                                  <b>{fa(o.estimate.total)}</b>
+                                  <b>
+                                    <bdi className="price-number" dir="ltr">
+                                      {formatPrice(o.estimate.total)}
+                                    </bdi>
+                                  </b>
                                 </div>
                               ))}
                             </div>
@@ -1469,25 +1699,7 @@ export default function App() {
                   · منبع رسمی و زمان تأیید برای هر تعرفه
                 </p>
               </div>
-              <button
-                className="primary"
-                onClick={refresh}
-                disabled={job.state === "running"}
-              >
-                <RefreshCw
-                  size={17}
-                  className={job.state === "running" ? "spin" : ""}
-                />
-                {job.state === "running"
-                  ? `بررسی ${fa(job.done)} از ${fa(job.total)}`
-                  : "بررسی دوبارهٔ تعرفه‌ها"}
-              </button>
             </div>
-            {refreshError && (
-              <p className="error-banner" role="alert">
-                {refreshError}
-              </p>
-            )}
             <div className="catalog-downloads">
               <a href="/api/export/csv" download>
                 <Download size={16} /> دریافت همهٔ تعرفه‌ها · CSV
@@ -1495,20 +1707,6 @@ export default function App() {
               <a href="/api/export/json" download>
                 <Database size={16} /> JSON
               </a>
-            </div>
-            <div className="method-note">
-              <ShieldCheck size={24} />
-              <div>
-                <strong>
-                  وقتی دریافت شکست می‌خورد، تاریخ تأیید جلو نمی‌رود.
-                </strong>
-                <p>
-                  استخراج فقط از صفحه‌های رسمی انجام می‌شود. اگر صفحه در دسترس
-                  نباشد یا ساختارش تغییر کند، آخرین تعرفهٔ تأییدشده حفظ می‌شود و
-                  خطا اینجا نمایش داده می‌شود. پیکربندی‌های آروان از تعرفهٔ واحد
-                  منابع محاسبه می‌شوند.
-                </p>
-              </div>
             </div>
             <div className="provider-grid">
               {providers.map((p) => (
@@ -1521,7 +1719,7 @@ export default function App() {
                   </div>
                   <a
                     aria-label={`وب‌سایت رسمی ${p.name}`}
-                    href={p.url}
+                    href={outboundLink(p.url, "provider")}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -1542,7 +1740,11 @@ export default function App() {
                     <ProviderLogo provider={provider(s.providerId)} small />
                     <div className="source-name">
                       <strong>{s.name}</strong>
-                      <a href={s.url} target="_blank" rel="noreferrer">
+                      <a
+                        href={outboundLink(s.url, "source")}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <bdi>{new URL(s.url).hostname}</bdi>
                         <ExternalLink size={12} />
                       </a>
@@ -1582,24 +1784,6 @@ export default function App() {
                 );
               })}
             </div>
-            <div className="model-status">
-              <Sparkles size={19} />
-              <div>
-                <strong>
-                  جست‌وجوی معنایی{" "}
-                  {model.state === "ready"
-                    ? "فعال است"
-                    : model.state === "loading"
-                      ? "در حال آماده‌سازی است"
-                      : "آماده نشده است"}
-                </strong>
-                <p>
-                  {model.state === "ready"
-                    ? "مدل چندزبانهٔ MiniLM عبارت‌هایی مثل «اجرای داکر» را به نوع سرویس نزدیک‌تر تطبیق می‌دهد. منابع و سقف بودجه از متن استخراج می‌شوند؛ پیشنهاد کیفیت یا موجودی از مدل گرفته نمی‌شود."
-                    : model.error || "جست‌وجوی مشخصات و واژه‌ها در دسترس است."}
-                </p>
-              </div>
-            </div>
           </section>
         )}
       </main>
@@ -1610,8 +1794,16 @@ export default function App() {
           <span>زیرساخت مناسب، انتخاب آگاهانه.</span>
         </div>
         <p>
-          پروژهٔ مستقل مقایسهٔ هاست و سرور · وابسته به ترب یا ارائه‌دهنده‌ها
-          نیست
+          <span className="footer-credit">
+            توسعه توسط{" "}
+            <a
+              href={outboundLink("https://abeheshti.ir", "footer")}
+              target="_blank"
+              rel="noreferrer"
+            >
+              علی بهشتی · <bdi>abeheshti.ir</bdi>
+            </a>
+          </span>
         </p>
         <button className="text-button" onClick={() => go("sources")}>
           منابع و روش محاسبه <ArrowUpLeft size={14} />
@@ -1649,6 +1841,47 @@ export default function App() {
           </button>
         </div>
       )}
+      <ChatAssistant
+        filters={{
+          ...filters,
+          provider: filters.provider.split(",").filter(Boolean),
+          traffic: Number(traffic),
+          ip,
+        }}
+        onApply={(next: ChatFilters) => {
+          setView("discover");
+          setFilters({
+            ...defaults,
+            ...Object.fromEntries(
+              Object.keys(defaults)
+                .filter((key) => key in next && key !== "provider")
+                .map((key) => [
+                  key,
+                  next[key as keyof ChatFilters] === null
+                    ? ""
+                    : String(next[key as keyof ChatFilters]),
+                ]),
+            ),
+            type: next.type,
+            region: next.region,
+            workload: next.workload,
+            provider: next.provider.join(","),
+            ram: next.ram === null ? "" : String(next.ram),
+            cpu: next.cpu === null ? "" : String(next.cpu),
+            disk: next.disk === null ? "" : String(next.disk),
+            maxPrice: next.maxPrice === null ? "" : String(next.maxPrice),
+            sort: next.sort,
+          });
+          setTraffic(String(next.traffic));
+          setIp(next.ip);
+          requestAnimationFrame(() =>
+            resultsRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            }),
+          );
+        }}
+      />
       {toast && (
         <div className="toast" role="status">
           <CheckCircle2 size={18} />
@@ -1678,7 +1911,7 @@ export default function App() {
             <SlidersHorizontal size={17} />
             <span>
               برآورد برای {fa(Number(traffic))} GB ترافیک ماهانه{" "}
-              {current.type === "vps" &&
+              {current.type !== "hosting" &&
                 (ip ? "و یک IPv4" : "بدون هزینهٔ IPv4")}
             </span>
             <small>کمترین هزینه در ابتدا</small>
@@ -1830,14 +2063,25 @@ function OfferCard({
           </ul>
           {o.period > 1 && (
             <div className="upfront-note">
-              پرداخت دوره: <strong>{fa(o.estimate.upfront)} تومان</strong> برای{" "}
-              {fa(o.period)} ماه {o.vatRate !== null ? "با مالیات ذکرشده" : ""}
+              پرداخت دوره:{" "}
+              <strong>
+                <bdi className="price-number" dir="ltr">
+                  {formatPrice(o.estimate.upfront)}
+                </bdi>{" "}
+                تومان
+              </strong>{" "}
+              برای {fa(o.period)} ماه{" "}
+              {o.vatRate !== null ? "با مالیات ذکرشده" : ""}
             </div>
           )}
           <div className="verification">
             <Clock3 size={13} />
             <span>تأیید تعرفه: {datetime(o.verifiedAt)}</span>
-            <a href={o.url} target="_blank" rel="noreferrer">
+            <a
+              href={outboundLink(o.url, "offer-source")}
+              target="_blank"
+              rel="noreferrer"
+            >
               منبع رسمی <ExternalLink size={12} />
             </a>
           </div>
@@ -1873,7 +2117,14 @@ function OfferCard({
               {history.length ? (
                 history.map((h, i) => (
                   <p key={i}>
-                    {date(h.createdAt)}: {fa(h.oldPrice)} ← {fa(h.newPrice)}{" "}
+                    {date(h.createdAt)}:{" "}
+                    <bdi className="price-number" dir="ltr">
+                      {formatPrice(h.oldPrice)}
+                    </bdi>{" "}
+                    ←{" "}
+                    <bdi className="price-number" dir="ltr">
+                      {formatPrice(h.newPrice)}
+                    </bdi>{" "}
                     تومان
                   </p>
                 ))
@@ -1888,13 +2139,20 @@ function OfferCard({
           {o.estimate.parts.map((part, i) => (
             <div className="cost-line" key={i}>
               <span>{part.label}</span>
-              <b>{fa(part.amount)}</b>
+              <b>
+                <bdi className="price-number" dir="ltr">
+                  {formatPrice(part.amount)}
+                </bdi>
+              </b>
             </div>
           ))}
           <div className="cost-total">
             <span>برآورد ماهانه</span>
             <strong>
-              {fa(o.estimate.total)} <small>تومان</small>
+              <bdi className="price-number" dir="ltr">
+                {formatPrice(o.estimate.total)}
+              </bdi>{" "}
+              <small>تومان</small>
             </strong>
           </div>
           {o.estimate.warnings.map((w) => (

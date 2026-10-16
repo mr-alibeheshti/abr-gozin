@@ -1,4 +1,9 @@
 import { providers } from "./catalog.mjs";
+import {
+  workloadTypes,
+  requirementsFor,
+  meetsRequirements,
+} from "./workloads.mjs";
 export const digits = (s) =>
   String(s)
     .replace(/[۰-۹]/g, (c) => "۰۱۲۳۴۵۶۷۸۹".indexOf(c))
@@ -18,6 +23,8 @@ export const norm = (s) =>
     .replace(/[\u200c\u200f]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+export const serviceCategory = (type) =>
+  type === "dedicated" ? "dedicated" : type === "vps" ? "vps" : "hosting";
 export function parseQuery(query) {
   const q = norm(query),
     fields = {},
@@ -41,7 +48,8 @@ export function parseQuery(query) {
   }
   if (/ایران|داخلی/.test(q)) fields.region = "ir";
   else if (/اروپا|خارج|آلمان/.test(q)) fields.region = "eu";
-  if (
+  if (/سرور اختصاصی|dedicated/.test(q)) fields.type = "dedicated";
+  else if (
     /داکر|docker|جنگو|django|پایتون|python|node\.js|نود|بک اند|backend/.test(q)
   )
     fields.type = "vps";
@@ -75,13 +83,13 @@ export function estimate(o, { traffic = 200, ip = true } = {}) {
       },
     ],
     warnings = [];
-  if (ip && o.type === "vps") {
+  if (ip && serviceCategory(o.type) !== "hosting") {
     if (o.ipMonthly !== null)
       parts.push({ label: "یک نشانی IPv4", amount: o.ipMonthly });
     else warnings.push("هزینهٔ جداگانهٔ IP در منبع مشخص نشده است.");
   }
   let extra = 0;
-  if (o.type === "vps" && traffic > 0) {
+  if (serviceCategory(o.type) !== "hosting" && traffic > 0) {
     if (o.trafficGB !== null) {
       extra = Math.max(0, traffic - o.trafficGB);
       if (extra && o.trafficRate === null)
@@ -95,7 +103,7 @@ export function estimate(o, { traffic = 200, ip = true } = {}) {
       warnings.push("تعرفهٔ ترافیک در منبع مشخص نشده است.");
   }
   if (
-    o.type !== "vps" &&
+    serviceCategory(o.type) === "hosting" &&
     traffic > 0 &&
     o.trafficGB !== null &&
     traffic > o.trafficGB
@@ -129,16 +137,7 @@ export function estimate(o, { traffic = 200, ip = true } = {}) {
 }
 export const groupKey = (o) =>
   `${o.type}-${o.region}-${o.cpu ?? "shared"}-${o.ram ?? "shared"}-${o.disk}`;
-// Workloads narrow the infrastructure category; they do not invent capacity
-// requirements or claim that a provider manages the selected software.
-export const workloadTypes = {
-  docker: "vps",
-  backend: "vps",
-  python: "vps",
-  database: "vps",
-  wordpress: "hosting",
-  website: "hosting",
-};
+export { workloadTypes } from "./workloads.mjs";
 export function searchOffers(offers, p, semantic = {}) {
   const intent = parseQuery(p.q || ""),
     filters = { ...p };
@@ -149,26 +148,63 @@ export function searchOffers(offers, p, semantic = {}) {
       (filters[k] === "all" && !["cpu", "ram", "disk"].includes(k))
     )
       filters[k] = v;
+  if (!filters.workload || filters.workload === "all") {
+    const q = norm(p.q || "");
+    const inferred = /وردپرس|wordpress|ووکامرس|woocommerce/.test(q)
+      ? "wordpress"
+      : /داکر|docker/.test(q)
+        ? "docker"
+        : /دیتابیس|پایگاه داده|postgres|mysql|redis/.test(q)
+          ? "database"
+          : /جنگو|django|node|نود|بک اند|backend/.test(q)
+            ? "backend"
+            : /پایتون|python/.test(q)
+              ? "python"
+              : null;
+    if (inferred) filters.workload = inferred;
+    if (
+      inferred === "wordpress" &&
+      /فروشگاه|ووکامرس|woocommerce/.test(q) &&
+      (!filters.scenario || filters.scenario === "general")
+    )
+      filters.scenario = "store";
+  }
   const resourceFilters = Object.fromEntries(
     ["cpu", "ram", "disk"]
       .filter((k) => Number(filters[k]) > 0)
       .map((k) => [k, Number(filters[k])]),
   );
+  const selectedProviders = Array.isArray(filters.provider)
+    ? filters.provider
+    : String(filters.provider || "")
+        .split(",")
+        .filter(Boolean);
+  // Apply capacity floors before grouping, exact matches, and nearby matches.
+  const requirements = requirementsFor(filters);
+  let excludedForCapacity = 0;
   let items = offers.filter(
     (o) =>
       (!filters.type ||
         filters.type === "all" ||
-        (filters.type === "hosting" ? o.type !== "vps" : o.type === "vps")) &&
+        serviceCategory(o.type) === filters.type) &&
       (!workloadTypes[filters.workload] ||
-        (workloadTypes[filters.workload] === "vps"
-          ? o.type === "vps"
-          : o.type !== "vps")) &&
+        (workloadTypes[filters.workload] === "hosting"
+          ? serviceCategory(o.type) ===
+            (["vps", "dedicated"].includes(filters.type)
+              ? filters.type
+              : "hosting")
+          : serviceCategory(o.type) !== "hosting")) &&
       (!filters.region ||
         filters.region === "all" ||
         o.region === filters.region) &&
-      (!filters.provider || o.providerId === filters.provider) &&
+      (!selectedProviders.length || selectedProviders.includes(o.providerId)) &&
       (!p.saved || p.saved.includes(groupKey(o))),
   );
+  items = items.filter((offer) => {
+    if (meetsRequirements(offer, requirements)) return true;
+    excludedForCapacity++;
+    return false;
+  });
   const tokens = norm(p.q || "")
     .split(" ")
     .filter(
@@ -214,9 +250,7 @@ export function searchOffers(offers, p, semantic = {}) {
     if (matched.length) items = matched;
     else if (Object.values(semantic).some((x) => x > 0.4)) {
       const best = Object.entries(semantic).sort((a, b) => b[1] - a[1])[0]?.[0];
-      items = items.filter((o) =>
-        best === "vps" ? o.type === "vps" : o.type !== "vps",
-      );
+      items = items.filter((o) => serviceCategory(o.type) === best);
     } else items = [];
   }
   const grouped = new Map();
@@ -225,7 +259,7 @@ export function searchOffers(offers, p, semantic = {}) {
     if (!grouped.has(key))
       grouped.set(key, {
         id: key,
-        type: o.type === "vps" ? "vps" : "hosting",
+        type: serviceCategory(o.type),
         serviceType: o.type,
         region: o.region,
         cpu: o.cpu,
@@ -245,11 +279,13 @@ export function searchOffers(offers, p, semantic = {}) {
     };
   });
   const sortGroups = (a, b) =>
-    p.sort === "providers"
-      ? b.providerCount - a.providerCount || a.min - b.min
-      : p.sort === "ram"
-        ? (b.ram || 0) - (a.ram || 0)
-        : a.min - b.min;
+    p.sort === "price-desc"
+      ? b.min - a.min || a.id.localeCompare(b.id)
+      : p.sort === "providers"
+        ? b.providerCount - a.providerCount || a.min - b.min
+        : p.sort === "ram"
+          ? (b.ram || 0) - (a.ram || 0)
+          : a.min - b.min;
   const groups = [],
     similar = [];
   for (const g of candidates) {
@@ -257,10 +293,15 @@ export function searchOffers(offers, p, semantic = {}) {
     if (Object.keys(resourceFilters).some((k) => g[k] === null || g[k] <= 0))
       continue;
     const differences = Object.entries(resourceFilters)
-      .filter(([field, requested]) => g[field] !== requested)
+      .filter(([field, requested]) =>
+        p.resourceMode === "minimum"
+          ? g[field] < requested
+          : g[field] !== requested,
+      )
       .map(([field, requested]) => ({ field, requested, actual: g[field] }));
     if (!differences.length) groups.push({ ...g, differences: [] });
     else if (
+      p.resourceMode !== "minimum" &&
       differences.every(
         (d) => d.actual >= d.requested / 2 && d.actual <= d.requested * 2,
       )
@@ -287,6 +328,7 @@ export function searchOffers(offers, p, semantic = {}) {
     similarTotalOffers: similarGroups.reduce((n, g) => n + g.offers.length, 0),
     similarTotalGroups: similar.length,
     resourceFilters,
+    requirements: { ...requirements, excludedOffers: excludedForCapacity },
     intent,
     filters,
   };

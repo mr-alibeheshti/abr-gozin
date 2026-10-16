@@ -1,0 +1,6 @@
+simulation: Public pricing refresh
+routing: path
+mocks:
+  - name: Official pricing snapshots
+    routeKey: pricing
+    path: ../mocks/pricing/config.yaml

@@ -5,16 +5,23 @@ import { z } from "zod";
 import { providers, sources } from "./catalog.mjs";
 import { catalogDocument, catalogCSV } from "./export.mjs";
 import { createStore } from "./store.mjs";
-import { searchOffers, groupKey, workloadTypes } from "./pricing.mjs";
-import { refreshSources } from "./ingest.mjs";
+import { searchOffers, groupKey } from "./pricing.mjs";
+import { searchParams as params } from "./filters.mjs";
+import { createRefreshWorker } from "./refresh-worker.mjs";
 import { createSemanticEngine } from "./semantic.mjs";
+import { createChatService } from "./chat.mjs";
+import { workloadGuide, sizingRevision } from "./workloads.mjs";
+import { outboundLink } from "../shared/outbound-link.ts";
 const app = express(),
   store = createStore(),
   engine = createSemanticEngine(),
+  chat = createChatService(store),
+  priceWorker = createRefreshWorker(store, {
+    skipInitial: process.env.NO_REFRESH === "1",
+  }),
   port = Number(process.env.PORT || 4321);
-let job = { state: "idle", done: 0, total: sources.length, finishedAt: null };
 app.disable("x-powered-by");
-app.use(express.json({ limit: "12kb" }));
+app.use(express.json({ limit: "64kb" }));
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -38,29 +45,37 @@ app.use((req, res, next) => {
     );
   next();
 });
-const params = z.object({
-  q: z.string().max(400).default(""),
-  type: z.enum(["all", "vps", "hosting"]).default("all"),
-  workload: z.enum(["all", ...Object.keys(workloadTypes)]).default("all"),
-  region: z.enum(["all", "ir", "eu", "unknown"]).default("all"),
-  provider: z.enum(providers.map((p) => p.id)).optional(),
-  cpu: z.union([z.literal("all"), z.coerce.number().min(0).max(64)]).optional(),
-  ram: z
-    .union([z.literal("all"), z.coerce.number().min(0).max(256)])
-    .optional(),
-  disk: z
-    .union([z.literal("all"), z.coerce.number().min(0).max(2000)])
-    .optional(),
-  maxPrice: z.coerce.number().min(0).max(1000000000).optional(),
-  traffic: z.coerce.number().min(0).max(10000).default(200),
-  ip: z.enum(["true", "false"]).default("true"),
-  sort: z.enum(["price", "providers", "ram"]).default("price"),
-  saved: z.enum(["true", "false"]).optional(),
+app.get("/api/chat/status", (req, res) => res.json(chat.status()));
+app.post("/api/chat", async (req, res) => {
+  const controller = new AbortController();
+  const disconnected = () => {
+    if (!res.writableEnded) controller.abort();
+  };
+  res.once("close", disconnected);
+  try {
+    const result = await chat.reply(req.body, req.session, {
+      signal: controller.signal,
+    });
+    if (!controller.signal.aborted) res.json(result);
+  } catch (error) {
+    if (controller.signal.aborted) return;
+    if (error.status === 429) res.setHeader("Retry-After", "60");
+    res.status(error.status || 500).json({
+      error: error.status
+        ? error.message
+        : "گفت‌وگو انجام نشد؛ دوباره تلاش کن.",
+      code: error.code || "CHAT_ERROR",
+    });
+  } finally {
+    res.off("close", disconnected);
+  }
 });
 app.get("/api/catalog", (req, res) =>
   res.json({
     providers,
     sources,
+    workloadGuide,
+    sizingRevision,
     offers: store.offers(),
     status: store.status(),
     model: engine.status,
@@ -105,37 +120,25 @@ app.get("/api/health", (req, res) =>
   res.json({
     ok: true,
     model: engine.status,
-    job,
+    job: priceWorker.status(),
     offers: store.offers().length,
   }),
 );
 app.get("/api/sources", (req, res) =>
-  res.json({ sources, status: store.status(), job }),
+  res.json({ sources, status: store.status(), job: priceWorker.status() }),
 );
-function runRefresh() {
-  job = { state: "running", done: 0, total: sources.length, finishedAt: null };
-  refreshSources(store, (done, total) => {
-    job.done = done;
-    job.total = total;
-  })
-    .then(() => {
-      job.state = "done";
-      job.finishedAt = new Date().toISOString();
-    })
-    .catch(() => {
-      job.state = "failed";
-      job.finishedAt = new Date().toISOString();
-    });
-}
 app.post("/api/refresh", (req, res) => {
-  if (job.state === "running")
-    return res.status(409).json({ error: "دریافت منابع در حال انجام است" });
-  if (job.finishedAt && Date.now() - Date.parse(job.finishedAt) < 60000)
-    return res
-      .status(429)
-      .json({ error: "برای بررسی دوباره، یک دقیقه صبر کن" });
-  runRefresh();
-  res.status(202).json(job);
+  try {
+    void priceWorker
+      .run()
+      .catch(() => console.error("Price refresh did not complete"));
+    res.status(202).json(priceWorker.status());
+  } catch (error) {
+    if (![409, 429].includes(error.status)) throw error;
+    if (error.retryAfter)
+      res.setHeader("Retry-After", String(error.retryAfter));
+    res.status(error.status).json({ error: error.message });
+  }
 });
 function sessionChoices(session) {
   const choices = store.choices(session),
@@ -177,7 +180,7 @@ app.get("/api/history/:id", (req, res) =>
 app.get("/go/:id", (req, res) => {
   const o = store.offer(req.params.id);
   if (!o) return res.status(404).send("این پیشنهاد پیدا نشد");
-  res.redirect(o.checkoutUrl);
+  res.redirect(outboundLink(o.checkoutUrl, "checkout"));
 });
 app.use("/api", (req, res) => res.status(404).json({ error: "مسیر پیدا نشد" }));
 if (process.argv.includes("--dev")) {
@@ -202,11 +205,5 @@ app.use((e, req, res, next) => {
 });
 app.listen(port, "127.0.0.1", () => {
   console.log(`Abrgozin running at http://localhost:${port}`);
-  if (process.env.NO_REFRESH !== "1") runRefresh();
+  if (process.env.REFRESH_WORKER_ENABLED !== "0") priceWorker.start();
 });
-setInterval(
-  () => {
-    if (job.state !== "running") runRefresh();
-  },
-  6 * 60 * 60 * 1000,
-).unref();

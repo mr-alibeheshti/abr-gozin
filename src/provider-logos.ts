@@ -2,6 +2,11 @@ type ProviderLogo = { src: string; compactSrc?: string; dark?: boolean };
 
 // Original provider assets; their source URLs are recorded in public/logos/sources.json.
 export const providerLogos: Record<string, ProviderLogo> = {
+  saba: { src: "/logos/saba.svg", compactSrc: "/logos/saba-compact.png" },
+  webramz: {
+    src: "/logos/webramz.svg",
+    compactSrc: "/logos/webramz-compact.svg",
+  },
   arvan: { src: "/logos/arvan.svg" },
   liara: { src: "/logos/liara.svg", compactSrc: "/logos/liara-compact.png" },
   iranserver: {

@@ -7,4 +7,4 @@ fi
 if [[ ! -d dist ]]; then
   npm run build || exit 1
 fi
-node server/index.mjs
+node --env-file-if-exists=.env server/index.mjs
