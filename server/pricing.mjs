@@ -140,7 +140,7 @@ export const groupKey = (o) =>
 export { workloadTypes } from "./workloads.mjs";
 export function searchOffers(offers, p, semantic = {}) {
   const intent = parseQuery(p.q || ""),
-    filters = { ...p };
+    filters = { ...p, resourceMode: "minimum" };
   for (const [k, v] of Object.entries(intent.fields))
     if (
       filters[k] === undefined ||
@@ -179,8 +179,16 @@ export function searchOffers(offers, p, semantic = {}) {
     : String(filters.provider || "")
         .split(",")
         .filter(Boolean);
-  // Apply capacity floors before grouping, exact matches, and nearby matches.
+  // Workload floors and explicit resource minima both bind every result.
   const requirements = requirementsFor(filters);
+  const targets = Object.fromEntries(
+    ["cpu", "ram", "disk"]
+      .map((field) => [
+        field,
+        Math.max(resourceFilters[field] || 0, requirements.minimum[field] || 0),
+      ])
+      .filter(([, value]) => value > 0),
+  );
   let excludedForCapacity = 0;
   let items = offers.filter(
     (o) =>
@@ -286,47 +294,34 @@ export function searchOffers(offers, p, semantic = {}) {
         : p.sort === "ram"
           ? (b.ram || 0) - (a.ram || 0)
           : a.min - b.min;
-  const groups = [],
-    similar = [];
-  for (const g of candidates) {
-    // Unknown resources cannot establish either equality or closeness.
-    if (Object.keys(resourceFilters).some((k) => g[k] === null || g[k] <= 0))
-      continue;
-    const differences = Object.entries(resourceFilters)
-      .filter(([field, requested]) =>
-        p.resourceMode === "minimum"
-          ? g[field] < requested
-          : g[field] !== requested,
-      )
-      .map(([field, requested]) => ({ field, requested, actual: g[field] }));
-    if (!differences.length) groups.push({ ...g, differences: [] });
-    else if (
-      p.resourceMode !== "minimum" &&
-      differences.every(
-        (d) => d.actual >= d.requested / 2 && d.actual <= d.requested * 2,
-      )
-    ) {
-      const distance = differences.reduce(
-        (sum, d) => sum + Math.abs(Math.log2(d.actual / d.requested)),
+  const requested = Object.entries(targets);
+  const groups = candidates
+    .filter((g) =>
+      requested.every(
+        ([field, value]) => g[field] != null && g[field] >= value,
+      ),
+    )
+    .map((g) => ({
+      ...g,
+      differences: [],
+      // Relative surplus treats CPU, GB of RAM and GB of disk comparably.
+      distance: requested.reduce(
+        (sum, [field, value]) => sum + Math.log2(g[field] / value),
         0,
-      );
-      similar.push({ ...g, differences, distance });
-    }
-  }
-  groups.sort(sortGroups);
-  similar.sort(
-    (a, b) =>
-      a.distance - b.distance ||
-      a.differences.length - b.differences.length ||
-      sortGroups(a, b),
-  );
-  const similarGroups = similar.slice(0, 9).map(({ distance, ...g }) => g);
+      ),
+    }))
+    .sort(
+      (a, b) =>
+        a.distance - b.distance || sortGroups(a, b) || a.id.localeCompare(b.id),
+    )
+    .map(({ distance, ...g }) => g);
   return {
     groups,
-    similarGroups,
+    // Retained response fields keep existing API consumers compatible.
+    similarGroups: [],
     totalOffers: groups.reduce((n, g) => n + g.offers.length, 0),
-    similarTotalOffers: similarGroups.reduce((n, g) => n + g.offers.length, 0),
-    similarTotalGroups: similar.length,
+    similarTotalOffers: 0,
+    similarTotalGroups: 0,
     resourceFilters,
     requirements: { ...requirements, excludedOffers: excludedForCapacity },
     intent,

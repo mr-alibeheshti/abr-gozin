@@ -9,7 +9,11 @@ export const searchParams = z
     type: z.enum(["all", "hosting", "vps", "dedicated"]).default("all"),
     workload: z.enum(["all", ...Object.keys(workloadTypes)]).default("all"),
     scenario: z.enum(["general", ...scenarioIds]).default("general"),
-    resourceMode: z.enum(["exact", "minimum"]).default("exact"),
+    // Old shared links remain valid, but selected resources are always minima.
+    resourceMode: z
+      .enum(["exact", "minimum"])
+      .default("minimum")
+      .transform(() => "minimum"),
     minDisk: z.coerce.number().min(0).max(100000).optional(),
     minRam: z.coerce.number().min(0).max(4096).optional(),
     minCpu: z.coerce.number().min(0).max(1024).optional(),

@@ -1,4 +1,5 @@
 import { appPath } from "./paths";
+import { readApiResponse } from "../shared/http-response.ts";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Search,
@@ -133,7 +134,6 @@ type SearchResult = {
 type Choices = { saved: string[]; compared: string[] };
 type Filters = {
   scenario: string;
-  resourceMode: string;
   minDisk: string;
   minRam: string;
   minCpu: string;
@@ -181,7 +181,6 @@ const title = (g: Group) =>
 const initial = new URLSearchParams(location.search);
 const defaults: Filters = {
   scenario: "general",
-  resourceMode: "minimum",
   minDisk: "",
   minRam: "",
   minCpu: "",
@@ -217,9 +216,7 @@ function legacyWorkload(q: string) {
 }
 async function api<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(appPath(url), options);
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "ارتباط با سرور برقرار نشد");
-  return data;
+  return readApiResponse<T>(res);
 }
 function Logo() {
   return (
@@ -922,8 +919,8 @@ export default function App() {
                 <fieldset className="resource-search">
                   <legend>مشخصات مورد نظرت را انتخاب کن</legend>
                   <p className="configuration-intro">
-                    از کاربرد شروع کن، منابع و هزینه را مشخص کن؛ نتایج دقیق و
-                    پیشنهادهای نزدیک جدا نمایش داده می‌شوند.
+                    کاربرد، حداقل منابع و بودجه را مشخص کن؛ نزدیک‌ترین پلن‌ها
+                    اول نمایش داده می‌شوند.
                   </p>
                   <section
                     className="configuration-group"
@@ -1010,21 +1007,6 @@ export default function App() {
                     <h3 id="resources-group-title">
                       <Cpu size={18} /> منابع مورد نیاز
                     </h3>
-                    <label className="scenario-select" htmlFor="resource-mode">
-                      <span>روش مقایسهٔ منابع</span>
-                      <select
-                        id="resource-mode"
-                        value={filters.resourceMode}
-                        onChange={(e) => update("resourceMode", e.target.value)}
-                      >
-                        <option value="minimum">
-                          حداقل این مقدار یا بیشتر
-                        </option>
-                        <option value="exact">
-                          دقیقاً برابر؛ پیشنهاد نزدیک جدا
-                        </option>
-                      </select>
-                    </label>
                     <div className="parameter-grid resource-selectors">
                       {(["ram", "disk", "cpu"] as ResourceField[]).map(
                         (key) => {
@@ -1081,10 +1063,8 @@ export default function App() {
                       )}
                     </div>
                     <p className="configuration-help">
-                      {filters.resourceMode === "minimum"
-                        ? "منابع انتخاب‌شده حداقل‌اند؛ پلن کوچک‌تر پیشنهاد نمی‌شود."
-                        : "نتایج دقیق برابر با انتخاب‌اند؛ پیشنهادهای نزدیک هم کف کاربرد را رعایت می‌کنند."}{" "}
-                      منابع اعلام‌نشده، تطابق تأییدشده محسوب نمی‌شوند.
+                      منابع انتخابی حداقل‌اند؛ نزدیک‌ترین پلن‌های کافی اول نمایش
+                      داده می‌شوند.
                     </p>
                   </section>
                   <details className="sizing-inputs">
@@ -1389,16 +1369,12 @@ export default function App() {
                       <div>
                         <h3>
                           {Object.keys(results.resourceFilters).length
-                            ? filters.resourceMode === "minimum"
-                              ? "مطابق حداقل منابع شما"
-                              : "دقیقاً مطابق انتخاب شما"
+                            ? "مطابق حداقل منابع شما"
                             : "پیشنهادهای مطابق فیلترها"}
                         </h3>
                         <p>
                           {Object.keys(results.resourceFilters).length
-                            ? filters.resourceMode === "minimum"
-                              ? "این پلن‌ها حداقل منابع انتخاب‌شده و کف کاربرد را دارند."
-                              : "مقدار منابع انتخاب‌شده با مشخصات این پلن‌ها برابر است."
+                            ? "نزدیک‌ترین منابع اول؛ در نزدیکی برابر، ترتیب قیمت اعمال می‌شود."
                             : "کف منابع کاربرد در این پیشنهادها رعایت شده؛ جزئیات سازگاری را بررسی کن."}
                         </p>
                       </div>
@@ -1436,16 +1412,14 @@ export default function App() {
                           ? "هنوز چیزی ذخیره نکرده‌ای"
                           : filters.type === "dedicated"
                             ? "هنوز پلن سرور اختصاصی نداریم"
-                            : "پیکربندی دقیق با این شرایط پیدا نشد"}
+                            : "پلنی با این شرایط پیدا نشد"}
                       </h3>
                       <p>
                         {view === "saved"
                           ? "کنار پیکربندی‌های موردعلاقه‌ات، نشان ذخیره را بزن."
                           : filters.type === "dedicated"
                             ? "کاتالوگ فعلی شامل هاست و سرور مجازی است. پلن اختصاصی پس از دریافت و تأیید منبع رسمی اضافه می‌شود."
-                            : results?.similarGroups.length
-                              ? "پیشنهادهای نزدیک را در بخش بعدی ببین؛ تفاوت هر پلن با انتخاب تو مشخص شده است."
-                              : "مقادیر منابع یا سقف بودجه را تغییر بده. منابع اعلام‌نشده، تطابق دقیق محسوب نمی‌شوند."}
+                            : "حداقل منابع یا سقف بودجه را تغییر بده."}
                       </p>
                       {!results?.similarGroups.length && (
                         <button
@@ -1460,31 +1434,6 @@ export default function App() {
                       )}
                     </div>
                   )
-                )}
-                {!loading && !error && !!results?.similarGroups.length && (
-                  <section
-                    className="similar-results"
-                    aria-labelledby="similar-title"
-                  >
-                    <div className="matching-heading">
-                      <Layers3 size={22} />
-                      <div>
-                        <h3 id="similar-title">
-                          پیشنهادهای نزدیک به انتخاب شما
-                        </h3>
-                        <p>
-                          تفاوت منابع روی هر کارت آمده است؛ فیلتر موقعیت،
-                          ارائه‌دهنده و سقف بودجه رعایت شده‌اند.
-                        </p>
-                      </div>
-                      <span>
-                        {fa(results.similarGroups.length)} پیکربندی نزدیک
-                      </span>
-                    </div>
-                    <div className="plans-grid">
-                      {results.similarGroups.map(groupCard)}
-                    </div>
-                  </section>
                 )}
                 <div className="price-notice">
                   <Info size={16} />
@@ -1700,14 +1649,6 @@ export default function App() {
                   · منبع رسمی و زمان تأیید برای هر تعرفه
                 </p>
               </div>
-            </div>
-            <div className="catalog-downloads">
-              <a href={appPath("/api/export/csv")} download>
-                <Download size={16} /> دریافت همهٔ تعرفه‌ها · CSV
-              </a>
-              <a href={appPath("/api/export/json")} download>
-                <Database size={16} /> JSON
-              </a>
             </div>
             <div className="provider-grid">
               {providers.map((p) => (

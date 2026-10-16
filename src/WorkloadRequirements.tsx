@@ -68,7 +68,7 @@ export function WorkloadRequirements({
       {!!value.excludedOffers && (
         <p>
           {fa(value.excludedOffers)} پلن با منابع کمتر یا اعلام‌نشده از نتایج
-          دقیق و نزدیک کنار گذاشته شد.
+          کنار گذاشته شد.
         </p>
       )}
       {[...value.conflicts, ...value.blockers].map((text) => (
@@ -98,7 +98,11 @@ export function WorkloadRequirements({
         <ul className="sizing-sources">
           {value.sources.map((source) => (
             <li key={source.url}>
-              <a href={outboundLink(source.url, "workload-requirements")} target="_blank" rel="noreferrer">
+              <a
+                href={outboundLink(source.url, "workload-requirements")}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {source.name}
               </a>
               <p>{source.finding}</p>

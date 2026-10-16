@@ -1,4 +1,5 @@
 import { appPath } from "./paths";
+import { readApiResponse } from "../shared/http-response.ts";
 import { useEffect, useRef, useState } from "react";
 import { formatPrice } from "./format-price";
 import { outboundLink } from "../shared/outbound-link.ts";
@@ -161,8 +162,9 @@ export function ChatAssistant({
       signal: AbortSignal.any([controller.signal, AbortSignal.timeout(8000)]),
     })
       .then(async (res) => {
-        if (!res.ok) throw new Error("وضعیت دستیار دریافت نشد.");
-        setStatus(await res.json());
+        setStatus(
+          await readApiResponse<ChatStatus>(res, "وضعیت دستیار دریافت نشد."),
+        );
       })
       .catch((e) => {
         if (!controller.signal.aborted)
@@ -212,9 +214,10 @@ export function ChatAssistant({
           AbortSignal.timeout((status.timeoutMs || 20000) + 3000),
         ]),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "گفت‌وگو انجام نشد.");
-      const answer = data as Answer;
+      const answer = await readApiResponse<Answer>(
+        res,
+        "ارتباط با دستیار برقرار نشد؛ دوباره تلاش کن.",
+      );
       setMessages(
         (previous) =>
           [

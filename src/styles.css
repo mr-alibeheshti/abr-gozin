@@ -3013,25 +3013,6 @@ bdi {
   font-size: 11px;
   margin-block: 3px 5px;
 }
-.catalog-downloads {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-block: 0 24px;
-}
-.catalog-downloads a {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--green);
-  padding: 10px 14px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: white;
-}
-
 /* Multiple provider selection */
 .sr-only {
   position: absolute;

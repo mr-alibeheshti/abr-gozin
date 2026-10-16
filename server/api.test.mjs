@@ -132,32 +132,45 @@ test("API validates requests, isolates sessions, persists choices, and uses offi
     await get("/api/search?type=all&workload=docker&ram=4&disk=40&cpu=2")
   ).json();
   assert.ok(docker.groups.length > 0);
-  assert.ok(docker.similarGroups.length > 0);
+  assert.equal(docker.similarGroups.length, 0);
   assert.ok(
     [...docker.groups, ...docker.similarGroups].every((g) => g.type === "vps"),
   );
   assert.equal(docker.filters.workload, "docker");
-  const exact = await (
-    await get(
-      "/api/search?type=vps&region=ir&ram=2&cpu=1&disk=20&maxPrice=1500000",
-    )
-  ).json();
-  assert.ok(exact.groups.length > 0);
+  const resourceQuery =
+    "/api/search?type=vps&region=ir&ram=2&cpu=1&disk=20&maxPrice=1500000";
+  const minimum = await (await get(resourceQuery)).json();
+  assert.ok(minimum.groups.length > 0);
+  assert.equal(minimum.filters.resourceMode, "minimum");
   assert.ok(
-    exact.groups.every((g) => g.ram === 2 && g.cpu === 1 && g.disk === 20),
-  );
-  assert.ok(exact.similarGroups.length > 0);
-  assert.ok(
-    exact.similarGroups.every(
+    minimum.groups.every(
       (g) =>
+        g.ram >= 2 &&
+        g.cpu >= 1 &&
+        g.disk >= 20 &&
         g.region === "ir" &&
-        g.differences.length > 0 &&
         g.offers.every((o) => o.estimate.total <= 1500000),
     ),
   );
-  assert.ok(
-    exact.similarGroups.every((g) => !exact.groups.some((x) => x.id === g.id)),
-  );
+  assert.deepEqual(minimum.similarGroups, []);
+  const legacyMode = await (
+    await get(resourceQuery + "&resourceMode=exact")
+  ).json();
+  assert.deepEqual(legacyMode.groups, minimum.groups);
+  assert.equal(legacyMode.filters.resourceMode, "minimum");
+  for (const sort of ["price", "price-desc"]) {
+    const ranked = await (
+      await get("/api/search?type=vps&ram=4&sort=" + sort)
+    ).json();
+    assert.ok(ranked.groups.length > 1);
+    for (let i = 1; i < ranked.groups.length; i++) {
+      const a = ranked.groups[i - 1],
+        b = ranked.groups[i];
+      assert.ok(a.ram <= b.ram, "closest RAM precedes price");
+      if (a.ram === b.ram)
+        assert.ok(sort === "price" ? a.min <= b.min : a.min >= b.min);
+    }
+  }
   const cleared = await (
     await get(
       "/api/search?q=" + encodeURIComponent("سرور ۴ گیگ رم") + "&ram=all",

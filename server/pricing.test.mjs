@@ -119,7 +119,7 @@ test("Budget applies to actual monthly estimate and Persian intent applies to re
     ip: true,
   });
   assert.ok(d.groups.length);
-  assert.ok(d.groups.every((g) => g.ram === 4 && g.region === "ir"));
+  assert.ok(d.groups.every((g) => g.ram >= 4 && g.region === "ir"));
   assert.ok(
     d.groups.flatMap((g) => g.offers).every((o) => o.estimate.total <= 3000000),
   );

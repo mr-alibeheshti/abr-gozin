@@ -295,16 +295,6 @@ export function requirementsFor(p = {}) {
       Number(p["min" + key[0].toUpperCase() + key.slice(1)]) || 0,
     );
   minimum.disk = Math.max(minimum.disk, Number(p.minDisk) || 0);
-  const conflicts = [];
-  for (const key of ["ram", "disk", "cpu"])
-    if (
-      Number(p[key]) > 0 &&
-      Number(p[key]) < minimum[key] &&
-      p.resourceMode !== "minimum"
-    )
-      conflicts.push(
-        `${key === "disk" ? "دیسک" : key === "ram" ? "رم" : "پردازنده"} دقیق انتخاب‌شده از کف این کاربرد کمتر است.`,
-      );
   const questions = guide
     ? { ...guide.questions }
     : {
@@ -372,7 +362,7 @@ export function requirementsFor(p = {}) {
     checks,
     sources,
     questions,
-    conflicts,
+    conflicts: [],
     blockers,
     caveat:
       "این فهرست برای بررسی اولیهٔ ظرفیت است؛ عملکرد و سازگاری نرم‌افزاری تأیید نشده و باید با میزبان و آزمون بار بررسی شود.",
