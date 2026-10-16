@@ -1,3 +1,4 @@
+import { appPath } from "./paths";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Search,
@@ -215,7 +216,7 @@ function legacyWorkload(q: string) {
   return "all";
 }
 async function api<T>(url: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(url, options);
+  const res = await fetch(appPath(url), options);
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || "ارتباط با سرور برقرار نشد");
   return data;
@@ -265,7 +266,7 @@ function ProviderLogo({
       title={small ? provider?.name : undefined}
     >
       <img
-        src={src}
+        src={appPath(src)}
         width={small ? 22 : 64}
         height={small ? 22 : 36}
         alt={small ? provider?.name || "" : ""}
@@ -829,7 +830,7 @@ export default function App() {
       <header className="site-header">
         <div className="header-inner">
           <a
-            href="/"
+            href={appPath("/")}
             className="brand"
             onClick={(e) => {
               e.preventDefault();
@@ -1701,10 +1702,10 @@ export default function App() {
               </div>
             </div>
             <div className="catalog-downloads">
-              <a href="/api/export/csv" download>
+              <a href={appPath("/api/export/csv")} download>
                 <Download size={16} /> دریافت همهٔ تعرفه‌ها · CSV
               </a>
-              <a href="/api/export/json" download>
+              <a href={appPath("/api/export/json")} download>
                 <Database size={16} /> JSON
               </a>
             </div>
@@ -2163,7 +2164,7 @@ function OfferCard({
           ))}
           <a
             className="primary buy-link"
-            href={`/go/${o.id}`}
+            href={appPath(`/go/${o.id}`)}
             target="_blank"
             rel="noreferrer"
           >

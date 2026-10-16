@@ -12,15 +12,27 @@ import { createSemanticEngine } from "./semantic.mjs";
 import { createChatService } from "./chat.mjs";
 import { workloadGuide, sizingRevision } from "./workloads.mjs";
 import { outboundLink } from "../shared/outbound-link.ts";
-const app = express(),
+import { runtimeConfig } from "./runtime.mjs";
+const runtime = runtimeConfig();
+const server = express();
+const app = express.Router(),
   store = createStore(),
   engine = createSemanticEngine(),
   chat = createChatService(store),
   priceWorker = createRefreshWorker(store, {
     skipInitial: process.env.NO_REFRESH === "1",
   }),
-  port = Number(process.env.PORT || 4321);
-app.disable("x-powered-by");
+  port = runtime.port;
+server.disable("x-powered-by");
+server.use((req, res, next) => {
+  if (runtime.basePath && req.path === runtime.basePath)
+    return res.redirect(
+      308,
+      runtime.basePath + "/" + req.url.slice(runtime.basePath.length),
+    );
+  next();
+});
+server.use(runtime.basePath || "/", app);
 app.use(express.json({ limit: "64kb" }));
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
@@ -29,9 +41,7 @@ app.use((req, res, next) => {
   if (
     ["POST", "PUT", "DELETE"].includes(req.method) &&
     req.headers.origin &&
-    !new Set([`http://localhost:${port}`, `http://127.0.0.1:${port}`]).has(
-      req.headers.origin,
-    )
+    !runtime.origins.has(req.headers.origin)
   )
     return res.status(403).json({ error: "مبدأ درخواست مجاز نیست" });
   const cookie = String(req.headers.cookie || "").match(
@@ -41,7 +51,7 @@ app.use((req, res, next) => {
   if (!cookie)
     res.setHeader(
       "Set-Cookie",
-      `abrgozin=${req.session}; HttpOnly; SameSite=Strict; Path=/; Max-Age=31536000`,
+      `abrgozin=${req.session}; HttpOnly; SameSite=Strict; Path=${runtime.cookiePath}; Max-Age=31536000${runtime.publicUrl ? "; Secure" : ""}`,
     );
   next();
 });
@@ -128,6 +138,10 @@ app.get("/api/sources", (req, res) =>
   res.json({ sources, status: store.status(), job: priceWorker.status() }),
 );
 app.post("/api/refresh", (req, res) => {
+  if (runtime.publicUrl)
+    return res
+      .status(403)
+      .json({ error: "بررسی دستی منابع فقط از CLI سرور انجام می‌شود." });
   try {
     void priceWorker
       .run()
@@ -191,10 +205,27 @@ if (process.argv.includes("--dev")) {
   });
   app.use(vite.middlewares);
 } else {
-  app.use(express.static(resolve("dist")));
-  app.get("/{*path}", (req, res) => res.sendFile(resolve("dist/index.html")));
+  const dist = resolve(process.env.DIST_DIR || "dist");
+  app.use(
+    express.static(dist, {
+      setHeaders(res, path) {
+        res.setHeader(
+          "Cache-Control",
+          path.endsWith(".html")
+            ? "no-cache"
+            : path.includes("/assets/")
+              ? "public, max-age=31536000, immutable"
+              : "public, max-age=3600",
+        );
+      },
+    }),
+  );
+  app.get("/{*path}", (req, res) => {
+    res.setHeader("Cache-Control", "no-cache");
+    res.sendFile(resolve(dist, "index.html"));
+  });
 }
-app.use((e, req, res, next) => {
+server.use((e, req, res, next) => {
   console.error("API:", e.message);
   res.status(e.status || 500).json({
     error:
@@ -203,7 +234,9 @@ app.use((e, req, res, next) => {
         : "درخواست انجام نشد؛ دوباره تلاش کن",
   });
 });
-app.listen(port, "127.0.0.1", () => {
-  console.log(`Abrgozin running at http://localhost:${port}`);
+server.listen(port, runtime.host, () => {
+  console.log(
+    `Abrgozin running at http://${runtime.host}:${port}${runtime.basePath}/`,
+  );
   if (process.env.REFRESH_WORKER_ENABLED !== "0") priceWorker.start();
 });

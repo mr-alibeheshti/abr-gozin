@@ -1,3 +1,4 @@
+import { appPath } from "./paths";
 import { useEffect, useRef, useState } from "react";
 import { formatPrice } from "./format-price";
 import { outboundLink } from "../shared/outbound-link.ts";
@@ -156,7 +157,7 @@ export function ChatAssistant({
     dialog.current?.showModal();
     input.current?.focus();
     const controller = new AbortController();
-    fetch("/api/chat/status", {
+    fetch(appPath("/api/chat/status"), {
       signal: AbortSignal.any([controller.signal, AbortSignal.timeout(8000)]),
     })
       .then(async (res) => {
@@ -198,7 +199,7 @@ export function ChatAssistant({
     const controller = new AbortController();
     request.current = controller;
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(appPath("/api/chat"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

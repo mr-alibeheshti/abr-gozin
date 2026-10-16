@@ -1,3 +1,4 @@
+import { basePath } from "../shared/base-path.mjs";
 import { z } from "zod";
 import { createGeminiClient } from "./gemini-client.mjs";
 import { providers } from "./catalog.mjs";
@@ -408,7 +409,10 @@ export function createChatService(store, env = process.env) {
                 ],
                 verifiedAt: o.verifiedAt,
                 sourceUrl: o.url,
-                href: "/go/" + encodeURIComponent(o.id),
+                href:
+                  basePath(env.APP_BASE_PATH) +
+                  "/go/" +
+                  encodeURIComponent(o.id),
               };
             });
           let reply = result.reply;

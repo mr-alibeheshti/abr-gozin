@@ -251,6 +251,11 @@ test("Recommendations use server prices and reject fabricated IDs or invalid pro
   const real = await chat.reply(message("__vps__"), "grounded");
   assert.equal(real.recommendations[0].id, "liara-vps-2-4-40");
   assert.ok(real.recommendations[0].href.startsWith("/go/"));
+  const prefixed = await service({ APP_BASE_PATH: "/abrgozin" }).reply(
+    message("__vps__"),
+    "prefixed-link",
+  );
+  assert.ok(prefixed.recommendations[0].href.startsWith("/abrgozin/go/"));
   const mismatched = await chat.reply(message("__mismatch__"), "mismatch");
   assert.deepEqual(
     mismatched.recommendations,
