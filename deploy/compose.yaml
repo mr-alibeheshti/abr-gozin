@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     env_file: ./abrgozin.env
     environment:
-      APP_BASE_PATH: /abrgozin
-      PUBLIC_URL: https://abeheshti.ir/abrgozin
+      APP_BASE_PATH: ""
+      PUBLIC_URL: https://abrgozin.ir
       HOST: 0.0.0.0
       DATA_DIR: /data
       MODEL_CACHE_DIR: /data/models

@@ -1,11 +1,11 @@
 # استقرار ابرگزین
 
-نشانی این نصب: `https://abeheshti.ir/abrgozin/`. برنامهٔ Node، چت و ورکر در یک کانتینر همیشه‌روشن‌اند. SQLite و مدل محلی در `/var/lib/abrgozin` روی میزبان باقی می‌مانند. کلیدها داخل ایمیج یا گیت قرار نمی‌گیرند.
+نشانی این نصب: `https://abrgozin.ir/`. برنامهٔ Node، چت و ورکر در یک کانتینر همیشه‌روشن‌اند. SQLite و مدل محلی در `/var/lib/abrgozin` روی میزبان باقی می‌مانند. کلیدها داخل ایمیج یا گیت قرار نمی‌گیرند.
 
 ساخت روی دستگاه دارای دسترسی به npm و Docker Hub، برای معماری سرور:
 
 ```sh
-docker build --platform linux/amd64 --build-arg APP_BASE_PATH=/abrgozin -t abrgozin:RELEASE .
+docker build --platform linux/amd64 --build-arg APP_BASE_PATH= -t abrgozin:RELEASE .
 ```
 
 ایمیج را با `docker save` و SSH به میزبان انتقال بده و با `docker load` وارد کن. در `/opt/abrgozin`، `compose.yaml` و فایل خصوصی `abrgozin.env` با مجوز 600 قرار می‌گیرند. فایل خصوصی فقط تنظیمات Gemini و درگاه آن را دارد؛ پراکسی لوکال دستگاه توسعه منتقل نمی‌شود. مسیر داده باید برای UID/GID 1000 قابل نوشتن باشد.
@@ -14,10 +14,10 @@ docker build --platform linux/amd64 --build-arg APP_BASE_PATH=/abrgozin -t abrgo
 
 ```sh
 ABRGOZIN_IMAGE=abrgozin:RELEASE docker-compose -p abrgozin -f /opt/abrgozin/compose.yaml up -d
-curl -f http://127.0.0.1:4322/abrgozin/api/health
+curl -f http://127.0.0.1:4322/api/health
 ```
 
-پس از سلامت کانتینر، تنظیم `abeheshti.ir.conf` را در فایل مخصوص همین دامنه در volume مربوط به `nginx-proxy` قرار بده؛ تنظیم قبلی را حفظ و پشتیبان بگیر. اگر فایل مخصوص دامنه تازه ساخته شده است، `reload` به‌تنهایی کافی نیست: `docker-gen` باید تنظیمات را دوباره تولید کند. زیر همان قفل، فقط کانتینر ابرگزین را با `docker restart abrgozin` بازراه‌اندازی کن تا رویداد Docker تولید شود. با `docker exec nginx-proxy nginx -T` حضور مسیر `/abrgozin/` را بررسی کن؛ سپس `docker exec nginx-proxy nginx -t` و `docker exec nginx-proxy nginx -s reload` را اجرا کن. هر دو نشانی `/abrgozin` و `/abrgozin/` با rewrite داخلی سرو می‌شوند تا redirect قدیمیِ ذخیره‌شدهٔ سایت شخصی باعث حلقه نشود. مسیرهای دیگر دامنه همچنان به سایت شخصی می‌روند. رکورد DNS و TLS فعلی استفاده می‌شوند.
+پس از سلامت کانتینر، تنظیم `abrgozin.ir.conf` را در فایل مخصوص همین دامنه در volume مربوط به `nginx-proxy` قرار بده؛ تنظیم قبلی را حفظ و پشتیبان بگیر. برای دامنهٔ قدیمی، `abeheshti.ir.conf` فقط مسیر قبلی را به دامنهٔ جدید redirect می‌کند. اگر فایل مخصوص دامنه تازه ساخته شده است، `reload` به‌تنهایی کافی نیست: `docker-gen` باید تنظیمات را دوباره تولید کند. زیر همان قفل، فقط کانتینر ابرگزین را با `docker restart abrgozin` بازراه‌اندازی کن تا رویداد Docker تولید شود. با `docker exec nginx-proxy nginx -T` حضور `server_name abrgozin.ir` را بررسی کن؛ سپس `docker exec nginx-proxy nginx -t` و `docker exec nginx-proxy nginx -s reload` را اجرا کن. رکورد DNS دامنه باید به میزبان اشاره کند و گواهی TLS آن باید در لایهٔ CDN یا میزبان صادر شود.
 
 بررسی نهایی شامل صفحه، فایل‌های JS/CSS/فونت/لوگو، جست‌وجو، ذخیره‌ها، خروجی‌ها، لینک خرید، گفت‌وگوی واقعی و `job.enabled`/`job.nextRunAt` است. در نصب عمومی، بررسی دستی HTTP غیرفعال است؛ اجرای مدیریتی با `docker exec abrgozin node scripts/refresh.mjs` انجام می‌شود. ورکر هر ۷۲ ساعت اجرا می‌شود و برنامهٔ آن با بازسازی کانتینر حفظ می‌شود.
 
