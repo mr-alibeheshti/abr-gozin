@@ -8,6 +8,8 @@ services:
     environment:
       APP_BASE_PATH: ""
       PUBLIC_URL: https://abrgozin.ir
+      VIRTUAL_HOST: abrgozin.ir
+      VIRTUAL_PORT: 4321
       HOST: 0.0.0.0
       DATA_DIR: /data
       MODEL_CACHE_DIR: /data/models
