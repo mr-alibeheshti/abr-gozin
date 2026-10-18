@@ -8,18 +8,18 @@
 docker build --platform linux/amd64 --build-arg APP_BASE_PATH= -t abrgozin:RELEASE .
 ```
 
-ایمیج را با `docker save` و SSH به میزبان انتقال بده و با `docker load` وارد کن. در `/opt/abrgozin`، `compose.yaml` و فایل خصوصی `abrgozin.env` با مجوز 600 قرار می‌گیرند. فایل خصوصی فقط تنظیمات Gemini و درگاه آن را دارد؛ پراکسی لوکال دستگاه توسعه منتقل نمی‌شود. مسیر داده باید برای UID/GID 1000 قابل نوشتن باشد.
+ایمیج را با `docker save` و SSH به میزبان انتقال بده و با `docker load` وارد کن. نصب فعلی کانتینر `abrgozin-root` روی پورت loopback 4323 است؛ `deploy/compose.root.yaml` برای همین نصب است. کانتینر قدیمی `abrgozin` روی 4322 نصب مستقل قبلی است. آن را با این انتشار بازسازی نکن. در `/opt/abrgozin`، `compose.root.yaml` و فایل خصوصی `abrgozin.env` با مجوز 600 قرار می‌گیرند. فایل خصوصی فقط تنظیمات Gemini و درگاه آن را دارد؛ پراکسی لوکال دستگاه توسعه منتقل نمی‌شود. مسیر داده باید برای UID/GID 1000 قابل نوشتن باشد.
 
 زیر قفل `/var/lock/nabz-production.lock`، کانتینر همین برنامه را اجرا کن:
 
 ```sh
-ABRGOZIN_IMAGE=abrgozin:RELEASE docker-compose -p abrgozin -f /opt/abrgozin/compose.yaml up -d
-curl -f http://127.0.0.1:4322/api/health
+ABRGOZIN_IMAGE=abrgozin:RELEASE docker-compose -p abrgozin-root -f /opt/abrgozin/compose.root.yaml up -d
+curl -f http://127.0.0.1:4323/api/health
 ```
 
-پس از سلامت کانتینر، فایل توضیحی `abrgozin.ir.conf` را در volume مربوط به `nginx-proxy` قرار بده؛ مسیر ریشه را خود `VIRTUAL_HOST` و `VIRTUAL_PORT` تولید می‌کنند و نباید یک `location /` دوم تعریف شود. برای دامنهٔ قدیمی، `abeheshti.ir.conf` فقط مسیر قبلی را به دامنهٔ جدید redirect می‌کند. اگر server block دامنه تازه ساخته شده است، `reload` به‌تنهایی کافی نیست: `docker-gen` باید با رویداد کانتینر تولید را دوباره انجام دهد. زیر همان قفل، فقط کانتینر ابرگزین را با `docker restart abrgozin` بازراه‌اندازی کن تا رویداد Docker تولید شود. با `docker exec nginx-proxy nginx -T` حضور `server_name abrgozin.ir` را بررسی کن؛ سپس `docker exec nginx-proxy nginx -t` و `docker exec nginx-proxy nginx -s reload` را اجرا کن. رکورد DNS دامنه باید به میزبان اشاره کند و گواهی TLS آن باید در لایهٔ CDN یا میزبان صادر شود.
+پس از سلامت کانتینر، فایل توضیحی `abrgozin.ir.conf` را در volume مربوط به `nginx-proxy` قرار بده؛ مسیر ریشه را خود `VIRTUAL_HOST` و `VIRTUAL_PORT` تولید می‌کنند و نباید یک `location /` دوم تعریف شود. برای دامنهٔ قدیمی، `abeheshti.ir.conf` فقط مسیر قبلی را به دامنهٔ جدید redirect می‌کند. اگر server block دامنه تازه ساخته شده است، `reload` به‌تنهایی کافی نیست: `docker-gen` باید با رویداد کانتینر تولید را دوباره انجام دهد. زیر همان قفل، فقط کانتینر ابرگزین را با `docker restart abrgozin-root` بازراه‌اندازی کن تا رویداد Docker تولید شود. با `docker exec nginx-proxy nginx -T` حضور `server_name abrgozin.ir` را بررسی کن؛ سپس `docker exec nginx-proxy nginx -t` و `docker exec nginx-proxy nginx -s reload` را اجرا کن. رکورد DNS دامنه باید به میزبان اشاره کند و گواهی TLS آن باید در لایهٔ CDN یا میزبان صادر شود.
 
-بررسی نهایی شامل صفحه، فایل‌های JS/CSS/فونت/لوگو، جست‌وجو، ذخیره‌ها، خروجی‌ها، لینک خرید، گفت‌وگوی واقعی و `job.enabled`/`job.nextRunAt` است. در نصب عمومی، بررسی دستی HTTP غیرفعال است؛ اجرای مدیریتی با `docker exec abrgozin node scripts/refresh.mjs` انجام می‌شود. ورکر هر ۷۲ ساعت اجرا می‌شود و برنامهٔ آن با بازسازی کانتینر حفظ می‌شود.
+بررسی نهایی شامل صفحه، فایل‌های JS/CSS/فونت/لوگو، جست‌وجو، ذخیره‌ها، خروجی‌ها، لینک خرید، گفت‌وگوی واقعی و `job.enabled`/`job.nextRunAt` است. در نصب عمومی، بررسی دستی HTTP غیرفعال است؛ اجرای مدیریتی با `docker exec abrgozin-root node scripts/refresh.mjs` انجام می‌شود. ورکر هر ۷۲ ساعت اجرا می‌شود و برنامهٔ آن با بازسازی کانتینر حفظ می‌شود.
 
 چت از [Cloudflare AI Gateway](../docs/cloudflare-gateway.md) عبور می‌کند. `configured: true` در وضعیت چت فقط کامل‌بودن کلید و تنظیمات را تأیید می‌کند. پیش از اعلام سلامت چت، یک پیام واقعی از مسیر عمومی بفرست. اگر اتصال HTTPS از میزبان به `gateway.ai.cloudflare.com:443` قطع است، خود درگاه این مشکل خروجی شبکه را برطرف نمی‌کند؛ سرور به مسیر خروجی قابل‌دسترسی نیاز دارد. کلیدها را برای آزمایش به مرورگر منتقل نکن. خطای یک منبع قیمت نیز نباید تعرفهٔ قبلی را حذف کند؛ وضعیت هر اجرا و زمان تأیید تعرفه‌ها را بررسی کن.
 

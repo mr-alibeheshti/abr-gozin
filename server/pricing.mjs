@@ -32,12 +32,12 @@ export function parseQuery(query) {
   for (const [field, re] of [
     [
       "ram",
-      /(\d+(?:\.\d+)?)\s*(?:گیگ(?:ابایت)?\s*)?(?:رم|ram)|(?:رم|ram)\s*(\d+(?:\.\d+)?)/i,
+      /(\d+(?:\.\d+)?)\s*(?:(?:گیگ(?:ابایت)?|gb)\s*)?(?:رم|ram)|(?:رم|ram)\s*(\d+(?:\.\d+)?)/i,
     ],
     ["cpu", /(\d+)\s*(?:هسته|cpu|vcpu)|(?:cpu|vcpu)\s*(\d+)/i],
     [
       "disk",
-      /(\d+(?:\.\d+)?)\s*(?:گیگ(?:ابایت)?\s*)?(?:فضا|دیسک|ssd)|(?:فضا|دیسک|ssd)\s*(\d+(?:\.\d+)?)/i,
+      /(\d+(?:\.\d+)?)\s*(?:(?:گیگ(?:ابایت)?|gb)\s*)?(?:فضا|دیسک|ssd|disk)|(?:فضا|دیسک|ssd|disk)\s*(\d+(?:\.\d+)?)/i,
     ],
   ]) {
     const m = q.match(re);
@@ -68,11 +68,18 @@ export function parseQuery(query) {
       (a, b) => b.name.length - a.name.length,
     )[0].id;
   const b = q.match(
-    /(?:زیر|حداکثر|بودجه|تا)\s*(\d+(?:\.\d+)?)\s*(میلیون|هزار)?/,
+    /(?:زیر|حداکثر|بودجه(?: ماهانه)?|تا)\s*(\d[\d,٬]*(?:[.٫]\d+)?)\s*(میلیون|هزار)?\s*(تومان|تومن)?/,
   );
-  if (b)
+  if (
+    b &&
+    (b[2] ||
+      b[3] ||
+      !/^(?:گیگ|gb|رم|ram|هسته|cpu|دیسک|فضا)/i.test(
+        q.slice(b.index + b[0].length),
+      ))
+  )
     fields.maxPrice =
-      Number(b[1]) * (b[2] === "میلیون" ? 1e6 : b[2] === "هزار" ? 1e3 : 1);
+      number(b[1]) * (b[2] === "میلیون" ? 1e6 : b[2] === "هزار" ? 1e3 : 1);
   return { fields, reasons };
 }
 export function estimate(o, { traffic = 200, ip = true } = {}) {
@@ -161,13 +168,29 @@ export function searchOffers(offers, p, semantic = {}) {
             : /پایتون|python/.test(q)
               ? "python"
               : null;
-    if (inferred) filters.workload = inferred;
+    // Explicit service selection wins over an incompatible text workload.
+    const compatible =
+      filters.type !== "hosting" || workloadTypes[inferred] !== "vps";
+    if (inferred && compatible) filters.workload = inferred;
     if (
       inferred === "wordpress" &&
       /فروشگاه|ووکامرس|woocommerce/.test(q) &&
       (!filters.scenario || filters.scenario === "general")
     )
       filters.scenario = "store";
+  }
+  // A budget or resource amount must not suppress semantic classification.
+  // Manual service/workload selections always remain binding.
+  if (
+    p.q &&
+    (!filters.type || filters.type === "all") &&
+    !workloadTypes[filters.workload]
+  ) {
+    const ranked = Object.entries(semantic).sort((a, b) => b[1] - a[1]);
+    if (ranked[0]?.[1] > 0.4 && ranked[0][1] - (ranked[1]?.[1] || 0) > 0.03) {
+      filters.type = ranked[0][0];
+      intent.semanticType = ranked[0][0];
+    }
   }
   const resourceFilters = Object.fromEntries(
     ["cpu", "ram", "disk"]
@@ -258,7 +281,8 @@ export function searchOffers(offers, p, semantic = {}) {
     if (matched.length) items = matched;
     else if (Object.values(semantic).some((x) => x > 0.4)) {
       const best = Object.entries(semantic).sort((a, b) => b[1] - a[1])[0]?.[0];
-      items = items.filter((o) => serviceCategory(o.type) === best);
+      if (!filters.type || filters.type === "all")
+        items = items.filter((o) => serviceCategory(o.type) === best);
     } else items = [];
   }
   const grouped = new Map();

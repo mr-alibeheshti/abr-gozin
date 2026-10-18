@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import baseline from "./baseline.json" with { type: "json" };
-import { searchOffers } from "./pricing.mjs";
+import { searchOffers, parseQuery } from "./pricing.mjs";
 
 const base = baseline.find((o) => o.providerId === "liara" && o.type === "vps");
 const plan = (id, changes = {}) => ({
@@ -23,6 +23,81 @@ const params = {
   traffic: 0,
   ip: false,
 };
+
+test("Natural language understands Persian/Arabic numbers, GB units and formatted budgets", () => {
+  assert.deepEqual(
+    parseQuery("سرور ایران ۴ GB RAM و ٢ هسته و ۴۰ GB SSD زیر ۱٬۵۰۰٬۰۰۰ تومان")
+      .fields,
+    { ram: 4, cpu: 2, disk: 40, region: "ir", type: "vps", maxPrice: 1500000 },
+  );
+  assert.equal(
+    parseQuery("سرور با بودجه ماهانه ۱٫۵ میلیون").fields.maxPrice,
+    1500000,
+  );
+  assert.equal(parseQuery("سرور تا ۴ گیگ رم").fields.maxPrice, undefined);
+});
+
+test("Semantic meaning remains useful alongside a budget and manual filters override it", () => {
+  const offers = [plan("server"), plan("host", { type: "hosting" })];
+  const result = searchOffers(
+    offers,
+    { q: "برنامه ام را آنلاین اجرا کنم زیر ۱ میلیون", type: "all" },
+    { vps: 0.75, hosting: 0.3 },
+  );
+  assert.equal(result.intent.semanticType, "vps");
+  assert.equal(result.filters.maxPrice, 1000000);
+  assert.deepEqual(
+    result.groups.flatMap((g) => g.offers.map((o) => o.id)),
+    ["server"],
+  );
+  const manual = searchOffers(
+    offers,
+    { q: "برنامه ام را آنلاین اجرا کنم زیر ۱ میلیون", type: "hosting" },
+    { vps: 0.75, hosting: 0.3 },
+  );
+  assert.equal(manual.intent.semanticType, undefined);
+  assert.deepEqual(
+    manual.groups.flatMap((g) => g.offers.map((o) => o.id)),
+    ["host"],
+  );
+});
+
+test("Manual hosting overrides an incompatible text workload instead of silently giving no results", () => {
+  const result = searchOffers(
+    [plan("server"), plan("host", { type: "hosting" })],
+    { q: "برای داکر", type: "hosting" },
+  );
+  assert.equal(result.filters.workload, undefined);
+  assert.equal(result.groups.length, 1);
+  assert.equal(result.groups[0].type, "hosting");
+});
+
+test("Natural-language requirements combine with provider, RAM and budget selections", () => {
+  const result = searchOffers(baseline, {
+    q: "سرور ایران با ۸ گیگ رم زیر ۲ میلیون",
+    provider: ["liara", "arvan"],
+    ram: 4,
+    maxPrice: 3000000,
+    traffic: 200,
+    ip: true,
+  });
+  assert.ok(result.groups.length > 0);
+  assert.equal(result.filters.ram, 4);
+  assert.equal(result.filters.maxPrice, 3000000);
+  assert.ok(
+    result.groups.every(
+      (g) =>
+        g.type === "vps" &&
+        g.region === "ir" &&
+        g.ram >= 4 &&
+        g.offers.every(
+          (o) =>
+            ["liara", "arvan"].includes(o.providerId) &&
+            o.estimate.total <= 3000000,
+        ),
+    ),
+  );
+});
 
 test("Resources are binding minima and sufficient plans rank by proximity before price", () => {
   const data = searchOffers(

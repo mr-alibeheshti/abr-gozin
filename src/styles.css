@@ -607,6 +607,240 @@ bdi {
 .configuration-form {
   margin: 0;
 }
+.intelligent-search {
+  padding: 27px;
+  background: linear-gradient(115deg, #fff, #f2f7eb);
+  border: 1px solid #d6e2ca;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+.intelligent-search-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.intelligent-search .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #4c7041;
+}
+.intelligent-search h2 {
+  font-size: 23px;
+  color: #304f34;
+  margin-top: 8px;
+}
+.search-model-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border: 1px solid #e1d8bd;
+  border-radius: 20px;
+  background: #faf6e9;
+  color: #765d30;
+  font-size: 11px;
+}
+.search-model-state.ready {
+  background: #e9f2df;
+  border-color: #d1dfc3;
+  color: #416237;
+}
+.intelligent-search-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+.smart-query-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #b8cba7;
+  border-radius: 12px;
+  background: #fff;
+  padding-inline: 16px;
+  color: #6d865b;
+}
+.smart-query-field:focus-within {
+  outline: 3px solid #c6d9b6;
+  outline-offset: 2px;
+}
+.smart-query-field svg {
+  flex-shrink: 0;
+}
+.smart-query-field input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #304f34;
+  font: inherit;
+  font-size: 14px;
+  min-height: 56px;
+}
+.smart-query-field input::placeholder {
+  color: #738369;
+}
+.intelligent-search-form .primary {
+  padding-inline: 23px;
+  min-height: 56px;
+}
+.smart-search-help {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #5c7051;
+  margin-block: 12px;
+}
+.search-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #667b57;
+  font-size: 11px;
+}
+.search-examples button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #dce6d2;
+  border-radius: 8px;
+  padding: 9px 11px;
+  background: #fff;
+  color: #45613a;
+}
+.search-examples button:hover {
+  border-color: #8baa74;
+  background: #f0f6e9;
+}
+.active-query {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid #dfe8d6;
+  margin-top: 16px;
+  padding-top: 14px;
+  color: #405d35;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.active-query .text-button {
+  margin-inline-start: auto;
+}
+.search-filters {
+  border: 1px solid #dfe7d7;
+  border-radius: 14px;
+  background: #fff;
+}
+.search-filters > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 19px 23px;
+  list-style: none;
+  cursor: pointer;
+  color: #365a3d;
+  font-weight: 700;
+}
+.search-filters > summary::-webkit-details-marker {
+  display: none;
+}
+.search-filters > summary small {
+  display: block;
+  font-weight: 400;
+  color: #627457;
+  font-size: 11px;
+  margin-top: 4px;
+}
+.search-filters > summary b {
+  font-size: 11px;
+  background: #eaf2e0;
+  border-radius: 6px;
+  padding: 5px 8px;
+}
+.filter-chevron {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}
+.search-filters[open] > summary .filter-chevron {
+  transform: rotate(180deg);
+}
+.search-filters[open] > summary {
+  border-bottom: 1px solid #e6eddc;
+  margin-bottom: 20px;
+}
+.search-filters .resource-search {
+  border: 0;
+  box-shadow: none;
+}
+.applied-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #4b6440;
+  margin-top: 16px;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.applied-filter {
+  padding: 5px 10px;
+  border: 1px solid #d9e4cc;
+  border-radius: 7px;
+  background: #f0f5e9;
+}
+.applied-filters small {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.applied-filters .text-button {
+  margin-inline-start: auto;
+}
+@media (max-width: 650px) {
+  .intelligent-search {
+    padding: 20px 16px;
+  }
+  .intelligent-search h2 {
+    font-size: 20px;
+    line-height: 1.7;
+  }
+  .intelligent-search-form {
+    flex-wrap: wrap;
+    margin-top: 17px;
+  }
+  .smart-query-field {
+    flex-basis: 100%;
+    padding-inline: 11px;
+  }
+  .smart-query-field input {
+    font-size: 16px;
+  }
+  .intelligent-search-form .primary {
+    width: 100%;
+    min-height: 46px;
+    justify-content: center;
+  }
+  .search-examples button {
+    font-size: 11px;
+  }
+  .search-filters > summary {
+    padding: 16px;
+    gap: 9px;
+    font-size: 14px;
+  }
+  .search-filters > summary small {
+    font-size: 10px;
+  }
+}
 .resource-search {
   min-width: 0;
   margin: 0;

@@ -2,7 +2,7 @@
 
 Outbound browser navigation adds `utm_source=abrgozin`, `utm_medium=referral`, `utm_campaign=hosting-comparison` and a placement-specific `utm_content`. `GET /go/:id` still returns 302 to the stored checkout URL with those tags added; unknown offers return 404. Existing checkout parameters and URL fragments are preserved. Internal links and stored/crawled provenance URLs remain unchanged.
 
-All routes below are relative to `APP_BASE_PATH` (empty locally, `/abrgozin` in production). The build and runtime must use the same base path. The application redirects the unslashed base to its trailing-slash URL and preserves its query. API routes use JSON and the HttpOnly, SameSite=Strict browser session cookie scoped to this base path. `PUBLIC_URL` specifies the HTTPS origin permitted for state-changing requests and enables Secure cookies. Localhost origins remain allowed for local checks; any other Origin is rejected with 403. No external Postman workspace is published.
+All routes below are relative to `APP_BASE_PATH` (empty locally and on `https://abrgozin.ir`; legacy installs may use `/abrgozin`). The build and runtime must use the same base path. The application redirects the unslashed base to its trailing-slash URL and preserves its query. API routes use JSON and the HttpOnly, SameSite=Strict browser session cookie scoped to this base path. `PUBLIC_URL` specifies the HTTPS origin permitted for state-changing requests and enables Secure cookies. Localhost origins remain allowed for local checks; any other Origin is rejected with 403. No external Postman workspace is published.
 
 ## GET /api/sources and GET /api/health
 
@@ -15,6 +15,9 @@ The worker runs inside the Node server. SQLite stores its schedule, progress and
 When `PUBLIC_URL` is configured, returns 403; production refresh is available only through the server CLI and automatic worker. Otherwise no body. Returns 202 with the running `job` snapshot after acquiring the database lease. The actual crawl runs asynchronously. Concurrent refreshes return 409 `{error}`; within 60 seconds after a completed attempt, returns 429 `{error}` with `Retry-After` in seconds. `npm run refresh` uses the same lease, cooldown and persistence. Scheduled runs and manual runs never intentionally overlap. Official pricing destinations and redirects are allowlisted; this endpoint accepts no caller-provided URL.
 
 ## GET /api/search
+
+- `q`: optional natural-language query, maximum 400 characters. Persian and Arabic digits, GB resource units, and formatted/decimal toman budgets are normalized. Text-derived filters fill unselected fields; explicit selections win. A manual hosting selection does not inherit an incompatible Docker/backend workload from text. Inferred requirements still enforce the workload floor.
+- Local multilingual MiniLM classifies otherwise implicit service intent, including queries that already contain a budget or resource amount. A confident classification (similarity > 0.4 and margin > 0.03) fills an unselected service type and appears as `intent.semanticType`; it never overrides a selected service/workload. Prices and offers come from the catalog. `model.state` (`loading`, `ready`, `failed`) reflects model availability; rules/keyword search continues while the model is unavailable. No Gemini request is made by this endpoint.
 
 - `type`: `all` (default), `hosting` (includes WordPress), `vps`, or `dedicated`. Dedicated offers are a separate category; an empty catalog returns zero results.
 - `provider`: optional provider ID, comma-separated IDs, or repeated query parameters, e.g. `provider=liara&provider=arvan`. Selected providers are ORed; all other filters remain binding. Unknown IDs return 400. An omitted provider selects all.

@@ -1,0 +1,35 @@
+version: "2.4"
+services:
+  abrgozin:
+    image: ${ABRGOZIN_IMAGE:?Set the immutable release image}
+    container_name: abrgozin-root
+    restart: unless-stopped
+    env_file: /opt/abrgozin/abrgozin.env
+    environment:
+      APP_BASE_PATH: ""
+      PUBLIC_URL: https://abrgozin.ir
+      VIRTUAL_HOST: abrgozin.ir
+      VIRTUAL_PORT: 4321
+      HOST: 0.0.0.0
+      DATA_DIR: /data
+      MODEL_CACHE_DIR: /data/models
+      REFRESH_WORKER_ENABLED: "1"
+    ports:
+      - "127.0.0.1:4323:4321"
+    volumes:
+      - /var/lib/abrgozin:/data
+    networks:
+      - public-sites
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    mem_limit: 768m
+    cpus: 1.0
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+networks:
+  public-sites:
+    external:
+      name: server-data_default

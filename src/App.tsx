@@ -127,12 +127,13 @@ type SearchResult = {
   resourceFilters: Partial<Record<ResourceField, number>>;
   requirements: Requirements;
   totalOffers: number;
-  intent: { fields: Record<string, string | number> };
+  intent: { fields: Record<string, string | number>; semanticType?: string };
   filters: Record<string, unknown>;
   model: Model;
 };
 type Choices = { saved: string[]; compared: string[] };
 type Filters = {
+  q: string;
   scenario: string;
   minDisk: string;
   minRam: string;
@@ -180,6 +181,7 @@ const title = (g: Group) =>
     : `${g.serviceType === "wordpress" ? "وردپرس" : "هاست"} ${fa(g.disk)} گیگابایت`;
 const initial = new URLSearchParams(location.search);
 const defaults: Filters = {
+  q: "",
   scenario: "general",
   minDisk: "",
   minRam: "",
@@ -207,13 +209,6 @@ const workloads = [
   { id: "wordpress", name: "سایت وردپرسی", type: "hosting" },
   { id: "website", name: "وب‌سایت و میزبانی وب", type: "hosting" },
 ];
-function legacyWorkload(q: string) {
-  if (/داکر|docker/i.test(q)) return "docker";
-  if (/وردپرس|wordpress/i.test(q)) return "wordpress";
-  if (/جنگو|django|node|نود|بک.اند|backend/i.test(q)) return "backend";
-  if (/پایتون|python/i.test(q)) return "python";
-  return "all";
-}
 async function api<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(appPath(url), options);
   return readApiResponse<T>(res);
@@ -375,6 +370,8 @@ export default function App() {
       ) as Filters,
   );
   const [traffic, setTraffic] = useState(initial.get("traffic") || "200");
+  const [draftQuery, setDraftQuery] = useState(initial.get("q") || "");
+  const [model, setModel] = useState<Model | null>(null);
   const [ip, setIp] = useState(initial.get("ip") !== "false");
   const [providers, setProviders] = useState<Provider[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
@@ -394,7 +391,6 @@ export default function App() {
   const toastTimer = useRef<number | undefined>(undefined);
   const resultsRef = useRef<HTMLDivElement>(null);
   const providerPicker = useRef<HTMLDetailsElement>(null);
-  const migrated = useRef(false);
   const provider = (id: string) => providers.find((p) => p.id === id);
   useEffect(() => {
     const dismiss = (event: PointerEvent) => {
@@ -422,32 +418,8 @@ export default function App() {
           status: Status[];
           model: Model;
         }>("/api/catalog");
-        // Keep previously shared text searches usable in the structured form.
-        const legacy =
-          !migrated.current && initial.get("q")
-            ? await api<SearchResult>("/api/search?" + initial.toString())
-            : null;
         if (active) {
-          if (legacy) {
-            setFilters((f) => ({
-              ...f,
-              ...Object.fromEntries(
-                Object.keys(defaults)
-                  .filter((k) => legacy.filters[k] !== undefined)
-                  .map((k) => [
-                    k,
-                    k === "sort" &&
-                    !["price", "price-desc"].includes(String(legacy.filters[k]))
-                      ? "price"
-                      : String(legacy.filters[k]),
-                  ]),
-              ),
-              workload:
-                initial.get("workload") ||
-                legacyWorkload(initial.get("q") || ""),
-            }));
-          }
-          migrated.current = true;
+          setModel(data.model);
           setChoices(choice);
           setProviders(data.providers);
           setGuides(data.workloadGuide);
@@ -487,6 +459,7 @@ export default function App() {
     ])
       .then(([data, all]) => {
         setResults(data);
+        setModel(data.model);
         setAllGroups(all.groups);
         setLoading(false);
       })
@@ -576,6 +549,7 @@ export default function App() {
     setSelected(null);
     if (next !== "discover") {
       setFilters({ ...defaults, type: "all" });
+      setDraftQuery("");
     }
   }
   async function changeChoices(next: Choices) {
@@ -622,9 +596,52 @@ export default function App() {
   }
   function reset() {
     setFilters(defaults);
+    setDraftQuery("");
     setTraffic("200");
     setIp(true);
   }
+  function search(query = draftQuery) {
+    const q = query.trim();
+    setDraftQuery(q);
+    setFilters((f) => ({ ...f, q }));
+    setRevision((r) => r + 1);
+  }
+  const applied = results?.filters || {};
+  const appliedLabels = [
+    ...(applied.type && applied.type !== "all"
+      ? [
+          applied.type === "vps"
+            ? "سرور مجازی"
+            : applied.type === "dedicated"
+              ? "سرور اختصاصی"
+              : "هاست",
+        ]
+      : []),
+    ...(applied.region && applied.region !== "all"
+      ? [region(String(applied.region))]
+      : []),
+    ...(["ram", "cpu", "disk"] as ResourceField[])
+      .filter((key) => Number(applied[key]) > 0)
+      .map(
+        (key) =>
+          `حداقل ${fa(Number(applied[key]))} ${key === "cpu" ? "هسته" : key === "ram" ? "گیگ رم" : "گیگ دیسک"}`,
+      ),
+    ...(applied.maxPrice !== undefined
+      ? [`تا ${fa(Number(applied.maxPrice))} تومان در ماه`]
+      : []),
+    ...(Array.isArray(applied.provider)
+      ? applied.provider
+      : String(applied.provider || "").split(",")
+    )
+      .filter(Boolean)
+      .map((id) => provider(String(id))?.name || String(id)),
+  ];
+  const selectedFilterCount =
+    Object.entries(filters).filter(
+      ([key, value]) => key !== "q" && value !== defaults[key as keyof Filters],
+    ).length +
+    Number(traffic !== "200") +
+    Number(!ip);
   async function share() {
     try {
       await navigator.clipboard.writeText(location.href);
@@ -906,413 +923,573 @@ export default function App() {
         {(view === "discover" || view === "saved") && (
           <>
             <section className="search-section">
-              <form
-                className="configuration-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  resultsRef.current?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-              >
-                <fieldset className="resource-search">
-                  <legend>مشخصات مورد نظرت را انتخاب کن</legend>
-                  <p className="configuration-intro">
-                    کاربرد، حداقل منابع و بودجه را مشخص کن؛ نزدیک‌ترین پلن‌ها
-                    اول نمایش داده می‌شوند.
-                  </p>
-                  <section
-                    className="configuration-group"
-                    aria-labelledby="service-group-title"
-                  >
-                    <h3 id="service-group-title">
-                      <Server size={18} /> نوع سرویس و کاربرد
-                    </h3>
-                    <div className="parameter-grid">
-                      <label htmlFor="service-type">
-                        <span>نوع سرویس</span>
-                        <select
-                          id="service-type"
-                          value={filters.type}
-                          onChange={(e) => update("type", e.target.value)}
-                        >
-                          <option value="all">همهٔ سرویس‌ها</option>
-                          <option value="hosting">هاست</option>
-                          <option value="vps">سرور مجازی</option>
-                          <option value="dedicated">سرور اختصاصی</option>
-                        </select>
-                      </label>
-                      <label htmlFor="workload">
-                        <span>چی می‌خوای اجرا کنی؟</span>
-                        <select
-                          id="workload"
-                          value={filters.workload}
-                          onChange={(e) => update("workload", e.target.value)}
-                          aria-describedby="workload-help"
-                        >
-                          {workloads.map((w) => (
-                            <option value={w.id} key={w.id}>
-                              {w.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label htmlFor="region">
-                        <span>موقعیت سرویس</span>
-                        <select
-                          id="region"
-                          value={filters.region}
-                          onChange={(e) => update("region", e.target.value)}
-                        >
-                          <option value="all">همهٔ موقعیت‌ها</option>
-                          <option value="ir">ایران</option>
-                          <option value="eu">اروپا</option>
-                          <option value="unknown">موقعیت اعلام‌نشده</option>
-                        </select>
-                      </label>
+              {view === "discover" && (
+                <div className="intelligent-search">
+                  <div className="intelligent-search-heading">
+                    <div>
+                      <span className="eyebrow">
+                        <Sparkles size={16} /> جست‌وجوی هوشمند
+                      </span>
+                      <h2>بگو برای چه کاری زیرساخت می‌خواهی.</h2>
                     </div>
-                    {guides.find((g) => g.id === filters.workload) && (
-                      <label className="scenario-select" htmlFor="scenario">
-                        <span>نوع پروژه</span>
-                        <select
-                          id="scenario"
-                          value={filters.scenario}
-                          onChange={(e) => update("scenario", e.target.value)}
-                        >
-                          <option value="general">هنوز مشخص نیست</option>
-                          {guides
-                            .find((g) => g.id === filters.workload)!
-                            .scenarios.map((s) => (
-                              <option key={s.id} value={s.id}>
-                                {s.name}
-                              </option>
-                            ))}
-                        </select>
-                      </label>
-                    )}
-                    <WorkloadRequirements
-                      value={!loading ? results?.requirements : undefined}
-                      questions
-                    />
-                    <p className="configuration-help" id="workload-help">
-                      کاربرد و نوع پروژه، کف منابع را تنظیم می‌کنند. ظرفیت نهایی
-                      به داده‌ها، بار و نرم‌افزار پروژه بستگی دارد.
-                    </p>
-                  </section>
-                  <section
-                    className="configuration-group"
-                    aria-labelledby="resources-group-title"
-                  >
-                    <h3 id="resources-group-title">
-                      <Cpu size={18} /> منابع مورد نیاز
-                    </h3>
-                    <div className="parameter-grid resource-selectors">
-                      {(["ram", "disk", "cpu"] as ResourceField[]).map(
-                        (key) => {
-                          const value = filters[key] || "all";
-                          const values = [
-                            ...new Set([
-                              ...allGroups
-                                .filter(
-                                  (g) =>
-                                    filters.type === "all" ||
-                                    g.type === filters.type,
-                                )
-                                .map((g) => g[key])
-                                .filter(
-                                  (n): n is number =>
-                                    n !== null &&
-                                    n > 0 &&
-                                    n >=
-                                      (results?.requirements?.minimum[key] ||
-                                        0),
-                                ),
-                              ...(Number(value) > 0 ? [Number(value)] : []),
-                            ]),
-                          ].sort((a, b) => a - b);
-                          const Icon =
-                            key === "ram"
-                              ? MemoryStick
-                              : key === "disk"
-                                ? HardDrive
-                                : Cpu;
-                          return (
-                            <label key={key} htmlFor={`resource-${key}`}>
-                              <span>
-                                <Icon size={17} /> {resourceLabels[key]}
-                              </span>
-                              <select
-                                id={`resource-${key}`}
-                                value={value}
-                                onChange={(e) => update(key, e.target.value)}
-                              >
-                                <option value="all">
-                                  کف کاربرد؛ بدون مقدار بیشتر
-                                </option>
-                                {values.map((n) => (
-                                  <option value={n} key={n}>
-                                    {fa(n)}{" "}
-                                    {key === "cpu" ? "هسته" : "گیگابایت"}
-                                  </option>
-                                ))}
-                              </select>
-                            </label>
-                          );
-                        },
-                      )}
-                    </div>
-                    <p className="configuration-help">
-                      منابع انتخابی حداقل‌اند؛ نزدیک‌ترین پلن‌های کافی اول نمایش
-                      داده می‌شوند.
-                    </p>
-                  </section>
-                  <details className="sizing-inputs">
-                    <summary>
-                      حجم داده، رشد و نیازهای اندازه‌گیری‌شده (اختیاری)
-                    </summary>
-                    <p className="configuration-help">
-                      فقط مقدارهایی را که می‌دانی وارد کن؛ خالی یعنی نامشخص.
-                      تعداد محصول به حجم ساختگی تبدیل نمی‌شود.
-                    </p>
-                    <div className="parameter-grid">
-                      {(
-                        [
-                          ["dataGB", "حجم فعلی فایل و دیتابیس (GB)", 100000],
-                          [
-                            "growthGB",
-                            "رشد مورد انتظار در دورهٔ انتخابی (GB)",
-                            100000,
-                          ],
-                          [
-                            "backupCopies",
-                            "تعداد نسخهٔ بکاپ روی همین دیسک",
-                            30,
-                          ],
-                          ["minDisk", "حداقل دیسک مورد نیاز (GB)", 100000],
-                          ["minRam", "حداقل رم اندازه‌گیری‌شده (GB)", 4096],
-                          ["minCpu", "حداقل هستهٔ مورد نیاز", 1024],
-                        ] as [keyof Filters, string, number][]
-                      ).map(([key, label, max]) => (
-                        <label key={key} htmlFor={`sizing-${key}`}>
-                          <span>{label}</span>
-                          <input
-                            id={`sizing-${key}`}
-                            type="number"
-                            min="0"
-                            max={max}
-                            step={key === "backupCopies" ? "1" : "any"}
-                            value={filters[key]}
-                            placeholder="نامشخص"
-                            onChange={(e) => update(key, e.target.value)}
-                          />
-                        </label>
-                      ))}
-                    </div>
-                    <label className="sizing-gpu">
-                      <input
-                        type="checkbox"
-                        checked={filters.gpu === "true"}
-                        onChange={(e) =>
-                          update("gpu", String(e.target.checked))
-                        }
-                      />{" "}
-                      به GPU نیاز دارم (ظرفیت تأییدشده در کاتالوگ نداریم)
-                    </label>
-                  </details>
-                  <section
-                    className="configuration-group"
-                    aria-labelledby="cost-group-title"
-                  >
-                    <h3 id="cost-group-title">
-                      <SlidersHorizontal size={18} /> هزینه و ارائه‌دهنده
-                    </h3>
-                    <div className="parameter-grid">
-                      <label htmlFor="budget">
-                        <span>سقف هزینهٔ ماهانه</span>
-                        <select
-                          id="budget"
-                          value={filters.maxPrice}
-                          onChange={(e) => update("maxPrice", e.target.value)}
-                        >
-                          <option value="">بدون محدودیت</option>
-                          {[
-                            ...new Set([
-                              500000,
-                              1000000,
-                              2000000,
-                              3000000,
-                              5000000,
-                              10000000,
-                              ...(filters.maxPrice !== ""
-                                ? [Number(filters.maxPrice)]
-                                : []),
-                            ]),
-                          ]
-                            .sort((a, b) => a - b)
-                            .map((n) => (
-                              <option key={n} value={n}>
-                                {formatPrice(n)} تومان
-                              </option>
-                            ))}
-                        </select>
-                      </label>
-                      <div className="provider-picker">
-                        <span id="provider-label">ارائه‌دهنده‌ها</span>
-                        <details
-                          ref={providerPicker}
-                          onKeyDown={(event) => {
-                            if (
-                              event.key === "Escape" &&
-                              providerPicker.current?.open
-                            ) {
-                              event.preventDefault();
-                              providerPicker.current.open = false;
-                              providerPicker.current
-                                .querySelector("summary")
-                                ?.focus();
-                            }
-                          }}
-                        >
-                          <summary aria-labelledby="provider-label provider-selection">
-                            <span id="provider-selection">
-                              {filters.provider
-                                ? providers
-                                    .filter((p) =>
-                                      filters.provider
-                                        .split(",")
-                                        .includes(p.id),
-                                    )
-                                    .map((p) => p.name)
-                                    .join("، ")
-                                : "همهٔ ارائه‌دهنده‌ها"}
-                            </span>
-                            <ChevronDown size={16} />
-                          </summary>
-                          <fieldset className="provider-options">
-                            <legend className="sr-only">
-                              انتخاب چند ارائه‌دهنده
-                            </legend>
-                            <div className="provider-options-heading">
-                              <span>چند گزینه را انتخاب کن</span>
-                              <button
-                                type="button"
-                                onClick={() => update("provider", "")}
-                                disabled={!filters.provider}
-                              >
-                                انتخاب همه
-                              </button>
-                            </div>
-                            {providers.map((p) => (
-                              <label key={p.id}>
-                                <input
-                                  type="checkbox"
-                                  aria-label={p.name}
-                                  checked={filters.provider
-                                    .split(",")
-                                    .includes(p.id)}
-                                  onChange={(e) =>
-                                    update(
-                                      "provider",
-                                      (e.target.checked
-                                        ? [
-                                            ...filters.provider
-                                              .split(",")
-                                              .filter(Boolean),
-                                            p.id,
-                                          ]
-                                        : filters.provider
-                                            .split(",")
-                                            .filter((id) => id !== p.id)
-                                      ).join(","),
-                                    )
-                                  }
-                                />
-                                <ProviderLogo provider={p} small />
-                                <span>{p.name}</span>
-                              </label>
-                            ))}
-                          </fieldset>
-                        </details>
-                      </div>
-                      <label htmlFor="traffic">
-                        <span>ترافیک ماهانه</span>
-                        <select
-                          id="traffic"
-                          value={traffic}
-                          onChange={(e) => setTraffic(e.target.value)}
-                        >
-                          {[
-                            ...new Set([
-                              0,
-                              100,
-                              200,
-                              500,
-                              1000,
-                              2000,
-                              Number(traffic),
-                            ]),
-                          ]
-                            .sort((a, b) => a - b)
-                            .map((n) => (
-                              <option value={n} key={n}>
-                                {fa(n)} گیگابایت
-                              </option>
-                            ))}
-                        </select>
-                      </label>
-                    </div>
-                    <div className="configuration-extras">
-                      <label className="configuration-ip" htmlFor="include-ip">
-                        <input
-                          id="include-ip"
-                          type="checkbox"
-                          checked={ip}
-                          onChange={(e) => setIp(e.target.checked)}
-                        />
-                        <span>هزینهٔ یک IPv4 هم حساب شود</span>
-                      </label>
-                      <label className="configuration-sort" htmlFor="sort">
-                        <span>مرتب‌سازی نتایج</span>
-                        <select
-                          id="sort"
-                          value={filters.sort}
-                          onChange={(e) => update("sort", e.target.value)}
-                        >
-                          <option value="price">کمترین هزینه</option>
-                          <option value="price-desc">بیشترین هزینه</option>
-                        </select>
-                      </label>
-                    </div>
-                    <p className="configuration-help">
-                      برآورد ماهانه با ترافیک، IP و هزینه‌های مشخص در منبع
-                      محاسبه می‌شود.
-                    </p>
-                  </section>
-                  <div className="configuration-actions">
-                    <span className="configuration-status" role="status">
-                      {loading ? (
-                        <LoaderCircle size={16} className="spin" />
-                      ) : (
-                        <CheckCircle2 size={16} />
-                      )}
-                      {loading
-                        ? "در حال دریافت پیشنهادها…"
-                        : "نتایج با هر انتخاب به‌روز می‌شوند"}
-                    </span>
-                    <button
-                      type="button"
-                      className="text-button configuration-reset"
-                      onClick={reset}
+                    <span
+                      className={`search-model-state ${model?.state === "ready" ? "ready" : ""}`}
                     >
-                      <RefreshCw size={14} /> پاک کردن انتخاب‌ها
-                    </button>
-                    <button type="submit" className="primary">
-                      دیدن پیشنهادها <ArrowLeft size={17} />
-                    </button>
+                      <span className="tiny-dot" />
+                      {model?.state === "ready"
+                        ? "هوش مصنوعی فعال"
+                        : model?.state === "failed"
+                          ? "جست‌وجوی واژه‌ها فعال"
+                          : "در حال آماده‌سازی هوش مصنوعی"}
+                    </span>
                   </div>
-                </fieldset>
-              </form>
+                  <form
+                    className="intelligent-search-form"
+                    role="search"
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      search();
+                    }}
+                  >
+                    <label htmlFor="smart-query" className="sr-only">
+                      نیازت را برای جست‌وجوی هوشمند بنویس
+                    </label>
+                    <div className="smart-query-field">
+                      <Search size={21} aria-hidden="true" />
+                      <input
+                        id="smart-query"
+                        type="search"
+                        value={draftQuery}
+                        maxLength={400}
+                        placeholder="مثلاً سرور ایران برای داکر با ۴ گیگ رم زیر ۲ میلیون"
+                        aria-describedby="smart-search-help"
+                        enterKeyHint="search"
+                        onChange={(event) => setDraftQuery(event.target.value)}
+                      />
+                    </div>
+                    <button type="submit" className="primary" disabled={!ready}>
+                      <Sparkles size={17} /> جست‌وجو
+                    </button>
+                  </form>
+                  <p id="smart-search-help" className="smart-search-help">
+                    کاربرد، منابع یا بودجه‌ات را بنویس؛ فیلترهای انتخابی تو
+                    اولویت دارند.
+                    {model?.state === "failed" &&
+                      " مدل معنایی در دسترس نیست؛ جست‌وجوی مشخصات و واژه‌ها ادامه دارد."}
+                    {model?.state === "loading" &&
+                      " تا آماده‌شدن مدل، جست‌وجوی مشخصات و واژه‌ها فعال است."}
+                  </p>
+                  <div
+                    className="search-examples"
+                    aria-label="نمونه‌های جست‌وجو"
+                  >
+                    <span>امتحان کن:</span>
+                    {[
+                      "سرور ایران برای داکر با ۴ گیگ رم",
+                      "هاست برای فروشگاه وردپرسی",
+                      "سرور لیارا زیر ۲ میلیون",
+                    ].map((example) => (
+                      <button
+                        type="button"
+                        key={example}
+                        onClick={() => search(example)}
+                        disabled={!ready}
+                      >
+                        {example}
+                        <ArrowUpLeft size={13} />
+                      </button>
+                    ))}
+                  </div>
+                  {filters.q && (
+                    <div className="active-query">
+                      <span>
+                        عبارت جست‌وجو: <bdi>{filters.q}</bdi>
+                      </span>
+                      <button
+                        type="button"
+                        className="text-button"
+                        onClick={() => search("")}
+                      >
+                        <X size={14} /> پاک کردن عبارت
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+              <details className="search-filters">
+                <summary>
+                  <SlidersHorizontal size={19} />
+                  <span>
+                    فیلترهای جست‌وجو
+                    <small>نوع سرویس، منابع، موقعیت، ارائه‌دهنده و بودجه</small>
+                  </span>
+                  {selectedFilterCount > 0 && (
+                    <b>{fa(selectedFilterCount)} انتخاب</b>
+                  )}
+                  <ChevronDown size={18} className="filter-chevron" />
+                </summary>
+                <form
+                  className="configuration-form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    resultsRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }}
+                >
+                  <fieldset className="resource-search">
+                    <legend>مشخصات مورد نظرت را انتخاب کن</legend>
+                    <p className="configuration-intro">
+                      کاربرد، حداقل منابع و بودجه را مشخص کن؛ نزدیک‌ترین پلن‌ها
+                      اول نمایش داده می‌شوند.
+                    </p>
+                    <section
+                      className="configuration-group"
+                      aria-labelledby="service-group-title"
+                    >
+                      <h3 id="service-group-title">
+                        <Server size={18} /> نوع سرویس و کاربرد
+                      </h3>
+                      <div className="parameter-grid">
+                        <label htmlFor="service-type">
+                          <span>نوع سرویس</span>
+                          <select
+                            id="service-type"
+                            value={filters.type}
+                            onChange={(e) => update("type", e.target.value)}
+                          >
+                            <option value="all">
+                              {filters.q &&
+                              applied.type &&
+                              applied.type !== "all"
+                                ? `از عبارت: ${applied.type === "vps" ? "سرور مجازی" : applied.type === "dedicated" ? "سرور اختصاصی" : "هاست"}`
+                                : "همهٔ سرویس‌ها"}
+                            </option>
+                            <option value="hosting">هاست</option>
+                            <option value="vps">سرور مجازی</option>
+                            <option value="dedicated">سرور اختصاصی</option>
+                          </select>
+                        </label>
+                        <label htmlFor="workload">
+                          <span>چی می‌خوای اجرا کنی؟</span>
+                          <select
+                            id="workload"
+                            value={filters.workload}
+                            onChange={(e) => update("workload", e.target.value)}
+                            aria-describedby="workload-help"
+                          >
+                            {workloads.map((w) => (
+                              <option value={w.id} key={w.id}>
+                                {w.id === "all" &&
+                                filters.q &&
+                                applied.workload &&
+                                applied.workload !== "all"
+                                  ? `از عبارت: ${workloads.find((item) => item.id === applied.workload)?.name || applied.workload}`
+                                  : w.name}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <label htmlFor="region">
+                          <span>موقعیت سرویس</span>
+                          <select
+                            id="region"
+                            value={filters.region}
+                            onChange={(e) => update("region", e.target.value)}
+                          >
+                            <option value="all">
+                              {filters.q &&
+                              applied.region &&
+                              applied.region !== "all"
+                                ? `از عبارت: ${region(String(applied.region))}`
+                                : "همهٔ موقعیت‌ها"}
+                            </option>
+                            <option value="ir">ایران</option>
+                            <option value="eu">اروپا</option>
+                            <option value="unknown">موقعیت اعلام‌نشده</option>
+                          </select>
+                        </label>
+                      </div>
+                      {guides.find((g) => g.id === filters.workload) && (
+                        <label className="scenario-select" htmlFor="scenario">
+                          <span>نوع پروژه</span>
+                          <select
+                            id="scenario"
+                            value={filters.scenario}
+                            onChange={(e) => update("scenario", e.target.value)}
+                          >
+                            <option value="general">هنوز مشخص نیست</option>
+                            {guides
+                              .find((g) => g.id === filters.workload)!
+                              .scenarios.map((s) => (
+                                <option key={s.id} value={s.id}>
+                                  {s.name}
+                                </option>
+                              ))}
+                          </select>
+                        </label>
+                      )}
+                      <WorkloadRequirements
+                        value={!loading ? results?.requirements : undefined}
+                        questions
+                      />
+                      <p className="configuration-help" id="workload-help">
+                        کاربرد و نوع پروژه، کف منابع را تنظیم می‌کنند. ظرفیت
+                        نهایی به داده‌ها، بار و نرم‌افزار پروژه بستگی دارد.
+                      </p>
+                    </section>
+                    <section
+                      className="configuration-group"
+                      aria-labelledby="resources-group-title"
+                    >
+                      <h3 id="resources-group-title">
+                        <Cpu size={18} /> منابع مورد نیاز
+                      </h3>
+                      <div className="parameter-grid resource-selectors">
+                        {(["ram", "disk", "cpu"] as ResourceField[]).map(
+                          (key) => {
+                            const value = filters[key];
+                            const values = [
+                              ...new Set([
+                                ...allGroups
+                                  .filter(
+                                    (g) =>
+                                      filters.type === "all" ||
+                                      g.type === filters.type,
+                                  )
+                                  .map((g) => g[key])
+                                  .filter(
+                                    (n): n is number =>
+                                      n !== null &&
+                                      n > 0 &&
+                                      n >=
+                                        (results?.requirements?.minimum[key] ||
+                                          0),
+                                  ),
+                                ...(Number(value) > 0 ? [Number(value)] : []),
+                              ]),
+                            ].sort((a, b) => a - b);
+                            const Icon =
+                              key === "ram"
+                                ? MemoryStick
+                                : key === "disk"
+                                  ? HardDrive
+                                  : Cpu;
+                            return (
+                              <label key={key} htmlFor={`resource-${key}`}>
+                                <span>
+                                  <Icon size={17} /> {resourceLabels[key]}
+                                </span>
+                                <select
+                                  id={`resource-${key}`}
+                                  value={value}
+                                  onChange={(e) => update(key, e.target.value)}
+                                >
+                                  <option value="">
+                                    {filters.q && Number(applied[key]) > 0
+                                      ? `از عبارت: ${fa(Number(applied[key]))} ${key === "cpu" ? "هسته" : "گیگابایت"}`
+                                      : "کف کاربرد؛ بدون مقدار بیشتر"}
+                                  </option>
+                                  {(filters.q || value === "all") && (
+                                    <option value="all">
+                                      فقط کف کاربرد؛ بدون مقدار عبارت
+                                    </option>
+                                  )}
+                                  {values.map((n) => (
+                                    <option value={n} key={n}>
+                                      {fa(n)}{" "}
+                                      {key === "cpu" ? "هسته" : "گیگابایت"}
+                                    </option>
+                                  ))}
+                                </select>
+                              </label>
+                            );
+                          },
+                        )}
+                      </div>
+                      <p className="configuration-help">
+                        منابع انتخابی حداقل‌اند؛ نزدیک‌ترین پلن‌های کافی اول
+                        نمایش داده می‌شوند.
+                      </p>
+                    </section>
+                    <details className="sizing-inputs">
+                      <summary>
+                        حجم داده، رشد و نیازهای اندازه‌گیری‌شده (اختیاری)
+                      </summary>
+                      <p className="configuration-help">
+                        فقط مقدارهایی را که می‌دانی وارد کن؛ خالی یعنی نامشخص.
+                        تعداد محصول به حجم ساختگی تبدیل نمی‌شود.
+                      </p>
+                      <div className="parameter-grid">
+                        {(
+                          [
+                            ["dataGB", "حجم فعلی فایل و دیتابیس (GB)", 100000],
+                            [
+                              "growthGB",
+                              "رشد مورد انتظار در دورهٔ انتخابی (GB)",
+                              100000,
+                            ],
+                            [
+                              "backupCopies",
+                              "تعداد نسخهٔ بکاپ روی همین دیسک",
+                              30,
+                            ],
+                            ["minDisk", "حداقل دیسک مورد نیاز (GB)", 100000],
+                            ["minRam", "حداقل رم اندازه‌گیری‌شده (GB)", 4096],
+                            ["minCpu", "حداقل هستهٔ مورد نیاز", 1024],
+                          ] as [keyof Filters, string, number][]
+                        ).map(([key, label, max]) => (
+                          <label key={key} htmlFor={`sizing-${key}`}>
+                            <span>{label}</span>
+                            <input
+                              id={`sizing-${key}`}
+                              type="number"
+                              min="0"
+                              max={max}
+                              step={key === "backupCopies" ? "1" : "any"}
+                              value={filters[key]}
+                              placeholder="نامشخص"
+                              onChange={(e) => update(key, e.target.value)}
+                            />
+                          </label>
+                        ))}
+                      </div>
+                      <label className="sizing-gpu">
+                        <input
+                          type="checkbox"
+                          checked={filters.gpu === "true"}
+                          onChange={(e) =>
+                            update("gpu", String(e.target.checked))
+                          }
+                        />{" "}
+                        به GPU نیاز دارم (ظرفیت تأییدشده در کاتالوگ نداریم)
+                      </label>
+                    </details>
+                    <section
+                      className="configuration-group"
+                      aria-labelledby="cost-group-title"
+                    >
+                      <h3 id="cost-group-title">
+                        <SlidersHorizontal size={18} /> هزینه و ارائه‌دهنده
+                      </h3>
+                      <div className="parameter-grid">
+                        <label htmlFor="budget">
+                          <span>سقف هزینهٔ ماهانه</span>
+                          <select
+                            id="budget"
+                            value={filters.maxPrice}
+                            onChange={(e) => update("maxPrice", e.target.value)}
+                          >
+                            <option value="">
+                              {filters.q && applied.maxPrice !== undefined
+                                ? `از عبارت: ${formatPrice(Number(applied.maxPrice))} تومان`
+                                : "بدون محدودیت"}
+                            </option>
+                            {[
+                              ...new Set([
+                                500000,
+                                1000000,
+                                2000000,
+                                3000000,
+                                5000000,
+                                10000000,
+                                ...(filters.maxPrice !== ""
+                                  ? [Number(filters.maxPrice)]
+                                  : []),
+                              ]),
+                            ]
+                              .sort((a, b) => a - b)
+                              .map((n) => (
+                                <option key={n} value={n}>
+                                  {formatPrice(n)} تومان
+                                </option>
+                              ))}
+                          </select>
+                        </label>
+                        <div className="provider-picker">
+                          <span id="provider-label">ارائه‌دهنده‌ها</span>
+                          <details
+                            ref={providerPicker}
+                            onKeyDown={(event) => {
+                              if (
+                                event.key === "Escape" &&
+                                providerPicker.current?.open
+                              ) {
+                                event.preventDefault();
+                                providerPicker.current.open = false;
+                                providerPicker.current
+                                  .querySelector("summary")
+                                  ?.focus();
+                              }
+                            }}
+                          >
+                            <summary aria-labelledby="provider-label provider-selection">
+                              <span id="provider-selection">
+                                {filters.provider
+                                  ? providers
+                                      .filter((p) =>
+                                        filters.provider
+                                          .split(",")
+                                          .includes(p.id),
+                                      )
+                                      .map((p) => p.name)
+                                      .join("، ")
+                                  : "همهٔ ارائه‌دهنده‌ها"}
+                              </span>
+                              <ChevronDown size={16} />
+                            </summary>
+                            <fieldset className="provider-options">
+                              <legend className="sr-only">
+                                انتخاب چند ارائه‌دهنده
+                              </legend>
+                              <div className="provider-options-heading">
+                                <span>چند گزینه را انتخاب کن</span>
+                                <button
+                                  type="button"
+                                  onClick={() => update("provider", "")}
+                                  disabled={!filters.provider}
+                                >
+                                  انتخاب همه
+                                </button>
+                              </div>
+                              {providers.map((p) => (
+                                <label key={p.id}>
+                                  <input
+                                    type="checkbox"
+                                    aria-label={p.name}
+                                    checked={filters.provider
+                                      .split(",")
+                                      .includes(p.id)}
+                                    onChange={(e) =>
+                                      update(
+                                        "provider",
+                                        (e.target.checked
+                                          ? [
+                                              ...filters.provider
+                                                .split(",")
+                                                .filter(Boolean),
+                                              p.id,
+                                            ]
+                                          : filters.provider
+                                              .split(",")
+                                              .filter((id) => id !== p.id)
+                                        ).join(","),
+                                      )
+                                    }
+                                  />
+                                  <ProviderLogo provider={p} small />
+                                  <span>{p.name}</span>
+                                </label>
+                              ))}
+                            </fieldset>
+                          </details>
+                        </div>
+                        <label htmlFor="traffic">
+                          <span>ترافیک ماهانه</span>
+                          <select
+                            id="traffic"
+                            value={traffic}
+                            onChange={(e) => setTraffic(e.target.value)}
+                          >
+                            {[
+                              ...new Set([
+                                0,
+                                100,
+                                200,
+                                500,
+                                1000,
+                                2000,
+                                Number(traffic),
+                              ]),
+                            ]
+                              .sort((a, b) => a - b)
+                              .map((n) => (
+                                <option value={n} key={n}>
+                                  {fa(n)} گیگابایت
+                                </option>
+                              ))}
+                          </select>
+                        </label>
+                      </div>
+                      <div className="configuration-extras">
+                        <label
+                          className="configuration-ip"
+                          htmlFor="include-ip"
+                        >
+                          <input
+                            id="include-ip"
+                            type="checkbox"
+                            checked={ip}
+                            onChange={(e) => setIp(e.target.checked)}
+                          />
+                          <span>هزینهٔ یک IPv4 هم حساب شود</span>
+                        </label>
+                        <label className="configuration-sort" htmlFor="sort">
+                          <span>مرتب‌سازی نتایج</span>
+                          <select
+                            id="sort"
+                            value={filters.sort}
+                            onChange={(e) => update("sort", e.target.value)}
+                          >
+                            <option value="price">کمترین هزینه</option>
+                            <option value="price-desc">بیشترین هزینه</option>
+                          </select>
+                        </label>
+                      </div>
+                      <p className="configuration-help">
+                        برآورد ماهانه با ترافیک، IP و هزینه‌های مشخص در منبع
+                        محاسبه می‌شود.
+                      </p>
+                    </section>
+                    <div className="configuration-actions">
+                      <span className="configuration-status" role="status">
+                        {loading ? (
+                          <LoaderCircle size={16} className="spin" />
+                        ) : error ? (
+                          <Info size={16} />
+                        ) : (
+                          <CheckCircle2 size={16} />
+                        )}
+                        {loading
+                          ? "در حال دریافت پیشنهادها…"
+                          : error
+                            ? "دریافت پیشنهادها انجام نشد"
+                            : "نتایج با هر انتخاب به‌روز می‌شوند"}
+                      </span>
+                      <button
+                        type="button"
+                        className="text-button configuration-reset"
+                        onClick={reset}
+                      >
+                        <RefreshCw size={14} /> پاک کردن انتخاب‌ها
+                      </button>
+                      <button type="submit" className="primary">
+                        دیدن پیشنهادها <ArrowLeft size={17} />
+                      </button>
+                    </div>
+                  </fieldset>
+                </form>
+              </details>
+              {!loading && !error && appliedLabels.length > 0 && (
+                <div className="applied-filters" role="status">
+                  <span>فیلترهای اعمال‌شده:</span>
+                  {appliedLabels.map((label) => (
+                    <span className="applied-filter" key={label}>
+                      {label}
+                    </span>
+                  ))}
+                  {results?.intent.semanticType && (
+                    <small>
+                      <Sparkles size={13} /> نوع سرویس از مفهوم عبارت تشخیص داده
+                      شد.
+                    </small>
+                  )}
+                  <button type="button" className="text-button" onClick={reset}>
+                    <X size={14} /> پاک کردن همه
+                  </button>
+                </div>
+              )}
             </section>
             <div className="catalog-heading" ref={resultsRef}>
               <div>
@@ -1321,7 +1498,7 @@ export default function App() {
                     ? "ذخیره‌های تو"
                     : "پیکربندی مناسب تو اینجاست"}{" "}
                   <span>
-                    {results ? fa(results.groups.length) : "—"}{" "}
+                    {results && !loading ? fa(results.groups.length) : "—"}{" "}
                     {Object.keys(results?.resourceFilters || {}).length
                       ? "مطابق"
                       : "گزینه"}
@@ -1792,6 +1969,7 @@ export default function App() {
         }}
         onApply={(next: ChatFilters) => {
           setView("discover");
+          setDraftQuery("");
           setFilters({
             ...defaults,
             ...Object.fromEntries(
