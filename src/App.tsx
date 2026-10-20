@@ -1541,22 +1541,6 @@ export default function App() {
                   </div>
                 ) : results?.groups.length ? (
                   <>
-                    <div className="matching-heading exact-heading">
-                      <CheckCircle2 size={22} />
-                      <div>
-                        <h3>
-                          {Object.keys(results.resourceFilters).length
-                            ? "مطابق حداقل منابع شما"
-                            : "پیشنهادهای مطابق فیلترها"}
-                        </h3>
-                        <p>
-                          {Object.keys(results.resourceFilters).length
-                            ? "نزدیک‌ترین منابع اول؛ در نزدیکی برابر، ترتیب قیمت اعمال می‌شود."
-                            : "کف منابع کاربرد در این پیشنهادها رعایت شده؛ جزئیات سازگاری را بررسی کن."}
-                        </p>
-                      </div>
-                      <span>{fa(results.groups.length)} پیکربندی</span>
-                    </div>
                     <div className="result-count">
                       {fa(results.totalOffers)} پیشنهاد از{" "}
                       {fa(

@@ -980,37 +980,6 @@ bdi {
 .configuration-actions .primary {
   min-height: 46px;
 }
-.matching-heading {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  margin-bottom: 18px;
-  color: #8a6935;
-}
-.matching-heading > svg {
-  flex-shrink: 0;
-}
-.matching-heading > div {
-  flex: 1;
-  min-width: 0;
-}
-.matching-heading h3 {
-  font-size: 17px;
-  font-weight: 700;
-}
-.matching-heading p {
-  font-size: 11px;
-  line-height: 1.9;
-  margin-top: 5px;
-  color: #8a8f7d;
-}
-.matching-heading > span {
-  font-size: 10px;
-  white-space: nowrap;
-}
-.exact-heading {
-  color: #547b42;
-}
 .similar-results {
   margin-top: 32px;
   padding-top: 27px;
@@ -1102,19 +1071,6 @@ bdi {
   }
   .configuration-actions .primary {
     margin-inline-start: auto;
-  }
-  .matching-heading {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .matching-heading h3 {
-    font-size: 15px;
-  }
-  .matching-heading > span {
-    margin-inline-start: 30px;
-  }
-  .matching-heading p {
-    font-size: 10px;
   }
   .match-note {
     padding: 7px;
