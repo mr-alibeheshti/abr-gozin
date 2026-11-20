@@ -3,7 +3,13 @@ import { z } from "zod";
 import { createGeminiClient } from "./gemini-client.mjs";
 import { providers } from "./catalog.mjs";
 import { searchParams, providerIds } from "./filters.mjs";
-import { searchOffers, serviceCategory, norm } from "./pricing.mjs";
+import {
+  searchOffers,
+  serviceCategory,
+  norm,
+  analyzeQuery,
+} from "./pricing.mjs";
+import { regionOf } from "./countries.mjs";
 import {
   workloadGuide,
   scenarioIds,
@@ -35,7 +41,7 @@ export const chatFilters = z
       "wordpress",
       "website",
     ]),
-    region: z.enum(["all", "ir", "eu", "unknown"]),
+    region: z.enum(["all", "ir", "eu", "other", "unknown"]),
     scenario: z.enum(["general", ...scenarioIds]).default("general"),
     resourceMode: z.enum(["minimum"]).default("minimum"),
     minDisk: z.number().min(0).max(100000).nullable().default(null),
@@ -101,7 +107,7 @@ export const chatRequest = z
 function fail(status, code, message) {
   return Object.assign(new Error(message), { status, code });
 }
-export function normalizeContext(raw) {
+function contextParams(raw) {
   const cleaned = Object.fromEntries(
     Object.entries(raw).filter(
       ([key, value]) =>
@@ -110,7 +116,26 @@ export function normalizeContext(raw) {
   );
   if (typeof cleaned.ip === "boolean") cleaned.ip = String(cleaned.ip);
   if (typeof cleaned.gpu === "boolean") cleaned.gpu = String(cleaned.gpu);
-  const p = searchParams.parse(cleaned);
+  return searchParams.parse(cleaned);
+}
+// The form's country (ISO code) or null.
+export const formCountry = (raw) => contextParams(raw).country ?? null;
+// Location is decided by the same rules as search, never by the model: the
+// latest user message that names a place, else the form's country, else the
+// model's region. «ترکیه» is `other` even if the model answers `eu`.
+export function chatLocation(messages, country, modelRegion) {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    if (messages[i].role !== "user") continue;
+    const { fields } = analyzeQuery(messages[i].content);
+    if (fields.country)
+      return { country: fields.country, region: regionOf(fields.country) };
+    if (fields.region) return { country: null, region: fields.region };
+  }
+  if (country) return { country, region: regionOf(country) };
+  return { country: null, region: modelRegion };
+}
+export function normalizeContext(raw) {
+  const p = contextParams(raw);
   return chatFilters.parse({
     type: p.type,
     workload: p.workload,
@@ -123,7 +148,8 @@ export function normalizeContext(raw) {
     growthGB: p.growthGB ?? null,
     backupCopies: p.backupCopies ?? null,
     gpu: p.gpu === "true",
-    region: p.region,
+    // `any` (ignore the text's location) means no location for the chat.
+    region: p.region === "any" ? "all" : p.region,
     provider: p.provider || [],
     ram: typeof p.ram === "number" && p.ram > 0 ? p.ram : null,
     cpu: typeof p.cpu === "number" && p.cpu > 0 ? p.cpu : null,
@@ -188,9 +214,10 @@ export function createChatService(store, env = process.env) {
     async reply(request, session, { signal } = {}) {
       signal?.throwIfAborted();
       const parsed = chatRequest.safeParse(request);
-      let context;
+      let context, country;
       try {
         context = normalizeContext(parsed.success ? parsed.data.filters : {});
+        country = formCountry(parsed.data.filters);
       } catch {}
       if (!parsed.success || !context)
         throw fail(
@@ -241,8 +268,15 @@ export function createChatService(store, env = process.env) {
         outcome = "ok";
       try {
         const offers = store.offers();
+        const place = chatLocation(
+          parsed.data.messages,
+          country,
+          context.region,
+        );
         const shortlist = searchOffers(offers, {
           ...context,
+          region: place.region,
+          country: place.country ?? undefined,
           ram: context.ram ?? "all",
           cpu: context.cpu ?? "all",
           disk: context.disk ?? "all",
@@ -366,8 +400,15 @@ export function createChatService(store, env = process.env) {
           const catalogIds = new Set(offers.map((o) => o.id));
           if (result.offerIds.some((id) => !catalogIds.has(id)))
             throw new Error("Unknown catalog offer");
+          const where = chatLocation(
+            parsed.data.messages,
+            country,
+            result.filters.region,
+          );
+          result.filters.region = where.region;
           const search = searchOffers(offers, {
             ...result.filters,
+            country: where.country ?? undefined,
             ram: result.filters.ram ?? "all",
             cpu: result.filters.cpu ?? "all",
             disk: result.filters.disk ?? "all",
@@ -436,7 +477,7 @@ export function createChatService(store, env = process.env) {
           }
           return {
             reply,
-            filters: result.filters,
+            filters: { ...result.filters, country: where.country },
             needs: result.needs,
             assessment,
             canApply: assessment.ready && result.intent === "consultation",
