@@ -297,6 +297,10 @@ const BLOG = re(
 const BUSINESS = re(
   `سایت\\s*شرکت(?:ی)?|${L}(?:corporate|company|business)\\s+(?:site|website)${R}`,
 );
+const BARE_SIZE = new RegExp(
+  `(?<![\\d.])(\\d+(?:\\.\\d+)?)\\s*(?:گیگابایت|گیگ|gb)${R}`,
+  "gu",
+);
 const sitePurpose = (q) =>
   STORE.test(q)
     ? "store"
@@ -310,7 +314,8 @@ const sitePurpose = (q) =>
 export function analyzeQuery(query) {
   const fields = {},
     reasons = [];
-  let q = convertNumberWords(norm(query));
+  let q = convertNumberWords(norm(query)),
+    rest;
   const matches = providerMatchers.filter((p) =>
     p.patterns.some((pattern) => q.match(pattern)),
   );
@@ -319,6 +324,7 @@ export function analyzeQuery(query) {
   for (const p of matches)
     for (const pattern of p.patterns) q = q.replace(pattern, " ");
   q = q.replace(/\s+/g, " ").trim();
+  rest = q;
   for (const [field, pattern] of [
     [
       "ram",
@@ -334,6 +340,7 @@ export function analyzeQuery(query) {
     if (m) {
       fields[field] = Number(m[1] || m[2]);
       reasons.push(field);
+      rest = rest.replace(m[0], " ");
     }
   }
   // Foreign and negated forms first: «خارج از ایران» contains «ایران».
@@ -345,6 +352,29 @@ export function analyzeQuery(query) {
   else if (HOSTING.test(q)) fields.type = "hosting";
   else if (VPS.test(q)) fields.type = "vps";
   else if (sitePurpose(q)) fields.type = "hosting";
+  // A bare size («هاست ۱۰ گیگ», «سرور ۴ گیگ») is advertised disk for hosting
+  // and RAM for a server (then disk if RAM is given). Traffic amounts are not
+  // resources, and without a service type the size stays ambiguous.
+  for (const m of rest.matchAll(BARE_SIZE)) {
+    if (
+      /^\s*(?:ترافیک|traffic|پهنای|ماهانه)/u.test(
+        rest.slice(m.index + m[0].length),
+      )
+    )
+      continue;
+    const field =
+      fields.type === "hosting"
+        ? "disk"
+        : ["vps", "dedicated"].includes(fields.type)
+          ? fields.ram === undefined
+            ? "ram"
+            : "disk"
+          : null;
+    if (field && fields[field] === undefined) {
+      fields[field] = Number(m[1]);
+      reasons.push(field);
+    }
+  }
   const budget = readBudget(q);
   if (budget) fields.maxPrice = budget.value;
   return { fields, reasons, budget, text: q };

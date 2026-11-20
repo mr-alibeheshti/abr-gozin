@@ -249,3 +249,21 @@ test("needsIntentModel is false exactly when intent scores cannot change the res
   assert.equal(needsIntentModel({ q: "ایران هاست" }), false);
   assert.equal(needsIntentModel({ q: "" }), false);
 });
+
+test("A bare size is disk for hosting and RAM for a server", () => {
+  for (const [q, expected] of [
+    ["هاست ۱۰ گیگ", { type: "hosting", disk: 10 }],
+    ["هاست وردپرس ۲ گیگابایت", { type: "hosting", disk: 2 }],
+    ["سرور مجازی ۲ هسته ۴ گیگ", { type: "vps", cpu: 2, ram: 4 }],
+    ["سرور ۴ گیگ رم ۸۰ گیگ", { type: "vps", ram: 4, disk: 80 }],
+    ["سرور 4gb", { type: "vps", ram: 4 }],
+    ["سرور ۲ گیگ رم با ۲۰۰ گیگ ترافیک", { type: "vps", ram: 2 }],
+  ])
+    assert.deepEqual(fields(q), expected, q);
+  // Without a service type the size stays ambiguous.
+  assert.deepEqual(fields("ایرانسرور ۴ گیگ"), { provider: "iranserver" });
+  // The repro: a 0.1 GB host no longer leads «هاست ۱۰ گیگ».
+  const host = search("هاست ۱۰ گیگ");
+  assert.ok(host.groups.length > 0);
+  assert.ok(host.groups.every((g) => g.type === "hosting" && g.disk >= 10));
+});
