@@ -128,10 +128,7 @@ await writeFile(out, JSON.stringify(report, null, 2) + "\n");
 const pct = (x) => (x === null ? "—" : `${(x * 100).toFixed(1)}%`);
 for (const [title, s] of [
   ["all labeled queries", all],
-  [
-    "model-only queries (rules leave type, provider and workload undecided)",
-    modelOnly,
-  ],
+  ["model-only queries (scores can change the result)", modelOnly],
 ]) {
   console.log(
     `\n## Intent sweep — ${title} (n=${s.queries}: ${JSON.stringify(s.labels)})\n`,

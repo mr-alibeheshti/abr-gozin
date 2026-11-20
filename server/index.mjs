@@ -5,7 +5,7 @@ import { z } from "zod";
 import { providers, sources } from "./catalog.mjs";
 import { catalogDocument, catalogCSV } from "./export.mjs";
 import { createStore } from "./store.mjs";
-import { searchOffers, groupKey } from "./pricing.mjs";
+import { searchOffers, groupKey, needsIntentModel } from "./pricing.mjs";
 import { searchParams as params } from "./filters.mjs";
 import { createRefreshWorker } from "./refresh-worker.mjs";
 import { createSemanticEngine } from "./semantic.mjs";
@@ -117,7 +117,9 @@ app.get("/api/search", async (req, res, next) => {
       saved:
         parsed.data.saved === "true" ? sessionChoices(req.session).saved : null,
     };
-    const scores = p.q ? await engine.scores(p.q) : {};
+    // Skip inference when explicit filters or the rules already decide
+    // everything the scores could change.
+    const scores = needsIntentModel(p) ? await engine.scores(p.q) : {};
     res.json({
       ...searchOffers(store.offers(), p, scores),
       model: engine.status,
