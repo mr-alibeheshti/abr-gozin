@@ -21,7 +21,8 @@ export const searchParams = z
     growthGB: z.coerce.number().min(0).max(100000).optional(),
     backupCopies: z.coerce.number().int().min(0).max(30).optional(),
     gpu: z.enum(["true", "false"]).default("false"),
-    region: z.enum(["all", "ir", "eu", "unknown"]).default("all"),
+    // `any` explicitly ignores a location named in `q`; `all` lets the text decide.
+    region: z.enum(["all", "any", "ir", "eu", "unknown"]).default("all"),
     provider: z
       .preprocess(
         (value) => (typeof value === "string" ? value.split(",") : value),

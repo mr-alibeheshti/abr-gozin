@@ -94,3 +94,48 @@ test("Equal prices: more resources first, unknown resources never jump a dominat
   assert.ok(dominates(ordered[0], ordered[1]));
   assert.deepEqual(paretoViolations(ordered), []);
 });
+
+test("F2: empty results explain why and offer the next step", () => {
+  const search = (q, extra = {}) =>
+    searchOffers(baseline, { q, traffic: 200, ip: true, ...extra });
+  for (const q of [
+    "سرور مجازی آلمان",
+    "سرور خارج از ایران",
+    "vps europe",
+    "سرور مجازی هلند برای داکر",
+  ]) {
+    const result = search(q);
+    assert.equal(result.groups.length, 0, q);
+    assert.equal(result.emptyReason, "no-foreign-vps-in-catalog", q);
+  }
+  // «حذف فیلتر موقعیت»: region=any ignores the location named in the text.
+  const anyRegion = search("سرور مجازی آلمان", { region: "any" });
+  assert.equal(anyRegion.filters.region, "any");
+  assert.ok(anyRegion.groups.length > 0);
+  assert.ok(anyRegion.groups.every((g) => g.type === "vps"));
+  assert.equal(anyRegion.emptyReason, null);
+  // «دیدن هاست‌های خارج»: hosting outside Iran.
+  const hosting = search("سرور مجازی آلمان", { type: "hosting" });
+  assert.ok(hosting.groups.length > 0);
+  assert.ok(
+    hosting.groups.every((g) => g.type === "hosting" && g.region === "eu"),
+  );
+  // Budget below every matching plan reports the cheapest alternative.
+  const low = search("سرور زیر ۱۰۰ هزار تومان");
+  assert.equal(low.emptyReason, "budget-too-low");
+  assert.equal(low.emptyContext.maxPrice, 100000);
+  assert.ok(low.emptyContext.cheapest > 100000);
+  assert.ok(
+    search("سرور", { maxPrice: low.emptyContext.cheapest }).groups.length > 0,
+  );
+  assert.equal(search("قغفهبثضصفص").emptyReason, "no-match");
+  assert.equal(
+    searchOffers(baseline, { type: "dedicated" }).emptyReason,
+    "no-dedicated-in-catalog",
+  );
+  assert.equal(
+    searchOffers(baseline, { workload: "database", scenario: "redis" })
+      .emptyReason,
+    "requirements-blocked",
+  );
+});

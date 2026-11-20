@@ -576,6 +576,7 @@ export function searchOffers(offers, p, semantic = {}) {
           : serviceCategory(o.type) !== "hosting")) &&
       (!filters.region ||
         filters.region === "all" ||
+        filters.region === "any" ||
         o.region === filters.region) &&
       (!selectedProviders.length || selectedProviders.includes(o.providerId)) &&
       (!p.saved || p.saved.includes(groupKey(o))),
@@ -619,7 +620,7 @@ export function searchOffers(offers, p, semantic = {}) {
         : p.sort === "ram"
           ? (b.ram || 0) - (a.ram || 0)
           : a.min - b.min;
-  // Everything after the budget step.
+  // Everything after the budget step, so an empty result can be explained.
   function rank(list) {
     if (p.q && !hasIntent && tokens.length) {
       const matched = list.filter((o) =>
@@ -704,11 +705,38 @@ export function searchOffers(offers, p, semantic = {}) {
       )
       .map(({ g }) => g);
   }
-  const groups = rank(
+  const withinBudget =
     filters.maxPrice !== undefined
       ? items.filter((o) => o.estimate.total <= filters.maxPrice)
-      : items,
-  );
+      : items;
+  const groups = rank(withinBudget);
+  let emptyReason = null,
+    emptyContext = null;
+  if (!groups.length) {
+    const category = categoryOf(filters);
+    const overBudget = withinBudget.length < items.length ? rank(items) : [];
+    if (
+      category === "dedicated" &&
+      !offers.some((o) => serviceCategory(o.type) === "dedicated")
+    )
+      emptyReason = "no-dedicated-in-catalog";
+    else if (
+      filters.region === "eu" &&
+      category === "vps" &&
+      !offers.some(
+        (o) => serviceCategory(o.type) === "vps" && o.region === "eu",
+      )
+    )
+      emptyReason = "no-foreign-vps-in-catalog";
+    else if (requirements.blockers.length) emptyReason = "requirements-blocked";
+    else if (overBudget.length) {
+      emptyReason = "budget-too-low";
+      emptyContext = {
+        cheapest: Math.min(...overBudget.map((g) => g.min)),
+        maxPrice: filters.maxPrice,
+      };
+    } else emptyReason = "no-match";
+  }
   return {
     groups,
     // Retained response fields keep existing API consumers compatible.
@@ -720,5 +748,7 @@ export function searchOffers(offers, p, semantic = {}) {
     requirements: { ...requirements, excludedOffers: excludedForCapacity },
     intent,
     filters,
+    emptyReason,
+    emptyContext,
   };
 }
