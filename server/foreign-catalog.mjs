@@ -214,6 +214,25 @@ export const foreignSources = [
     "iranhost",
   ),
   page(
+    "webdade-vps-nl",
+    "webdade",
+    "تعرفهٔ سرور مجازی هلند وب‌داده",
+    "https://webdade.com/vps-server-netherlands",
+    "NL",
+    "هلند",
+    "webdade",
+  ),
+  // One page for several countries («موقعیت سرور هلند ، فرانسه و آلمان»).
+  page(
+    "hostnegar-vps-foreign",
+    "hostnegar",
+    "تعرفهٔ سرور مجازی خارجی هاست‌نگار",
+    "https://hostnegar.com/سرور-مجازی-vps",
+    null,
+    "سرور مجازی خارجی",
+    "hostnegar",
+  ),
+  page(
     "onlineserver-vps-tr",
     "onlineserver",
     "تعرفهٔ سرور مجازی ترکیه آنلاین سرور",

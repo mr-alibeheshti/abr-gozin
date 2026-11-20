@@ -14249,6 +14249,740 @@
     "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
   },
   {
+    "trafficGB": 20000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 1,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+      "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است."
+    ],
+    "custom": false,
+    "sourceId": "webdade-vps-nl",
+    "providerId": "webdade",
+    "url": "https://webdade.com/vps-server-netherlands",
+    "checkoutUrl": "https://my.webdade.com/order/nl-vps/netherlands-starter",
+    "countries": [
+      "NL"
+    ],
+    "id": "webdade-nl-netherlands-starter",
+    "name": "G11 starter",
+    "type": "vps",
+    "disk": 20,
+    "price": 2365100,
+    "upfront": 2365100,
+    "evidence": {
+      "text": "g11 نسل جدید 2026 starter شروع اقتصادی نسل جدید 1 هسته 1 گیگ 20 گیگ nvme 20tb@10gbps 2,365,100 ثبت سفارش"
+    },
+    "country": "NL",
+    "sourceHash": "aa37c9dbec90b7fc8abbf0428ef9bd08b114893456c96eaad706a5457a1571b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 20000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 2,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+      "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است."
+    ],
+    "custom": false,
+    "sourceId": "webdade-vps-nl",
+    "providerId": "webdade",
+    "url": "https://webdade.com/vps-server-netherlands",
+    "checkoutUrl": "https://my.webdade.com/order/nl-vps/netherlands-performance",
+    "countries": [
+      "NL"
+    ],
+    "id": "webdade-nl-netherlands-performance",
+    "name": "G11 performance",
+    "type": "vps",
+    "disk": 40,
+    "price": 2956300,
+    "upfront": 2956300,
+    "evidence": {
+      "text": "g11 نسل جدید 2026 performance متعادل برای سایت و سرویس 2 هسته 2 گیگ 40 گیگ nvme 20tb@10gbps 2,956,300 ثبت سفارش"
+    },
+    "country": "NL",
+    "sourceHash": "aa37c9dbec90b7fc8abbf0428ef9bd08b114893456c96eaad706a5457a1571b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 20000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 4,
+    "ram": 4,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+      "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است."
+    ],
+    "custom": false,
+    "sourceId": "webdade-vps-nl",
+    "providerId": "webdade",
+    "url": "https://webdade.com/vps-server-netherlands",
+    "checkoutUrl": "https://my.webdade.com/order/nl-vps/netherlands-pro",
+    "countries": [
+      "NL"
+    ],
+    "id": "webdade-nl-netherlands-pro",
+    "name": "G11 pro",
+    "type": "vps",
+    "disk": 80,
+    "price": 4730100,
+    "upfront": 4730100,
+    "evidence": {
+      "text": "g11 نسل جدید 2026 pro شروع حرفه ای نسل جدید 4 هسته 4 گیگ 80 گیگ nvme 20tb@10gbps 4,730,100 ثبت سفارش"
+    },
+    "country": "NL",
+    "sourceHash": "aa37c9dbec90b7fc8abbf0428ef9bd08b114893456c96eaad706a5457a1571b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 20000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 8,
+    "ram": 8,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+      "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است."
+    ],
+    "custom": false,
+    "sourceId": "webdade-vps-nl",
+    "providerId": "webdade",
+    "url": "https://webdade.com/vps-server-netherlands",
+    "checkoutUrl": "https://my.webdade.com/order/nl-vps/netherlands-express",
+    "countries": [
+      "NL"
+    ],
+    "id": "webdade-nl-netherlands-express",
+    "name": "G11 express",
+    "type": "vps",
+    "disk": 120,
+    "price": 8277700,
+    "upfront": 8277700,
+    "evidence": {
+      "text": "g11 نسل جدید 2026 express قدرتمند برای پرترافیک 8 هسته 8 گیگ 120 گیگ nvme 20tb@10gbps 8,277,700 ثبت سفارش"
+    },
+    "country": "NL",
+    "sourceHash": "aa37c9dbec90b7fc8abbf0428ef9bd08b114893456c96eaad706a5457a1571b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 1000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "SSD",
+    "period": 1,
+    "cpu": 1,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+      "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است."
+    ],
+    "custom": false,
+    "sourceId": "webdade-vps-nl",
+    "providerId": "webdade",
+    "url": "https://webdade.com/vps-server-netherlands",
+    "checkoutUrl": "https://my.webdade.com/order/lite-vps-nl/lite-netherlands-starter",
+    "countries": [
+      "NL"
+    ],
+    "id": "webdade-nl-lite-netherlands-starter",
+    "name": "Lite lite-starter",
+    "type": "vps",
+    "disk": 20,
+    "price": 1034800,
+    "upfront": 1034800,
+    "evidence": {
+      "text": "lite lite-starter 1 هسته 1 گیگ 20 گیگ ssd 1tb@1gbps 1,034,800 ثبت سفارش"
+    },
+    "country": "NL",
+    "sourceHash": "aa37c9dbec90b7fc8abbf0428ef9bd08b114893456c96eaad706a5457a1571b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 2000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "SSD",
+    "period": 1,
+    "cpu": 2,
+    "ram": 2,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+      "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است."
+    ],
+    "custom": false,
+    "sourceId": "webdade-vps-nl",
+    "providerId": "webdade",
+    "url": "https://webdade.com/vps-server-netherlands",
+    "checkoutUrl": "https://my.webdade.com/order/lite-vps-nl/lite-netherlands-standard",
+    "countries": [
+      "NL"
+    ],
+    "id": "webdade-nl-lite-netherlands-standard",
+    "name": "Lite lite-standard",
+    "type": "vps",
+    "disk": 40,
+    "price": 1478200,
+    "upfront": 1478200,
+    "evidence": {
+      "text": "lite lite-standard 2 هسته 2 گیگ 40 گیگ ssd 2tb@1gbps 1,478,200 ثبت سفارش"
+    },
+    "country": "NL",
+    "sourceHash": "aa37c9dbec90b7fc8abbf0428ef9bd08b114893456c96eaad706a5457a1571b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 4000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "SSD",
+    "period": 1,
+    "cpu": 2,
+    "ram": 4,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+      "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است."
+    ],
+    "custom": false,
+    "sourceId": "webdade-vps-nl",
+    "providerId": "webdade",
+    "url": "https://webdade.com/vps-server-netherlands",
+    "checkoutUrl": "https://my.webdade.com/order/lite-vps-nl/lite-netherlands-pro",
+    "countries": [
+      "NL"
+    ],
+    "id": "webdade-nl-lite-netherlands-pro",
+    "name": "Lite lite-pro",
+    "type": "vps",
+    "disk": 80,
+    "price": 2365100,
+    "upfront": 2365100,
+    "evidence": {
+      "text": "lite lite-pro 2 هسته 4 گیگ 80 گیگ ssd 4tb@1gbps 2,365,100 ثبت سفارش"
+    },
+    "country": "NL",
+    "sourceHash": "aa37c9dbec90b7fc8abbf0428ef9bd08b114893456c96eaad706a5457a1571b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 1,
+    "ram": 3,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=341",
+    "countries": [
+      "NL"
+    ],
+    "id": "hostnegar-341-nl",
+    "name": "سرور مجازی - استارت",
+    "type": "vps",
+    "disk": 30,
+    "trafficUnlimited": true,
+    "price": 4233500,
+    "upfront": 4233500,
+    "evidence": {
+      "text": "سرور مجازی - استارت راه اندازی 8,115,000 ریال ماهیانه 42,335,000 ریال سالیانه 469,595,000 ریال میزان فضا 30gb پهنای باند نامحدود هسته cpu 1 حافظه رم 3gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "NL",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 1,
+    "ram": 3,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=341",
+    "countries": [
+      "FR"
+    ],
+    "id": "hostnegar-341-fr",
+    "name": "سرور مجازی - استارت",
+    "type": "vps",
+    "disk": 30,
+    "trafficUnlimited": true,
+    "price": 4233500,
+    "upfront": 4233500,
+    "evidence": {
+      "text": "سرور مجازی - استارت راه اندازی 8,115,000 ریال ماهیانه 42,335,000 ریال سالیانه 469,595,000 ریال میزان فضا 30gb پهنای باند نامحدود هسته cpu 1 حافظه رم 3gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "FR",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 1,
+    "ram": 3,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=341",
+    "countries": [
+      "DE"
+    ],
+    "id": "hostnegar-341-de",
+    "name": "سرور مجازی - استارت",
+    "type": "vps",
+    "disk": 30,
+    "trafficUnlimited": true,
+    "price": 4233500,
+    "upfront": 4233500,
+    "evidence": {
+      "text": "سرور مجازی - استارت راه اندازی 8,115,000 ریال ماهیانه 42,335,000 ریال سالیانه 469,595,000 ریال میزان فضا 30gb پهنای باند نامحدود هسته cpu 1 حافظه رم 3gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "DE",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 5,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=342",
+    "countries": [
+      "NL"
+    ],
+    "id": "hostnegar-342-nl",
+    "name": "سرور مجازی - پلاس",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 5073000,
+    "upfront": 5073000,
+    "evidence": {
+      "text": "سرور مجازی - پلاس راه اندازی 8,115,000 ریال ماهیانه 50,730,000 ریال سالیانه 563,510,000 ریال میزان فضا 50gb پهنای باند نامحدود هسته cpu 2 حافظه رم 5gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "NL",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 5,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=342",
+    "countries": [
+      "FR"
+    ],
+    "id": "hostnegar-342-fr",
+    "name": "سرور مجازی - پلاس",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 5073000,
+    "upfront": 5073000,
+    "evidence": {
+      "text": "سرور مجازی - پلاس راه اندازی 8,115,000 ریال ماهیانه 50,730,000 ریال سالیانه 563,510,000 ریال میزان فضا 50gb پهنای باند نامحدود هسته cpu 2 حافظه رم 5gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "FR",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 5,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=342",
+    "countries": [
+      "DE"
+    ],
+    "id": "hostnegar-342-de",
+    "name": "سرور مجازی - پلاس",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 5073000,
+    "upfront": 5073000,
+    "evidence": {
+      "text": "سرور مجازی - پلاس راه اندازی 8,115,000 ریال ماهیانه 50,730,000 ریال سالیانه 563,510,000 ریال میزان فضا 50gb پهنای باند نامحدود هسته cpu 2 حافظه رم 5gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "DE",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 6,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=343",
+    "countries": [
+      "NL"
+    ],
+    "id": "hostnegar-343-nl",
+    "name": "سرور مجازی - اکستریم",
+    "type": "vps",
+    "disk": 70,
+    "trafficUnlimited": true,
+    "price": 5927000,
+    "upfront": 5927000,
+    "evidence": {
+      "text": "سرور مجازی - اکستریم راه اندازی 8,115,000 ریال ماهیانه 59,270,000 ریال سالیانه 658,905,000 ریال میزان فضا 70gb پهنای باند نامحدود هسته cpu 2 حافظه رم 6gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "NL",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 6,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=343",
+    "countries": [
+      "FR"
+    ],
+    "id": "hostnegar-343-fr",
+    "name": "سرور مجازی - اکستریم",
+    "type": "vps",
+    "disk": 70,
+    "trafficUnlimited": true,
+    "price": 5927000,
+    "upfront": 5927000,
+    "evidence": {
+      "text": "سرور مجازی - اکستریم راه اندازی 8,115,000 ریال ماهیانه 59,270,000 ریال سالیانه 658,905,000 ریال میزان فضا 70gb پهنای باند نامحدود هسته cpu 2 حافظه رم 6gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "FR",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 6,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=343",
+    "countries": [
+      "DE"
+    ],
+    "id": "hostnegar-343-de",
+    "name": "سرور مجازی - اکستریم",
+    "type": "vps",
+    "disk": 70,
+    "trafficUnlimited": true,
+    "price": 5927000,
+    "upfront": 5927000,
+    "evidence": {
+      "text": "سرور مجازی - اکستریم راه اندازی 8,115,000 ریال ماهیانه 59,270,000 ریال سالیانه 658,905,000 ریال میزان فضا 70gb پهنای باند نامحدود هسته cpu 2 حافظه رم 6gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "DE",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 3,
+    "ram": 7,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=344",
+    "countries": [
+      "NL"
+    ],
+    "id": "hostnegar-344-nl",
+    "name": "سرور مجازی - اولترا",
+    "type": "vps",
+    "disk": 90,
+    "trafficUnlimited": true,
+    "price": 6607000,
+    "upfront": 6607000,
+    "evidence": {
+      "text": "سرور مجازی - اولترا راه اندازی 8,115,000 ریال ماهیانه 66,070,000 ریال سالیانه 733,405,000 ریال میزان فضا 90gb پهنای باند نامحدود هسته cpu 3 حافظه رم 7gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "NL",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 3,
+    "ram": 7,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=344",
+    "countries": [
+      "FR"
+    ],
+    "id": "hostnegar-344-fr",
+    "name": "سرور مجازی - اولترا",
+    "type": "vps",
+    "disk": 90,
+    "trafficUnlimited": true,
+    "price": 6607000,
+    "upfront": 6607000,
+    "evidence": {
+      "text": "سرور مجازی - اولترا راه اندازی 8,115,000 ریال ماهیانه 66,070,000 ریال سالیانه 733,405,000 ریال میزان فضا 90gb پهنای باند نامحدود هسته cpu 3 حافظه رم 7gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "FR",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 3,
+    "ram": 7,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت در صفحه «هلند ، فرانسه و آلمان» است و هنگام سفارش انتخاب می‌شود.",
+      "قیمت ریالی ماهانه به تومان تبدیل شده است. هزینهٔ یک‌بارهٔ راه‌اندازی 811,500 تومان در برآورد ماهانه نیامده است."
+    ],
+    "custom": false,
+    "sourceId": "hostnegar-vps-foreign",
+    "providerId": "hostnegar",
+    "url": "https://hostnegar.com/سرور-مجازی-vps",
+    "checkoutUrl": "https://support.hostnegar.com/cart.php?a=add&pid=344",
+    "countries": [
+      "DE"
+    ],
+    "id": "hostnegar-344-de",
+    "name": "سرور مجازی - اولترا",
+    "type": "vps",
+    "disk": 90,
+    "trafficUnlimited": true,
+    "price": 6607000,
+    "upfront": 6607000,
+    "evidence": {
+      "text": "سرور مجازی - اولترا راه اندازی 8,115,000 ریال ماهیانه 66,070,000 ریال سالیانه 733,405,000 ریال میزان فضا 90gb پهنای باند نامحدود هسته cpu 3 حافظه رم 7gb ip اختصاصی 1 عدد هارد nvme plesk cpanel directadmin cloud linux litespeed imunify360 softaculous سفارش آنلاین: اروپا"
+    },
+    "country": "DE",
+    "sourceHash": "6116741147c0314462cbd63a69ea9c650319686a8096132ceaff316a6851bcfa",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
     "trafficGB": null,
     "trafficRate": null,
     "ipMonthly": null,
