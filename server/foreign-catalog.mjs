@@ -165,6 +165,36 @@ export const foreignSources = [
     "serverir",
   ),
   page(
+    "serverir-host-foreign",
+    "serverir",
+    "تعرفهٔ هاست خارج سرور.آی‌آر",
+    "https://server.ir/hosting/foreign/",
+    null,
+    "هاست خارج",
+    "serverir",
+    { hosting: true },
+  ),
+  // AzarOnline's country pages show the same Linux plans; the location is
+  // chosen at order. Each page's listing keeps that page's country.
+  ...[
+    ["us", "US", "آمریکا"],
+    ["ca", "CA", "کانادا"],
+    ["nl", "NL", "هلند"],
+    ["de", "DE", "آلمان"],
+    ["fr", "FR", "فرانسه"],
+    ["ae", "AE", "امارات"],
+  ].map(([slug, country, place]) =>
+    page(
+      `azaronline-vps-${slug}`,
+      "azaronline",
+      `تعرفهٔ سرور مجازی ${place} آذرآنلاین`,
+      `https://azaronline.com/سرور-مجازی-${place}/`,
+      country,
+      place,
+      "azaronline",
+    ),
+  ),
+  page(
     "onlineserver-vps-tr",
     "onlineserver",
     "تعرفهٔ سرور مجازی ترکیه آنلاین سرور",

@@ -29,6 +29,7 @@ test("every foreign page parses its recorded fixture into the seeded offers", ()
     parsvds: "parsvds.com",
     serverir: "server.ir",
     onlineserver: "onlineserver.ir",
+    azaronline: "azaronline.com",
   };
   let total = 0;
   for (const s of foreignSources) {
@@ -66,7 +67,7 @@ test("every foreign page parses its recorded fixture into the seeded offers", ()
       assert.ok(o.verifiedAt, o.id);
     }
   }
-  assert.equal(total, 183);
+  assert.equal(total, 219);
   // Turkey is never labelled Europe.
   assert.ok(
     baseline
@@ -142,6 +143,36 @@ test("foreign extractors read the published toman prices and billing periods", (
     [wp.type, wp.disk, wp.price, wp.country],
     ["wordpress", 1, 1057000, "FR"],
   );
+  // Server.ir hosting: one offer per stated country (Germany, Netherlands).
+  const nl = by("serverir-host-foreign", "serverir-FLHC1-Lite-nl");
+  assert.deepEqual(
+    [nl.type, nl.disk, nl.price, nl.region, nl.trafficUnlimited],
+    ["hosting", 1, 290000, "eu", true],
+  );
+  assert.equal(
+    by("serverir-host-foreign", "serverir-FLHC1-Lite-de").price,
+    290000,
+  );
+  // AzarOnline: annual-only monthly equivalent; traffic per the page's rule.
+  const az = by("azaronline-vps-us", "azaronline-us-linux-1");
+  assert.deepEqual(
+    [
+      az.cpu,
+      az.ram,
+      az.disk,
+      az.price,
+      az.period,
+      az.upfront,
+      az.trafficUnlimited,
+    ],
+    [2, 1, 50, 755000, 12, 9060000, true],
+  );
+  assert.equal(
+    by("azaronline-vps-ae", "azaronline-ae-linux-1").trafficGB,
+    1000,
+  );
+  const ca = by("azaronline-vps-ca", "azaronline-ca-linux-1");
+  assert.deepEqual([ca.trafficGB, ca.trafficUnlimited], [null, false]);
 });
 
 test("foreign extractors refuse pages they cannot verify instead of guessing", () => {
@@ -170,6 +201,7 @@ test("foreign extractors refuse pages they cannot verify instead of guessing", (
     "ترافیک ماهانه نامحدود",
     "ترافیک ماهانه 1 ترابایت",
   );
+  refuse("azaronline-vps-de", "در صورت خرید سالانه", "در صورت خرید ماهانه");
   // Bertina's card price must equal its structured data.
   refuse("bertina-vps-de", '"price":9090000', '"price":8090000');
   // A «from» price varies by location and is not a tariff.

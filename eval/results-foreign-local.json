@@ -2,8 +2,8 @@
   "label": "foreign-local",
   "base": "http://127.0.0.1:4321",
   "runsPerQuery": 5,
-  "startedAt": "2026-11-20T15:36:40.973Z",
-  "finishedAt": "2026-11-20T15:36:41.961Z",
+  "startedAt": "2026-11-20T15:53:55.977Z",
+  "finishedAt": "2026-11-20T15:53:57.664Z",
   "golden": {
     "path": "eval/golden-queries.json",
     "count": 79
@@ -18,8 +18,8 @@
     "zeroResultRate": 0.06329113924050633,
     "zeroResults": 5,
     "paretoViolations": 0,
-    "latencyP50Ms": 2,
-    "latencyP95Ms": 4,
+    "latencyP50Ms": 3,
+    "latencyP95Ms": 7,
     "requests": 395,
     "httpErrors": 0
   },
@@ -43,7 +43,7 @@
           "detail": "non-empty"
         }
       ],
-      "groups": 73,
+      "groups": 77,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -61,6 +61,13 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
           "id": "vps-eu-1-1-25",
           "min": 909000,
           "cpu": 1,
@@ -68,26 +75,19 @@
           "disk": 25
         },
         {
-          "id": "vps-eu-1-2-20",
+          "id": "vps-eu-2-2-65",
           "min": 996000,
-          "cpu": 1,
+          "cpu": 2,
           "ram": 2,
-          "disk": 20
-        },
-        {
-          "id": "vps-eu-1-1-60",
-          "min": 1200000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 60
+          "disk": 65
         }
       ],
       "latencyMs": [
-        57,
-        4,
-        4,
-        3,
-        5
+        141,
+        12,
+        7,
+        7,
+        7
       ]
     },
     {
@@ -101,7 +101,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "33 groups"
+          "detail": "39 groups"
         },
         {
           "name": "regionIs:eu",
@@ -114,7 +114,7 @@
           "detail": "0 groups not hosting"
         }
       ],
-      "groups": 33,
+      "groups": 39,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -154,11 +154,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        3,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        4,
+        4
       ]
     },
     {
@@ -180,7 +180,7 @@
           "detail": "non-empty"
         }
       ],
-      "groups": 73,
+      "groups": 77,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -198,6 +198,13 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
           "id": "vps-eu-1-1-25",
           "min": 909000,
           "cpu": 1,
@@ -205,26 +212,19 @@
           "disk": 25
         },
         {
-          "id": "vps-eu-1-2-20",
+          "id": "vps-eu-2-2-65",
           "min": 996000,
-          "cpu": 1,
+          "cpu": 2,
           "ram": 2,
-          "disk": 20
-        },
-        {
-          "id": "vps-eu-1-1-60",
-          "min": 1200000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 60
+          "disk": 65
         }
       ],
       "latencyMs": [
-        3,
-        4,
-        2,
-        3,
-        3
+        6,
+        5,
+        6,
+        6,
+        5
       ]
     },
     {
@@ -238,7 +238,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "33 groups"
+          "detail": "39 groups"
         },
         {
           "name": "regionIs:eu",
@@ -246,7 +246,7 @@
           "detail": "0 groups outside eu"
         }
       ],
-      "groups": 33,
+      "groups": 39,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -287,10 +287,10 @@
       ],
       "latencyMs": [
         2,
-        2,
-        2,
-        2,
-        2
+        4,
+        4,
+        3,
+        3
       ]
     },
     {
@@ -304,7 +304,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "33 groups"
+          "detail": "39 groups"
         },
         {
           "name": "regionIs:eu",
@@ -312,7 +312,7 @@
           "detail": "0 groups outside eu"
         }
       ],
-      "groups": 33,
+      "groups": 39,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -352,10 +352,10 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
+        3,
+        3,
+        4,
+        4,
         2
       ]
     },
@@ -370,7 +370,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "33 groups"
+          "detail": "39 groups"
         },
         {
           "name": "regionIs:eu",
@@ -378,7 +378,7 @@
           "detail": "0 groups outside eu"
         }
       ],
-      "groups": 33,
+      "groups": 39,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -418,11 +418,11 @@
         }
       ],
       "latencyMs": [
-        15,
-        1,
-        2,
-        2,
-        2
+        30,
+        5,
+        4,
+        5,
+        5
       ]
     },
     {
@@ -444,7 +444,7 @@
           "detail": "non-empty"
         }
       ],
-      "groups": 73,
+      "groups": 77,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -462,6 +462,13 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
           "id": "vps-eu-1-1-25",
           "min": 909000,
           "cpu": 1,
@@ -469,26 +476,19 @@
           "disk": 25
         },
         {
-          "id": "vps-eu-1-2-20",
+          "id": "vps-eu-2-2-65",
           "min": 996000,
-          "cpu": 1,
+          "cpu": 2,
           "ram": 2,
-          "disk": 20
-        },
-        {
-          "id": "vps-eu-1-1-60",
-          "min": 1200000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 60
+          "disk": 65
         }
       ],
       "latencyMs": [
-        3,
-        3,
-        3,
-        3,
-        3
+        8,
+        5,
+        5,
+        6,
+        5
       ]
     },
     {
@@ -502,7 +502,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "33 groups"
+          "detail": "39 groups"
         },
         {
           "name": "regionIs:eu",
@@ -510,7 +510,7 @@
           "detail": "0 groups outside eu"
         }
       ],
-      "groups": 33,
+      "groups": 39,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -551,10 +551,10 @@
       ],
       "latencyMs": [
         3,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -568,7 +568,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "8 groups"
+          "detail": "14 groups"
         },
         {
           "name": "regionIs:eu",
@@ -576,7 +576,7 @@
           "detail": "0 groups outside eu"
         }
       ],
-      "groups": 8,
+      "groups": 14,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -596,29 +596,29 @@
       },
       "top": [
         {
+          "id": "hosting-eu-2-1-1",
+          "min": 290000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 1
+        },
+        {
+          "id": "hosting-eu-2-1-2",
+          "min": 360000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 2
+        },
+        {
           "id": "hosting-eu-shared-shared-1.5",
           "min": 385000,
           "cpu": null,
           "ram": null,
           "disk": 1.5
-        },
-        {
-          "id": "hosting-eu-shared-shared-3",
-          "min": 605000,
-          "cpu": null,
-          "ram": null,
-          "disk": 3
-        },
-        {
-          "id": "hosting-eu-shared-shared-5",
-          "min": 788333,
-          "cpu": null,
-          "ram": null,
-          "disk": 5
         }
       ],
       "latencyMs": [
-        2,
+        3,
         2,
         2,
         2,
@@ -689,7 +689,7 @@
         2,
         2,
         2,
-        2,
+        1,
         2
       ]
     },
@@ -745,11 +745,11 @@
         }
       ],
       "latencyMs": [
+        3,
         2,
         2,
         2,
-        2,
-        0
+        2
       ]
     },
     {
@@ -805,8 +805,8 @@
       ],
       "latencyMs": [
         2,
-        2,
-        2,
+        3,
+        3,
         2,
         2
       ]
@@ -930,7 +930,7 @@
       ],
       "latencyMs": [
         2,
-        1,
+        2,
         2,
         2,
         2
@@ -1016,7 +1016,7 @@
           "detail": "non-empty"
         }
       ],
-      "groups": 49,
+      "groups": 53,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1036,6 +1036,13 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
           "id": "vps-eu-1-1-25",
           "min": 909000,
           "cpu": 1,
@@ -1043,26 +1050,19 @@
           "disk": 25
         },
         {
-          "id": "vps-eu-1-2-20",
+          "id": "vps-eu-2-2-65",
           "min": 996000,
-          "cpu": 1,
+          "cpu": 2,
           "ram": 2,
-          "disk": 20
-        },
-        {
-          "id": "vps-eu-1-1-60",
-          "min": 1200000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 60
+          "disk": 65
         }
       ],
       "latencyMs": [
-        2,
         3,
         3,
-        2,
-        2
+        3,
+        3,
+        4
       ]
     },
     {
@@ -1079,7 +1079,7 @@
           "detail": "non-empty"
         }
       ],
-      "groups": 73,
+      "groups": 77,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1097,6 +1097,13 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
           "id": "vps-eu-1-1-25",
           "min": 909000,
           "cpu": 1,
@@ -1104,26 +1111,19 @@
           "disk": 25
         },
         {
-          "id": "vps-eu-1-2-20",
+          "id": "vps-eu-2-2-65",
           "min": 996000,
-          "cpu": 1,
+          "cpu": 2,
           "ram": 2,
-          "disk": 20
-        },
-        {
-          "id": "vps-eu-1-1-60",
-          "min": 1200000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 60
+          "disk": 65
         }
       ],
       "latencyMs": [
+        6,
+        6,
         3,
-        3,
-        3,
-        2,
-        3
+        4,
+        5
       ]
     },
     {
@@ -1140,7 +1140,7 @@
           "detail": "non-empty"
         }
       ],
-      "groups": 7,
+      "groups": 11,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1161,29 +1161,29 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-eu-2-2-65",
+          "min": 996000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        },
+        {
           "id": "vps-eu-2-4-25",
           "min": 1380000,
           "cpu": 2,
           "ram": 4,
           "disk": 25
-        },
-        {
-          "id": "vps-eu-3-6-30",
-          "min": 1952000,
-          "cpu": 3,
-          "ram": 6,
-          "disk": 30
-        },
-        {
-          "id": "vps-eu-4-8-40",
-          "min": 2250000,
-          "cpu": 4,
-          "ram": 8,
-          "disk": 40
         }
       ],
       "latencyMs": [
-        1,
+        3,
         2,
         2,
         2,
@@ -1230,11 +1230,11 @@
       },
       "top": [],
       "latencyMs": [
-        15,
+        12,
         3,
-        2,
-        2,
-        2
+        3,
+        4,
+        3
       ]
     },
     {
@@ -1248,7 +1248,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "52 groups"
+          "detail": "60 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1256,7 +1256,7 @@
           "detail": "0 offers over 2000000"
         }
       ],
-      "groups": 52,
+      "groups": 60,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1299,11 +1299,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        2,
-        2,
-        3,
-        3
+        5,
+        5,
+        4,
+        5,
+        5
       ]
     },
     {
@@ -1317,7 +1317,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "50 groups"
+          "detail": "52 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1325,7 +1325,7 @@
           "detail": "0 offers over 500000"
         }
       ],
-      "groups": 50,
+      "groups": 52,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1368,11 +1368,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        4,
+        4,
+        3,
+        3,
+        4
       ]
     },
     {
@@ -1386,7 +1386,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "33 groups"
+          "detail": "39 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1394,7 +1394,7 @@
           "detail": "0 offers over 1500000"
         }
       ],
-      "groups": 33,
+      "groups": 39,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1437,11 +1437,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        1,
-        2,
-        2
+        4,
+        4,
+        4,
+        4,
+        4
       ]
     },
     {
@@ -1455,7 +1455,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "60 groups"
+          "detail": "65 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1463,7 +1463,7 @@
           "detail": "0 offers over 800000"
         }
       ],
-      "groups": 60,
+      "groups": 65,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1506,11 +1506,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        2,
-        2,
-        2,
-        2
+        4,
+        4,
+        4,
+        4,
+        4
       ]
     },
     {
@@ -1524,7 +1524,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "52 groups"
+          "detail": "60 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1532,7 +1532,7 @@
           "detail": "0 offers over 2000000"
         }
       ],
-      "groups": 52,
+      "groups": 60,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1575,11 +1575,11 @@
         }
       ],
       "latencyMs": [
-        1,
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        4,
+        4
       ]
     },
     {
@@ -1593,7 +1593,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "39 groups"
+          "detail": "40 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1601,7 +1601,7 @@
           "detail": "0 offers over 300000"
         }
       ],
-      "groups": 39,
+      "groups": 40,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1644,11 +1644,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
+        4,
+        3,
         2,
         3,
-        3
+        4
       ]
     },
     {
@@ -1662,7 +1662,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "17 groups"
+          "detail": "21 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1670,7 +1670,7 @@
           "detail": "0 offers over 1000000"
         }
       ],
-      "groups": 17,
+      "groups": 21,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1713,11 +1713,11 @@
         }
       ],
       "latencyMs": [
-        1,
-        2,
-        2,
-        2,
-        2
+        6,
+        4,
+        4,
+        3,
+        3
       ]
     },
     {
@@ -1731,7 +1731,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "52 groups"
+          "detail": "60 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1739,7 +1739,7 @@
           "detail": "0 offers over 2000000"
         }
       ],
-      "groups": 52,
+      "groups": 60,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1782,11 +1782,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        3,
-        2,
-        2,
-        2
+        5,
+        4,
+        5,
+        5,
+        6
       ]
     },
     {
@@ -1800,7 +1800,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "39 groups"
+          "detail": "40 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1808,7 +1808,7 @@
           "detail": "0 offers over 300000"
         }
       ],
-      "groups": 39,
+      "groups": 40,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1851,11 +1851,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        1,
-        2,
-        2,
-        2
+        4,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -1869,7 +1869,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "50 groups"
+          "detail": "52 groups"
         },
         {
           "name": "allWithinBudget",
@@ -1877,7 +1877,7 @@
           "detail": "0 offers over 500000"
         }
       ],
-      "groups": 50,
+      "groups": 52,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -1920,11 +1920,11 @@
         }
       ],
       "latencyMs": [
+        4,
         3,
         3,
-        3,
-        2,
-        2
+        4,
+        4
       ]
     },
     {
@@ -1993,7 +1993,7 @@
         2,
         2,
         2,
-        2
+        3
       ]
     },
     {
@@ -2007,7 +2007,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "52 groups"
+          "detail": "60 groups"
         },
         {
           "name": "allWithinBudget",
@@ -2015,7 +2015,7 @@
           "detail": "0 offers over 2000000"
         }
       ],
-      "groups": 52,
+      "groups": 60,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2058,11 +2058,11 @@
         }
       ],
       "latencyMs": [
-        1,
-        2,
-        2,
-        2,
-        2
+        4,
+        4,
+        5,
+        4,
+        4
       ]
     },
     {
@@ -2076,7 +2076,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "9 groups"
+          "detail": "11 groups"
         },
         {
           "name": "allWithinBudget",
@@ -2084,7 +2084,7 @@
           "detail": "0 offers over 800000"
         }
       ],
-      "groups": 9,
+      "groups": 11,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2127,11 +2127,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -2196,11 +2196,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -2268,8 +2268,8 @@
         2,
         2,
         2,
-        2,
-        2
+        3,
+        3
       ]
     },
     {
@@ -2283,7 +2283,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "52 groups"
+          "detail": "60 groups"
         },
         {
           "name": "allWithinBudget",
@@ -2291,7 +2291,7 @@
           "detail": "0 offers over 2000000"
         }
       ],
-      "groups": 52,
+      "groups": 60,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2334,11 +2334,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        2,
-        2,
-        2,
-        2
+        5,
+        5,
+        4,
+        4,
+        4
       ]
     },
     {
@@ -2352,7 +2352,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "33 groups"
+          "detail": "39 groups"
         },
         {
           "name": "allWithinBudget",
@@ -2360,7 +2360,7 @@
           "detail": "0 offers over 1500000"
         }
       ],
-      "groups": 33,
+      "groups": 39,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2403,11 +2403,11 @@
         }
       ],
       "latencyMs": [
-        2,
+        4,
         3,
         3,
         3,
-        1
+        3
       ]
     },
     {
@@ -2421,7 +2421,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "50 groups"
+          "detail": "52 groups"
         },
         {
           "name": "allWithinBudget",
@@ -2429,7 +2429,7 @@
           "detail": "0 offers over 500000"
         }
       ],
-      "groups": 50,
+      "groups": 52,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2472,11 +2472,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -2490,7 +2490,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "50 groups"
+          "detail": "52 groups"
         },
         {
           "name": "allWithinBudget",
@@ -2498,7 +2498,7 @@
           "detail": "0 offers over 500000"
         }
       ],
-      "groups": 50,
+      "groups": 52,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2541,11 +2541,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        4,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -2559,7 +2559,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "42 groups"
+          "detail": "43 groups"
         },
         {
           "name": "allWithinBudget",
@@ -2567,7 +2567,7 @@
           "detail": "0 offers over 350000"
         }
       ],
-      "groups": 42,
+      "groups": 43,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2610,11 +2610,11 @@
         }
       ],
       "latencyMs": [
+        3,
+        3,
+        3,
         2,
-        2,
-        2,
-        2,
-        2
+        3
       ]
     },
     {
@@ -2628,7 +2628,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "138 groups"
+          "detail": "142 groups"
         },
         {
           "name": "paretoConsistent",
@@ -2636,7 +2636,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 138,
+      "groups": 142,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2678,11 +2678,11 @@
         }
       ],
       "latencyMs": [
-        4,
-        3,
-        4,
-        3,
-        3
+        6,
+        6,
+        8,
+        6,
+        8
       ]
     },
     {
@@ -2696,7 +2696,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "132 groups"
+          "detail": "136 groups"
         },
         {
           "name": "paretoConsistent",
@@ -2704,7 +2704,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 132,
+      "groups": 136,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -2749,11 +2749,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        3,
-        4,
-        3,
-        3
+        7,
+        6,
+        6,
+        6,
+        6
       ]
     },
     {
@@ -2814,10 +2814,10 @@
         }
       ],
       "latencyMs": [
-        1,
-        2,
-        2,
-        2,
+        3,
+        3,
+        3,
+        3,
         2
       ]
     },
@@ -2881,7 +2881,7 @@
       "latencyMs": [
         2,
         2,
-        2,
+        3,
         2,
         2
       ]
@@ -2944,11 +2944,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -2962,7 +2962,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "34 groups"
+          "detail": "38 groups"
         },
         {
           "name": "minDiskAtLeast:5",
@@ -2970,7 +2970,7 @@
           "detail": "ok"
         }
       ],
-      "groups": 34,
+      "groups": 38,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3009,11 +3009,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        4,
+        3,
+        4,
+        5,
+        4
       ]
     },
     {
@@ -3027,7 +3027,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "34 groups"
+          "detail": "38 groups"
         },
         {
           "name": "minDiskAtLeast:5",
@@ -3035,7 +3035,7 @@
           "detail": "ok"
         }
       ],
-      "groups": 34,
+      "groups": 38,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3074,10 +3074,10 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
+        3,
+        3,
+        3,
+        3,
         2
       ]
     },
@@ -3167,7 +3167,7 @@
       "latencyMs": [
         2,
         2,
-        2,
+        1,
         2,
         2
       ]
@@ -3183,7 +3183,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "86 groups"
+          "detail": "88 groups"
         },
         {
           "name": "paretoConsistent",
@@ -3191,7 +3191,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 86,
+      "groups": 88,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3234,10 +3234,10 @@
       ],
       "latencyMs": [
         3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        4
       ]
     },
     {
@@ -3251,7 +3251,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "132 groups"
+          "detail": "136 groups"
         },
         {
           "name": "paretoConsistent",
@@ -3259,7 +3259,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 132,
+      "groups": 136,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3304,11 +3304,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        3,
-        3,
-        3,
-        3
+        5,
+        5,
+        5,
+        6,
+        6
       ]
     },
     {
@@ -3322,7 +3322,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "138 groups"
+          "detail": "142 groups"
         },
         {
           "name": "paretoConsistent",
@@ -3330,7 +3330,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 138,
+      "groups": 142,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3372,11 +3372,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        4,
-        4,
-        4,
-        3
+        6,
+        6,
+        5,
+        5,
+        6
       ]
     },
     {
@@ -3390,7 +3390,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "93 groups"
+          "detail": "97 groups"
         },
         {
           "name": "minDiskAtLeast:80",
@@ -3403,7 +3403,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 93,
+      "groups": 97,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3437,26 +3437,26 @@
           "disk": 80
         },
         {
-          "id": "vps-ir-8-8-120",
-          "min": 1588500,
-          "cpu": 8,
-          "ram": 8,
-          "disk": 120
+          "id": "vps-eu-4-4-80",
+          "min": 1449000,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 80
         },
         {
-          "id": "vps-ir-3-5-90",
-          "min": 1610000,
-          "cpu": 3,
-          "ram": 5,
-          "disk": 90
+          "id": "vps-other-4-4-80",
+          "min": 1449000,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 80
         }
       ],
       "latencyMs": [
-        3,
-        3,
-        4,
-        3,
-        3
+        5,
+        5,
+        5,
+        5,
+        5
       ]
     },
     {
@@ -3522,9 +3522,9 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
+        3,
+        3,
+        1,
         2,
         2
       ]
@@ -3571,11 +3571,11 @@
       },
       "top": [],
       "latencyMs": [
-        1,
-        1,
-        1,
-        1,
-        1
+        2,
+        2,
+        2,
+        2,
+        2
       ]
     },
     {
@@ -3589,7 +3589,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "183 groups"
+          "detail": "191 groups"
         },
         {
           "name": "typeIs:vps",
@@ -3602,7 +3602,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 183,
+      "groups": 191,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3639,11 +3639,11 @@
         }
       ],
       "latencyMs": [
-        17,
-        7,
-        6,
-        7,
-        7
+        16,
+        12,
+        12,
+        13,
+        13
       ]
     },
     {
@@ -3657,7 +3657,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "183 groups"
+          "detail": "191 groups"
         },
         {
           "name": "typeIs:vps",
@@ -3670,7 +3670,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 183,
+      "groups": 191,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3708,11 +3708,11 @@
         }
       ],
       "latencyMs": [
-        4,
-        3,
-        4,
-        5,
-        4
+        7,
+        7,
+        7,
+        7,
+        6
       ]
     },
     {
@@ -3726,7 +3726,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "34 groups"
+          "detail": "38 groups"
         },
         {
           "name": "typeIs:hosting",
@@ -3739,7 +3739,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 34,
+      "groups": 38,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3778,11 +3778,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -3854,10 +3854,10 @@
       ],
       "latencyMs": [
         2,
-        2,
-        2,
-        2,
-        2
+        6,
+        5,
+        3,
+        6
       ]
     },
     {
@@ -3871,7 +3871,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "12 groups"
+          "detail": "14 groups"
         },
         {
           "name": "allWithinBudget",
@@ -3884,7 +3884,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 12,
+      "groups": 14,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -3931,11 +3931,11 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -4014,10 +4014,10 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "138 groups"
+          "detail": "142 groups"
         }
       ],
-      "groups": 138,
+      "groups": 142,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4059,11 +4059,11 @@
         }
       ],
       "latencyMs": [
-        3,
-        3,
-        3,
-        4,
-        3
+        6,
+        6,
+        6,
+        6,
+        6
       ]
     },
     {
@@ -4136,7 +4136,7 @@
         2,
         2,
         2,
-        2,
+        3,
         2
       ]
     },
@@ -4218,11 +4218,11 @@
         }
       ],
       "latencyMs": [
+        3,
         2,
-        1,
-        2,
-        2,
-        2
+        3,
+        3,
+        3
       ]
     },
     {
@@ -4252,11 +4252,11 @@
       },
       "top": [],
       "latencyMs": [
-        6,
-        3,
-        3,
-        2,
-        3
+        7,
+        4,
+        4,
+        4,
+        4
       ]
     },
     {
@@ -4330,10 +4330,10 @@
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
         1,
+        1,
+        2,
+        2,
         2
       ]
     },
@@ -4348,7 +4348,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "15 groups"
+          "detail": "19 groups"
         },
         {
           "name": "regionIs:other",
@@ -4366,7 +4366,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 15,
+      "groups": 19,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4386,25 +4386,25 @@
       },
       "top": [
         {
+          "id": "vps-other-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-other-2-2-65",
+          "min": 996000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        },
+        {
           "id": "vps-other-1-2-20",
           "min": 996000,
           "cpu": 1,
           "ram": 2,
           "disk": 20
-        },
-        {
-          "id": "vps-other-2-4-25",
-          "min": 1380000,
-          "cpu": 2,
-          "ram": 4,
-          "disk": 25
-        },
-        {
-          "id": "vps-other-1-1-10",
-          "min": 1759500,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 10
         }
       ],
       "latencyMs": [
@@ -4486,11 +4486,11 @@
         }
       ],
       "latencyMs": [
+        3,
+        3,
         2,
-        2,
-        2,
-        2,
-        2
+        3,
+        1
       ]
     },
     {
@@ -4504,7 +4504,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "17 groups"
+          "detail": "21 groups"
         },
         {
           "name": "regionIs:eu",
@@ -4517,7 +4517,7 @@
           "detail": "0 offers outside FR"
         }
       ],
-      "groups": 17,
+      "groups": 21,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4537,32 +4537,32 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-eu-2-2-65",
+          "min": 996000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        },
+        {
           "id": "vps-eu-1-2-20",
           "min": 996000,
           "cpu": 1,
           "ram": 2,
           "disk": 20
-        },
-        {
-          "id": "vps-eu-1-1-10",
-          "min": 1360000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 10
-        },
-        {
-          "id": "vps-eu-2-4-30",
-          "min": 1496000,
-          "cpu": 2,
-          "ram": 4,
-          "disk": 30
         }
       ],
       "latencyMs": [
         2,
         2,
-        2,
-        2,
+        3,
+        3,
         2
       ]
     },
@@ -4577,7 +4577,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "8 groups"
+          "detail": "12 groups"
         },
         {
           "name": "countryIs:NL",
@@ -4585,7 +4585,7 @@
           "detail": "0 offers outside NL"
         }
       ],
-      "groups": 8,
+      "groups": 12,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4605,33 +4605,33 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-eu-2-2-65",
+          "min": 996000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        },
+        {
           "id": "vps-eu-1-2-20",
           "min": 996000,
           "cpu": 1,
           "ram": 2,
           "disk": 20
-        },
-        {
-          "id": "vps-eu-2-4-25",
-          "min": 1380000,
-          "cpu": 2,
-          "ram": 4,
-          "disk": 25
-        },
-        {
-          "id": "vps-eu-3-6-30",
-          "min": 1952000,
-          "cpu": 3,
-          "ram": 6,
-          "disk": 30
         }
       ],
       "latencyMs": [
-        1,
-        1,
-        1,
-        1,
-        1
+        2,
+        2,
+        2,
+        2,
+        2
       ]
     },
     {
@@ -4699,7 +4699,7 @@
         2,
         2,
         2,
-        2
+        1
       ]
     },
     {
@@ -4713,7 +4713,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "5 groups"
+          "detail": "9 groups"
         },
         {
           "name": "countryIs:CA",
@@ -4721,7 +4721,7 @@
           "detail": "0 offers outside CA"
         }
       ],
-      "groups": 5,
+      "groups": 9,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4741,33 +4741,33 @@
       },
       "top": [
         {
+          "id": "vps-other-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-other-2-2-65",
+          "min": 996000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        },
+        {
           "id": "vps-other-1-2-20",
           "min": 996000,
           "cpu": 1,
           "ram": 2,
           "disk": 20
-        },
-        {
-          "id": "vps-other-2-4-30",
-          "min": 1496000,
-          "cpu": 2,
-          "ram": 4,
-          "disk": 30
-        },
-        {
-          "id": "vps-other-4-8-60",
-          "min": 2662000,
-          "cpu": 4,
-          "ram": 8,
-          "disk": 60
         }
       ],
       "latencyMs": [
-        1,
         2,
         2,
         2,
-        1
+        2,
+        2
       ]
     },
     {
@@ -4781,7 +4781,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "6 groups"
+          "detail": "10 groups"
         },
         {
           "name": "countryIs:AE",
@@ -4789,7 +4789,7 @@
           "detail": "0 offers outside AE"
         }
       ],
-      "groups": 6,
+      "groups": 10,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4809,33 +4809,33 @@
       },
       "top": [
         {
+          "id": "vps-other-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-other-2-2-65",
+          "min": 996000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        },
+        {
           "id": "vps-other-2-4-25",
           "min": 1400000,
           "cpu": 2,
           "ram": 4,
           "disk": 25
-        },
-        {
-          "id": "vps-other-1-2-20",
-          "min": 1579000,
-          "cpu": 1,
-          "ram": 2,
-          "disk": 20
-        },
-        {
-          "id": "vps-other-1-1-25",
-          "min": 2184000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 25
         }
       ],
       "latencyMs": [
         1,
-        1,
-        1,
-        1,
-        1
+        2,
+        2,
+        2,
+        2
       ]
     },
     {
@@ -4849,7 +4849,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "38 groups"
+          "detail": "40 groups"
         },
         {
           "name": "countryIs:DE",
@@ -4862,7 +4862,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 38,
+      "groups": 40,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4886,6 +4886,13 @@
       },
       "top": [
         {
+          "id": "vps-eu-4-4-80",
+          "min": 1449000,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 80
+        },
+        {
           "id": "vps-eu-2-4-30",
           "min": 1496000,
           "cpu": 2,
@@ -4898,21 +4905,14 @@
           "cpu": 4,
           "ram": 4,
           "disk": 55
-        },
-        {
-          "id": "vps-eu-3-6-45",
-          "min": 2088000,
-          "cpu": 3,
-          "ram": 6,
-          "disk": 45
         }
       ],
       "latencyMs": [
-        2,
-        2,
-        2,
-        2,
-        2
+        3,
+        3,
+        3,
+        3,
+        3
       ]
     },
     {
@@ -4926,7 +4926,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "10 groups"
+          "detail": "14 groups"
         },
         {
           "name": "allWithinBudget",
@@ -4944,7 +4944,7 @@
           "detail": "0 violations"
         }
       ],
-      "groups": 10,
+      "groups": 14,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -4969,6 +4969,13 @@
       },
       "top": [
         {
+          "id": "vps-eu-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
           "id": "vps-eu-1-1-25",
           "min": 909000,
           "cpu": 1,
@@ -4976,26 +4983,19 @@
           "disk": 25
         },
         {
-          "id": "vps-eu-1-2-20",
+          "id": "vps-eu-2-2-65",
           "min": 996000,
-          "cpu": 1,
+          "cpu": 2,
           "ram": 2,
-          "disk": 20
-        },
-        {
-          "id": "vps-eu-1-1-60",
-          "min": 1200000,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 60
+          "disk": 65
         }
       ],
       "latencyMs": [
         2,
         2,
         2,
-        1,
-        1
+        2,
+        2
       ]
     },
     {
@@ -5060,10 +5060,10 @@
       ],
       "latencyMs": [
         2,
+        2,
         1,
         1,
-        1,
-        1
+        2
       ]
     },
     {
@@ -5135,9 +5135,9 @@
       "latencyMs": [
         2,
         2,
-        1,
         2,
-        1
+        2,
+        2
       ]
     },
     {
@@ -5151,7 +5151,7 @@
         {
           "name": "nonEmpty",
           "ok": true,
-          "detail": "15 groups"
+          "detail": "19 groups"
         },
         {
           "name": "countryIs:US",
@@ -5159,7 +5159,7 @@
           "detail": "0 offers outside US"
         }
       ],
-      "groups": 15,
+      "groups": 19,
       "emptyReason": null,
       "paretoViolations": 0,
       "violationExamples": [],
@@ -5179,32 +5179,32 @@
       },
       "top": [
         {
+          "id": "vps-other-2-1-50",
+          "min": 755000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-other-2-2-65",
+          "min": 996000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        },
+        {
           "id": "vps-other-1-2-20",
           "min": 996000,
           "cpu": 1,
           "ram": 2,
           "disk": 20
-        },
-        {
-          "id": "vps-other-2-4-25",
-          "min": 1380000,
-          "cpu": 2,
-          "ram": 4,
-          "disk": 25
-        },
-        {
-          "id": "vps-other-1-1-10",
-          "min": 1759500,
-          "cpu": 1,
-          "ram": 1,
-          "disk": 10
         }
       ],
       "latencyMs": [
         2,
         2,
         2,
-        1,
+        2,
         2
       ]
     },
@@ -5277,7 +5277,7 @@
         2,
         2,
         2,
-        1,
+        2,
         2
       ]
     },
@@ -5316,10 +5316,10 @@
       "top": [],
       "latencyMs": [
         2,
-        1,
-        1,
-        1,
-        1
+        2,
+        2,
+        2,
+        2
       ]
     },
     {
@@ -5356,11 +5356,11 @@
       },
       "top": [],
       "latencyMs": [
-        1,
-        1,
-        1,
-        1,
-        1
+        2,
+        2,
+        2,
+        2,
+        2
       ]
     }
   ]

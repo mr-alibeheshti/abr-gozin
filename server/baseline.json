@@ -12363,6 +12363,1434 @@
   {
     "trafficGB": null,
     "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=565",
+    "countries": [
+      "DE"
+    ],
+    "id": "serverir-FLHC7-Pro-de",
+    "name": "FLH C7 - Pro",
+    "type": "hosting",
+    "disk": 7,
+    "trafficUnlimited": true,
+    "price": 660000,
+    "upfront": 660000,
+    "evidence": {
+      "text": "flh c7 - pro 7gb nvme 10 عدد 4 عدد نامحدود آلمان, هلند 660,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "DE",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=565",
+    "countries": [
+      "NL"
+    ],
+    "id": "serverir-FLHC7-Pro-nl",
+    "name": "FLH C7 - Pro",
+    "type": "hosting",
+    "disk": 7,
+    "trafficUnlimited": true,
+    "price": 660000,
+    "upfront": 660000,
+    "evidence": {
+      "text": "flh c7 - pro 7gb nvme 10 عدد 4 عدد نامحدود آلمان, هلند 660,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "NL",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=1013",
+    "countries": [
+      "DE"
+    ],
+    "id": "serverir-FLHC20-Elite-de",
+    "name": "FLH C20 - Elite",
+    "type": "hosting",
+    "disk": 20,
+    "trafficUnlimited": true,
+    "price": 1310000,
+    "upfront": 1310000,
+    "evidence": {
+      "text": "flh c20 - elite 20gb nvme 15 عدد 6 عدد نامحدود آلمان, هلند 1,310,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "DE",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=1013",
+    "countries": [
+      "NL"
+    ],
+    "id": "serverir-FLHC20-Elite-nl",
+    "name": "FLH C20 - Elite",
+    "type": "hosting",
+    "disk": 20,
+    "trafficUnlimited": true,
+    "price": 1310000,
+    "upfront": 1310000,
+    "evidence": {
+      "text": "flh c20 - elite 20gb nvme 15 عدد 6 عدد نامحدود آلمان, هلند 1,310,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "NL",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=516",
+    "countries": [
+      "DE"
+    ],
+    "id": "serverir-FLHC1-Lite-de",
+    "name": "FLH C1 - Lite",
+    "type": "hosting",
+    "disk": 1,
+    "trafficUnlimited": true,
+    "price": 290000,
+    "upfront": 290000,
+    "evidence": {
+      "text": "flh c1 - lite 1gb nvme 10 عدد 2 عدد نامحدود آلمان, هلند 290,000 تومان پارک دامنه: 40 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "DE",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=516",
+    "countries": [
+      "NL"
+    ],
+    "id": "serverir-FLHC1-Lite-nl",
+    "name": "FLH C1 - Lite",
+    "type": "hosting",
+    "disk": 1,
+    "trafficUnlimited": true,
+    "price": 290000,
+    "upfront": 290000,
+    "evidence": {
+      "text": "flh c1 - lite 1gb nvme 10 عدد 2 عدد نامحدود آلمان, هلند 290,000 تومان پارک دامنه: 40 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "NL",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=517",
+    "countries": [
+      "DE"
+    ],
+    "id": "serverir-FLHC2-Medium-de",
+    "name": "FLH C2 - Medium",
+    "type": "hosting",
+    "disk": 2,
+    "trafficUnlimited": true,
+    "price": 360000,
+    "upfront": 360000,
+    "evidence": {
+      "text": "flh c2 - medium 2gb nvme 15 عدد 3 عدد نامحدود آلمان, هلند 360,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس پردازنده: 2vcore رم: 1gb"
+    },
+    "country": "DE",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=517",
+    "countries": [
+      "NL"
+    ],
+    "id": "serverir-FLHC2-Medium-nl",
+    "name": "FLH C2 - Medium",
+    "type": "hosting",
+    "disk": 2,
+    "trafficUnlimited": true,
+    "price": 360000,
+    "upfront": 360000,
+    "evidence": {
+      "text": "flh c2 - medium 2gb nvme 15 عدد 3 عدد نامحدود آلمان, هلند 360,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس پردازنده: 2vcore رم: 1gb"
+    },
+    "country": "NL",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=518",
+    "countries": [
+      "DE"
+    ],
+    "id": "serverir-FLHC5-Trend-de",
+    "name": "FLH C5 - Trend",
+    "type": "hosting",
+    "disk": 5,
+    "trafficUnlimited": true,
+    "price": 550000,
+    "upfront": 550000,
+    "evidence": {
+      "text": "flh c5 - trend 5gb nvme 15 عدد 4 عدد نامحدود آلمان, هلند 550,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "DE",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=518",
+    "countries": [
+      "NL"
+    ],
+    "id": "serverir-FLHC5-Trend-nl",
+    "name": "FLH C5 - Trend",
+    "type": "hosting",
+    "disk": 5,
+    "trafficUnlimited": true,
+    "price": 550000,
+    "upfront": 550000,
+    "evidence": {
+      "text": "flh c5 - trend 5gb nvme 15 عدد 4 عدد نامحدود آلمان, هلند 550,000 تومان پارک دامنه: 60 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس رم: 1gb پردازنده: 2vcore"
+    },
+    "country": "NL",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=519",
+    "countries": [
+      "DE"
+    ],
+    "id": "serverir-FLHC10-Ultra-de",
+    "name": "FLH C10 - Ultra",
+    "type": "hosting",
+    "disk": 10,
+    "trafficUnlimited": true,
+    "price": 790000,
+    "upfront": 790000,
+    "evidence": {
+      "text": "flh c10 - ultra 10gb nvme 15 عدد 5 عدد نامحدود آلمان, هلند 790,000 تومان پارک دامنه: 40 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس پردازنده: 2vcore رم: 1gb"
+    },
+    "country": "DE",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "موقعیت‌های این هاست در منبع: «آلمان, هلند»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.",
+      "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است."
+    ],
+    "custom": false,
+    "sourceId": "serverir-host-foreign",
+    "providerId": "serverir",
+    "url": "https://server.ir/hosting/foreign/",
+    "checkoutUrl": "https://portal.server.ir/cart.php?a=add&pid=519",
+    "countries": [
+      "NL"
+    ],
+    "id": "serverir-FLHC10-Ultra-nl",
+    "name": "FLH C10 - Ultra",
+    "type": "hosting",
+    "disk": 10,
+    "trafficUnlimited": true,
+    "price": 790000,
+    "upfront": 790000,
+    "evidence": {
+      "text": "flh c10 - ultra 10gb nvme 15 عدد 5 عدد نامحدود آلمان, هلند 790,000 تومان پارک دامنه: 40 کنترل پنل: cpanel وب سرور: litespeed نوع هاست: لینوکس پردازنده: 2vcore رم: 1gb"
+    },
+    "country": "NL",
+    "sourceHash": "c8773761c805d665d1d075b9aa71c6429db4f041410c03825a0c8ee51c7093b9",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 8,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-us",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "countries": [
+      "US"
+    ],
+    "id": "azaronline-us-linux-4",
+    "name": "سرور مجازی لینوکس 4",
+    "type": "vps",
+    "disk": 150,
+    "trafficUnlimited": true,
+    "price": 1903000,
+    "upfront": 22836000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 4 پردازنده 4 هسته رم 8192 مگابایت هارد 150 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬903٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "US",
+    "sourceHash": "193804a4ea73a21c7fb237ff8d90bd369c4ac6bf32dfc1849f3c04dd904f506b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 4,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-us",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "countries": [
+      "US"
+    ],
+    "id": "azaronline-us-linux-3",
+    "name": "سرور مجازی لینوکس 3",
+    "type": "vps",
+    "disk": 80,
+    "trafficUnlimited": true,
+    "price": 1449000,
+    "upfront": 17388000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 3 پردازنده 4 هسته رم 4096 مگابایت هارد 80 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬449٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "US",
+    "sourceHash": "193804a4ea73a21c7fb237ff8d90bd369c4ac6bf32dfc1849f3c04dd904f506b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 1,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-us",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "countries": [
+      "US"
+    ],
+    "id": "azaronline-us-linux-1",
+    "name": "سرور مجازی لینوکس 1",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 755000,
+    "upfront": 9060000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 1 پردازنده 2 هسته رم 1024 مگابایت هارد 50 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 1 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 755٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "US",
+    "sourceHash": "193804a4ea73a21c7fb237ff8d90bd369c4ac6bf32dfc1849f3c04dd904f506b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 2,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-us",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آمریکا/",
+    "countries": [
+      "US"
+    ],
+    "id": "azaronline-us-linux-2",
+    "name": "سرور مجازی لینوکس 2",
+    "type": "vps",
+    "disk": 65,
+    "trafficUnlimited": true,
+    "price": 996000,
+    "upfront": 11952000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 2 پردازنده 2 هسته رم 2048 مگابایت هارد 65 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 2 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 996٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "US",
+    "sourceHash": "193804a4ea73a21c7fb237ff8d90bd369c4ac6bf32dfc1849f3c04dd904f506b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 8,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "روشن نیست کانادا جزو «آمریکا» در جملهٔ ترافیک است؛ ترافیک نامشخص ثبت شد."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ca",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "countries": [
+      "CA"
+    ],
+    "id": "azaronline-ca-linux-4",
+    "name": "سرور مجازی لینوکس 4",
+    "type": "vps",
+    "disk": 150,
+    "trafficUnlimited": false,
+    "price": 1903000,
+    "upfront": 22836000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 4 پردازنده 4 هسته رم 8192 مگابایت هارد 150 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬903٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "CA",
+    "sourceHash": "54852c5871c918d5e53efeb8636bc6545e87fb449a08d3823b51ee77ef7f9e3a",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 4,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "روشن نیست کانادا جزو «آمریکا» در جملهٔ ترافیک است؛ ترافیک نامشخص ثبت شد."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ca",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "countries": [
+      "CA"
+    ],
+    "id": "azaronline-ca-linux-3",
+    "name": "سرور مجازی لینوکس 3",
+    "type": "vps",
+    "disk": 80,
+    "trafficUnlimited": false,
+    "price": 1449000,
+    "upfront": 17388000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 3 پردازنده 4 هسته رم 4096 مگابایت هارد 80 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬449٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "CA",
+    "sourceHash": "54852c5871c918d5e53efeb8636bc6545e87fb449a08d3823b51ee77ef7f9e3a",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 1,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "روشن نیست کانادا جزو «آمریکا» در جملهٔ ترافیک است؛ ترافیک نامشخص ثبت شد."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ca",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "countries": [
+      "CA"
+    ],
+    "id": "azaronline-ca-linux-1",
+    "name": "سرور مجازی لینوکس 1",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": false,
+    "price": 755000,
+    "upfront": 9060000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 1 پردازنده 2 هسته رم 1024 مگابایت هارد 50 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 1 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 755٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "CA",
+    "sourceHash": "54852c5871c918d5e53efeb8636bc6545e87fb449a08d3823b51ee77ef7f9e3a",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 2,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "روشن نیست کانادا جزو «آمریکا» در جملهٔ ترافیک است؛ ترافیک نامشخص ثبت شد."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ca",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-کانادا/",
+    "countries": [
+      "CA"
+    ],
+    "id": "azaronline-ca-linux-2",
+    "name": "سرور مجازی لینوکس 2",
+    "type": "vps",
+    "disk": 65,
+    "trafficUnlimited": false,
+    "price": 996000,
+    "upfront": 11952000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 2 پردازنده 2 هسته رم 2048 مگابایت هارد 65 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 2 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 996٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "CA",
+    "sourceHash": "54852c5871c918d5e53efeb8636bc6545e87fb449a08d3823b51ee77ef7f9e3a",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 8,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-nl",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-هلند/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-هلند/",
+    "countries": [
+      "NL"
+    ],
+    "id": "azaronline-nl-linux-4",
+    "name": "سرور مجازی لینوکس 4",
+    "type": "vps",
+    "disk": 150,
+    "trafficUnlimited": true,
+    "price": 1903000,
+    "upfront": 22836000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 4 پردازنده 4 هسته رم 8192 مگابایت هارد 150 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬903٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "NL",
+    "sourceHash": "b173831dfeda6ea65100bc7a7d4e98f38c96be33a5fd0db9d8a586ec35f2e510",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 4,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-nl",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-هلند/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-هلند/",
+    "countries": [
+      "NL"
+    ],
+    "id": "azaronline-nl-linux-3",
+    "name": "سرور مجازی لینوکس 3",
+    "type": "vps",
+    "disk": 80,
+    "trafficUnlimited": true,
+    "price": 1449000,
+    "upfront": 17388000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 3 پردازنده 4 هسته رم 4096 مگابایت هارد 80 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬449٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "NL",
+    "sourceHash": "b173831dfeda6ea65100bc7a7d4e98f38c96be33a5fd0db9d8a586ec35f2e510",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-nl",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-هلند/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-هلند/",
+    "countries": [
+      "NL"
+    ],
+    "id": "azaronline-nl-linux-1",
+    "name": "سرور مجازی لینوکس 1",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 755000,
+    "upfront": 9060000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 1 پردازنده 2 هسته رم 1024 مگابایت هارد 50 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 1 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 755٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "NL",
+    "sourceHash": "b173831dfeda6ea65100bc7a7d4e98f38c96be33a5fd0db9d8a586ec35f2e510",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 2,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-nl",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-هلند/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-هلند/",
+    "countries": [
+      "NL"
+    ],
+    "id": "azaronline-nl-linux-2",
+    "name": "سرور مجازی لینوکس 2",
+    "type": "vps",
+    "disk": 65,
+    "trafficUnlimited": true,
+    "price": 996000,
+    "upfront": 11952000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 2 پردازنده 2 هسته رم 2048 مگابایت هارد 65 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 2 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 996٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "NL",
+    "sourceHash": "b173831dfeda6ea65100bc7a7d4e98f38c96be33a5fd0db9d8a586ec35f2e510",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 8,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-de",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "countries": [
+      "DE"
+    ],
+    "id": "azaronline-de-linux-4",
+    "name": "سرور مجازی لینوکس 4",
+    "type": "vps",
+    "disk": 150,
+    "trafficUnlimited": true,
+    "price": 1903000,
+    "upfront": 22836000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 4 پردازنده 4 هسته رم 8192 مگابایت هارد 150 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬903٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "DE",
+    "sourceHash": "3f02bbca9ae356ce14c8de9dbee26ea94347dfc718033d24fc131baeb2cd5044",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 4,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-de",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "countries": [
+      "DE"
+    ],
+    "id": "azaronline-de-linux-3",
+    "name": "سرور مجازی لینوکس 3",
+    "type": "vps",
+    "disk": 80,
+    "trafficUnlimited": true,
+    "price": 1449000,
+    "upfront": 17388000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 3 پردازنده 4 هسته رم 4096 مگابایت هارد 80 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬449٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "DE",
+    "sourceHash": "3f02bbca9ae356ce14c8de9dbee26ea94347dfc718033d24fc131baeb2cd5044",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-de",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "countries": [
+      "DE"
+    ],
+    "id": "azaronline-de-linux-1",
+    "name": "سرور مجازی لینوکس 1",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 755000,
+    "upfront": 9060000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 1 پردازنده 2 هسته رم 1024 مگابایت هارد 50 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 1 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 755٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "DE",
+    "sourceHash": "3f02bbca9ae356ce14c8de9dbee26ea94347dfc718033d24fc131baeb2cd5044",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 2,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-de",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-آلمان/",
+    "countries": [
+      "DE"
+    ],
+    "id": "azaronline-de-linux-2",
+    "name": "سرور مجازی لینوکس 2",
+    "type": "vps",
+    "disk": 65,
+    "trafficUnlimited": true,
+    "price": 996000,
+    "upfront": 11952000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 2 پردازنده 2 هسته رم 2048 مگابایت هارد 65 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 2 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 996٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "DE",
+    "sourceHash": "3f02bbca9ae356ce14c8de9dbee26ea94347dfc718033d24fc131baeb2cd5044",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 8,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-fr",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "countries": [
+      "FR"
+    ],
+    "id": "azaronline-fr-linux-4",
+    "name": "سرور مجازی لینوکس 4",
+    "type": "vps",
+    "disk": 150,
+    "trafficUnlimited": true,
+    "price": 1903000,
+    "upfront": 22836000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 4 پردازنده 4 هسته رم 8192 مگابایت هارد 150 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬903٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "FR",
+    "sourceHash": "1b84875023589861096af706b011ff3b2e29ccd967928ffcd74c4ae6ed2a676d",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 4,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-fr",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "countries": [
+      "FR"
+    ],
+    "id": "azaronline-fr-linux-3",
+    "name": "سرور مجازی لینوکس 3",
+    "type": "vps",
+    "disk": 80,
+    "trafficUnlimited": true,
+    "price": 1449000,
+    "upfront": 17388000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 3 پردازنده 4 هسته رم 4096 مگابایت هارد 80 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬449٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "FR",
+    "sourceHash": "1b84875023589861096af706b011ff3b2e29ccd967928ffcd74c4ae6ed2a676d",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 1,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-fr",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "countries": [
+      "FR"
+    ],
+    "id": "azaronline-fr-linux-1",
+    "name": "سرور مجازی لینوکس 1",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 755000,
+    "upfront": 9060000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 1 پردازنده 2 هسته رم 1024 مگابایت هارد 50 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 1 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 755٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "FR",
+    "sourceHash": "1b84875023589861096af706b011ff3b2e29ccd967928ffcd74c4ae6ed2a676d",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 2,
+    "region": "eu",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-fr",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-فرانسه/",
+    "countries": [
+      "FR"
+    ],
+    "id": "azaronline-fr-linux-2",
+    "name": "سرور مجازی لینوکس 2",
+    "type": "vps",
+    "disk": 65,
+    "trafficUnlimited": true,
+    "price": 996000,
+    "upfront": 11952000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 2 پردازنده 2 هسته رم 2048 مگابایت هارد 65 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 2 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 996٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "FR",
+    "sourceHash": "1b84875023589861096af706b011ff3b2e29ccd967928ffcd74c4ae6ed2a676d",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 4000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 8,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "برای «سایر موقعیت‌ها» سهمیهٔ ترافیک ترابایتی اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ae",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-امارات/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-امارات/",
+    "countries": [
+      "AE"
+    ],
+    "id": "azaronline-ae-linux-4",
+    "name": "سرور مجازی لینوکس 4",
+    "type": "vps",
+    "disk": 150,
+    "trafficUnlimited": false,
+    "price": 1903000,
+    "upfront": 22836000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 4 پردازنده 4 هسته رم 8192 مگابایت هارد 150 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬903٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "AE",
+    "sourceHash": "7854fd0be5b75b1e0dd2a7b24d8d285cb3487096ee6e079016c84409fd92177b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 4000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 4,
+    "ram": 4,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "برای «سایر موقعیت‌ها» سهمیهٔ ترافیک ترابایتی اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ae",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-امارات/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-امارات/",
+    "countries": [
+      "AE"
+    ],
+    "id": "azaronline-ae-linux-3",
+    "name": "سرور مجازی لینوکس 3",
+    "type": "vps",
+    "disk": 80,
+    "trafficUnlimited": false,
+    "price": 1449000,
+    "upfront": 17388000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 3 پردازنده 4 هسته رم 4096 مگابایت هارد 80 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 4 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 1٬449٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "AE",
+    "sourceHash": "7854fd0be5b75b1e0dd2a7b24d8d285cb3487096ee6e079016c84409fd92177b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 1000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 1,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "برای «سایر موقعیت‌ها» سهمیهٔ ترافیک ترابایتی اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ae",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-امارات/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-امارات/",
+    "countries": [
+      "AE"
+    ],
+    "id": "azaronline-ae-linux-1",
+    "name": "سرور مجازی لینوکس 1",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": false,
+    "price": 755000,
+    "upfront": 9060000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 1 پردازنده 2 هسته رم 1024 مگابایت هارد 50 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 1 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 755٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "AE",
+    "sourceHash": "7854fd0be5b75b1e0dd2a7b24d8d285cb3487096ee6e079016c84409fd92177b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": 2000,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "نامشخص",
+    "period": 12,
+    "cpu": 2,
+    "ram": 2,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T15:17:27.000Z",
+    "notes": [
+      "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+      "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+      "برای «سایر موقعیت‌ها» سهمیهٔ ترافیک ترابایتی اعلام شده است."
+    ],
+    "custom": false,
+    "sourceId": "azaronline-vps-ae",
+    "providerId": "azaronline",
+    "url": "https://azaronline.com/سرور-مجازی-امارات/",
+    "checkoutUrl": "https://azaronline.com/سرور-مجازی-امارات/",
+    "countries": [
+      "AE"
+    ],
+    "id": "azaronline-ae-linux-2",
+    "name": "سرور مجازی لینوکس 2",
+    "type": "vps",
+    "disk": 65,
+    "trafficUnlimited": false,
+    "price": 996000,
+    "upfront": 11952000,
+    "evidence": {
+      "text": "سرور مجازی لینوکس 2 پردازنده 2 هسته رم 2048 مگابایت هارد 65 گیگابایت ترافیک نامحدود(اروپا و آمریکا) 2 ترابایت سایر موقعیت ها منابع اختصاصی یک عدد ipv4 996٬000 تومان/ماهانه در صورت خرید سالانه سفارش آنلاین"
+    },
+    "country": "AE",
+    "sourceHash": "7854fd0be5b75b1e0dd2a7b24d8d285cb3487096ee6e079016c84409fd92177b",
+    "sourceFetchedAt": "2026-11-20T15:17:27.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
     "ipMonthly": null,
     "vatRate": null,
     "diskType": "نامشخص",

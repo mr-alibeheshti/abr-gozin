@@ -306,8 +306,46 @@ export function parseForeign(source, html, stamp) {
             .children("span.item-data")
             .map((i, e) => textOf($(e)))
             .get();
-        // name, cpu, ram, disk, location, traffic, price
+        // VPS: name, cpu, ram, disk, location, traffic, price.
+        // Hosting: name, disk, databases, addon domains, traffic, location, price.
         if (v.length !== 7 || /^ir/.test(v[0])) return;
+        if (source.hosting) {
+          const name = c.children(".item-data").first().text().trim(),
+            countries = countriesIn(v[5]),
+            s = textOf(c);
+          if (!countries.length) return;
+          const tariff = JSON.parse(
+            c.find(".price[data-price]").attr("data-price") || "{}",
+          );
+          if (!tariff.month) throw Error("تعرفهٔ ماهانهٔ سرور.آی‌آر مشخص نیست");
+          for (const code of countries)
+            add(
+              {
+                id: `serverir-${name.replace(/\s+/g, "")}-${code.toLowerCase()}`,
+                name,
+                type: "hosting",
+                countries: [code],
+                cpu: capture(s, /پردازنده:\s*(\d+)\s*vcore/),
+                ram: gb(s.match(/رم:\s*([\d.]+\s*(?:gb|mb))/)?.[1] || ""),
+                disk: gb(v[1]),
+                diskType: /nvme/.test(v[1]) ? "NVMe" : "نامشخص",
+                trafficGB: null,
+                trafficUnlimited: v[4] === "نامحدود",
+                ipMonthly: 0,
+                price: money(textOf(load(tariff.month)("body"))),
+                checkoutUrl: link(
+                  c.find("a[href]").first().attr("href"),
+                  source,
+                ),
+                notes: [
+                  `موقعیت‌های این هاست در منبع: «${v[5]}»؛ موقعیت را هنگام سفارش انتخاب و بررسی کن.`,
+                  "منابع اعلام‌شده مربوط به حساب هاست‌اند؛ تعرفهٔ ماهانه از دادهٔ همان ردیف است.",
+                ],
+              },
+              c,
+            );
+          return;
+        }
         const name = c.children(".item-data").first().text().trim(),
           countries = countriesIn(v[4]);
         // «+10 کشور جهان» names no country, so it is not listed.
@@ -345,6 +383,54 @@ export function parseForeign(source, html, stamp) {
           );
       });
       break;
+    case "azaronline": {
+      // «… تومان/ماهانه در صورت خرید سالانه»: a monthly equivalent of an
+      // annual payment. Traffic is unlimited «(اروپا و آمریکا)» and a stated
+      // TB for «سایر موقعیت ها»; Canada is not clearly either, so unknown.
+      const unlimitedHere =
+        regionOf(source.country) === "eu" || source.country === "US";
+      const otherHere = !unlimitedHere && source.country !== "CA";
+      $(".plan").each((i, e) => {
+        const c = $(e),
+          name = c.find(".plan-title").text().trim(),
+          s = textOf(c),
+          n = name.match(/^سرور مجازی لینوکس (\d+)$/)?.[1];
+        if (!n) return;
+        const m = s.match(
+            /([\d,٬]+)\s*تومان\s*\/\s*ماهانه در صورت خرید سالانه/,
+          ),
+          traffic = capture(s, /آمریکا\)\s*([\d.]+)\s*ترابایت\s*سایر موقعیت/);
+        if (!m || !s.includes("ترافیک نامحدود(اروپا و آمریکا)"))
+          throw Error("دوره یا ترافیک آذرآنلاین قابل تأیید نیست.");
+        add(
+          {
+            id: `azaronline-${source.country.toLowerCase()}-linux-${n}`,
+            name,
+            type: "vps",
+            cpu: capture(s, /پردازنده\s*(\d+)\s*هسته/),
+            ram: capture(s, /رم\s*(\d+)\s*مگابایت/) / 1024,
+            disk: capture(s, /هارد\s*(\d+)\s*گیگابایت/),
+            trafficGB: otherHere && traffic ? traffic * 1000 : null,
+            trafficUnlimited: unlimitedHere,
+            ipMonthly: s.includes("یک عدد ipv4") ? 0 : null,
+            price: number(m[1]),
+            period: 12,
+            checkoutUrl: source.url,
+            notes: [
+              "قیمت ماهانهٔ نمایش‌داده‌شده فقط در خرید سالانه معتبر است.",
+              "همین پلن‌ها در صفحه‌های کشورهای دیگر آذرآنلاین هم آمده‌اند؛ موقعیت هنگام سفارش انتخاب می‌شود. RAM با مبنای ۱۰۲۴ از مگابایت تبدیل شده است.",
+              unlimitedHere
+                ? "ترافیک برای اروپا و آمریکا نامحدود اعلام شده است."
+                : otherHere
+                  ? "برای «سایر موقعیت‌ها» سهمیهٔ ترافیک ترابایتی اعلام شده است."
+                  : "روشن نیست کانادا جزو «آمریکا» در جملهٔ ترافیک است؛ ترافیک نامشخص ثبت شد.",
+            ],
+          },
+          c,
+        );
+      });
+      break;
+    }
     case "onlineserver":
       $("article")
         .filter((i, e) => $(e).find('h3[class*="planName"]').length > 0)
