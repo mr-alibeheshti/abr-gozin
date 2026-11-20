@@ -211,3 +211,41 @@ test("F6: website purposes apply the WordPress scenario floors", () => {
   // «storage» is not «store».
   assert.equal(search("hosting with more storage").filters.workload, undefined);
 });
+
+test("needsIntentModel is false exactly when intent scores cannot change the result", async () => {
+  const { needsIntentModel } = await import("./pricing.mjs");
+  const { readFileSync } = await import("node:fs");
+  const read = (name) =>
+    JSON.parse(
+      readFileSync(new URL(`../eval/${name}`, import.meta.url), "utf8"),
+    ).queries;
+  const queries = [
+    ...read("golden-queries.json").map((x) => x.q),
+    ...read("intent-labeled.json").map((x) => x.q),
+  ];
+  const view = (r) =>
+    JSON.stringify([r.groups.map((g) => g.id), r.filters, r.emptyReason]);
+  let skipped = 0;
+  for (const q of queries)
+    for (const extra of [{}, { type: "hosting" }, { workload: "docker" }]) {
+      const p = { q, traffic: 200, ip: true, ...extra };
+      if (needsIntentModel(p)) continue;
+      skipped++;
+      const none = view(searchOffers(baseline, p, {}));
+      assert.equal(
+        view(searchOffers(baseline, p, { vps: 0.99, hosting: 0 })),
+        none,
+        q,
+      );
+      assert.equal(
+        view(searchOffers(baseline, p, { hosting: 0.99, vps: 0 })),
+        none,
+        q,
+      );
+    }
+  assert.ok(skipped > 100);
+  assert.equal(needsIntentModel({ q: "میخوام ربات تلگرام اجرا کنم" }), true);
+  assert.equal(needsIntentModel({ q: "سرور با ۸ گیگ رم" }), false);
+  assert.equal(needsIntentModel({ q: "ایران هاست" }), false);
+  assert.equal(needsIntentModel({ q: "" }), false);
+});

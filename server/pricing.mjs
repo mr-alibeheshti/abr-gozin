@@ -383,6 +383,44 @@ export function inferWorkload(text) {
     fromPurpose: workload === "wordpress" && !WORDPRESS.test(text),
   };
 }
+const STOPWORDS = new Set([
+  "برای",
+  "خوام",
+  "خواهم",
+  "سرور",
+  "گیگابایت",
+  "گیگ",
+  "هسته",
+  "ارزان",
+  "ارزون",
+  "مناسب",
+  "می",
+]);
+// Words matched against offer text when the query parses to no filters.
+export const queryTokens = (q) =>
+  norm(q || "")
+    .split(" ")
+    .filter((w) => w.length > 2 && !STOPWORDS.has(w));
+// True when searchOffers would consult the intent model for these params:
+// a query whose service type, provider and workload are not already decided
+// by explicit filters or by the rules. Otherwise the scores cannot change
+// the result, so inference can be skipped.
+export function needsIntentModel(p = {}) {
+  if (!p.q) return false;
+  const analysis = analyzeQuery(p.q);
+  // Keyword fallback: when nothing was parsed, a confident score keeps the
+  // results that would otherwise be dropped, whatever the filters are.
+  if (!Object.keys(analysis.fields).length && queryTokens(p.q).length)
+    return true;
+  if (analysis.fields.provider) return false;
+  const chosen = (v) =>
+    v !== undefined && v !== null && v !== "" && v !== "all";
+  if (chosen(p.type) || analysis.fields.type) return false;
+  const workload = chosen(p.workload)
+    ? p.workload
+    : inferWorkload(analysis.text).workload;
+  return !workloadTypes[workload];
+}
 export function estimate(o, { traffic = 200, ip = true } = {}) {
   const parts = [
       {
@@ -586,25 +624,7 @@ export function searchOffers(offers, p, semantic = {}) {
     excludedForCapacity++;
     return false;
   });
-  const tokens = norm(p.q || "")
-    .split(" ")
-    .filter(
-      (w) =>
-        w.length > 2 &&
-        ![
-          "برای",
-          "خوام",
-          "خواهم",
-          "سرور",
-          "گیگابایت",
-          "گیگ",
-          "هسته",
-          "ارزان",
-          "ارزون",
-          "مناسب",
-          "می",
-        ].includes(w),
-    );
+  const tokens = queryTokens(p.q);
   const hasIntent = Object.keys(intent.fields).length > 0;
   items = items.map((o) => ({
     ...o,
