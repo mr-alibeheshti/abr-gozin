@@ -1,0 +1,4365 @@
+{
+  "label": "before",
+  "base": "https://abrgozin.ir",
+  "runsPerQuery": 5,
+  "startedAt": "2026-11-20T13:59:38.966Z",
+  "finishedAt": "2026-11-20T13:59:47.813Z",
+  "golden": {
+    "path": "eval/golden-queries.json",
+    "count": 63
+  },
+  "metrics": {
+    "queries": 63,
+    "parseAccuracy": 0.41935483870967744,
+    "parseScored": 62,
+    "checkPassRate": 0.6439393939393939,
+    "checksTotal": 132,
+    "checksPassed": 85,
+    "zeroResultRate": 0.2222222222222222,
+    "zeroResults": 14,
+    "paretoViolations": 1130,
+    "latencyP50Ms": 25,
+    "latencyP95Ms": 38,
+    "requests": 315,
+    "httpErrors": 0
+  },
+  "results": [
+    {
+      "id": "f1-outside-iran",
+      "group": "F1",
+      "q": "سرور خارج از ایران",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "ir"
+        }
+      ],
+      "checks": [
+        {
+          "name": "regionIs:eu",
+          "ok": false,
+          "detail": "79 groups outside eu"
+        },
+        {
+          "name": "explicitEmptyReason",
+          "ok": true,
+          "detail": "non-empty"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "region": "ir",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        96,
+        39,
+        36,
+        25,
+        26
+      ]
+    },
+    {
+      "id": "f1-abroad-hosting",
+      "group": "F1",
+      "q": "هاست خارج کشور",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "28 groups"
+        },
+        {
+          "name": "regionIs:eu",
+          "ok": true,
+          "detail": "0 groups outside eu"
+        },
+        {
+          "name": "typeIs:hosting",
+          "ok": true,
+          "detail": "0 groups not hosting"
+        }
+      ],
+      "groups": 28,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "region": "eu",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "region": "eu",
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-4-4-0.1",
+          "min": 33250,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        20,
+        22,
+        20,
+        20,
+        21
+      ]
+    },
+    {
+      "id": "f1-foreign-cheap-server",
+      "group": "F1",
+      "q": "سرور خارجی ارزان",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "regionIs:eu",
+          "ok": true,
+          "detail": "0 groups outside eu"
+        },
+        {
+          "name": "explicitEmptyReason",
+          "ok": false,
+          "detail": "missing emptyReason"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "region": "eu",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "region": "eu",
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        16,
+        20,
+        21,
+        16,
+        16
+      ]
+    },
+    {
+      "id": "f1-non-iranian-hosting",
+      "group": "F1",
+      "q": "هاست غیر ایرانی",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "ir"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "51 groups"
+        },
+        {
+          "name": "regionIs:eu",
+          "ok": false,
+          "detail": "51 groups outside eu"
+        }
+      ],
+      "groups": 51,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "region": "ir",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-4-4-0.1",
+          "min": 33250,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        24,
+        23,
+        25,
+        23,
+        23
+      ]
+    },
+    {
+      "id": "f1-outside-of-iran-hosting",
+      "group": "F1",
+      "q": "هاست بیرون از ایران",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "ir"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "51 groups"
+        },
+        {
+          "name": "regionIs:eu",
+          "ok": false,
+          "detail": "51 groups outside eu"
+        }
+      ],
+      "groups": 51,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "region": "ir",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-4-4-0.1",
+          "min": 33250,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        24,
+        29,
+        33,
+        28,
+        27
+      ]
+    },
+    {
+      "id": "f1-outside-iran-en",
+      "group": "F1",
+      "q": "hosting outside iran",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "all"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "regionIs:eu",
+          "ok": false,
+          "detail": "58 groups outside eu"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        32,
+        27,
+        26,
+        25,
+        33
+      ]
+    },
+    {
+      "id": "f1-non-iran-vps-en",
+      "group": "F1",
+      "q": "non-iran vps",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "all"
+        }
+      ],
+      "checks": [
+        {
+          "name": "regionIs:eu",
+          "ok": false,
+          "detail": "79 groups outside eu"
+        },
+        {
+          "name": "explicitEmptyReason",
+          "ok": true,
+          "detail": "non-empty"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        26,
+        32,
+        38,
+        27,
+        30
+      ]
+    },
+    {
+      "id": "f1-europe-hosting",
+      "group": "F1",
+      "q": "هاست اروپا",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "28 groups"
+        },
+        {
+          "name": "regionIs:eu",
+          "ok": true,
+          "detail": "0 groups outside eu"
+        }
+      ],
+      "groups": 28,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "region": "eu",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "region": "eu",
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-4-4-0.1",
+          "min": 33250,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        23,
+        20,
+        21,
+        20,
+        20
+      ]
+    },
+    {
+      "id": "f1-netherlands-hosting",
+      "group": "F1",
+      "q": "هاست هلند",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "all"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "regionIs:eu",
+          "ok": false,
+          "detail": "58 groups outside eu"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        31,
+        31,
+        29,
+        30,
+        28
+      ]
+    },
+    {
+      "id": "f1-finland-hosting",
+      "group": "F1",
+      "q": "هاست فنلاند ارزان",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "all"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "regionIs:eu",
+          "ok": false,
+          "detail": "58 groups outside eu"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        31,
+        32,
+        27,
+        33,
+        33
+      ]
+    },
+    {
+      "id": "prov-iranserver",
+      "group": "F1-provider",
+      "q": "ایران سرور",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": null,
+          "got": "ir"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "5 groups"
+        }
+      ],
+      "groups": 5,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "region": "ir",
+        "scenario": "general",
+        "provider": "iranserver"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "vps",
+          "provider": "iranserver"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-4-1-40",
+          "min": 2436398,
+          "cpu": 4,
+          "ram": 1,
+          "disk": 40
+        },
+        {
+          "id": "vps-ir-8-2-40",
+          "min": 3517598,
+          "cpu": 8,
+          "ram": 2,
+          "disk": 40
+        },
+        {
+          "id": "vps-ir-32-4-80",
+          "min": 8800638,
+          "cpu": 32,
+          "ram": 4,
+          "disk": 80
+        }
+      ],
+      "latencyMs": [
+        18,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "id": "prov-iranserver-compact",
+      "group": "F1-provider",
+      "q": "ایرانسرور ۴ گیگ",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": null,
+          "got": "ir"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "5 groups"
+        }
+      ],
+      "groups": 5,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "region": "ir",
+        "scenario": "general",
+        "provider": "iranserver"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "vps",
+          "provider": "iranserver"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-4-1-40",
+          "min": 2436398,
+          "cpu": 4,
+          "ram": 1,
+          "disk": 40
+        },
+        {
+          "id": "vps-ir-8-2-40",
+          "min": 3517598,
+          "cpu": 8,
+          "ram": 2,
+          "disk": 40
+        },
+        {
+          "id": "vps-ir-32-4-80",
+          "min": 8800638,
+          "cpu": 32,
+          "ram": 4,
+          "disk": 80
+        }
+      ],
+      "latencyMs": [
+        17,
+        18,
+        16,
+        15,
+        16
+      ]
+    },
+    {
+      "id": "prov-iranhost",
+      "group": "F1-provider",
+      "q": "ایران هاست",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": null,
+          "got": "ir"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "region": "ir",
+        "scenario": "general",
+        "provider": "iranhost"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "hosting",
+          "provider": "iranhost"
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        14,
+        16,
+        17,
+        21,
+        19
+      ]
+    },
+    {
+      "id": "prov-iranhost-zwnj-vps",
+      "group": "F1-provider",
+      "q": "ایران‌هاست سرور مجازی",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "type",
+          "want": "vps",
+          "got": "hosting"
+        },
+        {
+          "field": "region",
+          "want": null,
+          "got": "ir"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "typeIs:vps",
+          "ok": true,
+          "detail": "0 groups not vps"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "region": "ir",
+        "scenario": "general",
+        "provider": "iranhost"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "hosting",
+          "provider": "iranhost"
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        18,
+        16,
+        21,
+        18,
+        19
+      ]
+    },
+    {
+      "id": "prov-iranserver-explicit-region",
+      "group": "F1-provider",
+      "q": "ایرانسرور با دیتاسنتر ایران",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "5 groups"
+        },
+        {
+          "name": "regionIs:ir",
+          "ok": true,
+          "detail": "0 groups outside ir"
+        }
+      ],
+      "groups": 5,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "region": "ir",
+        "scenario": "general",
+        "provider": "iranserver"
+      },
+      "intent": {
+        "fields": {
+          "region": "ir",
+          "type": "vps",
+          "provider": "iranserver"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-4-1-40",
+          "min": 2436398,
+          "cpu": 4,
+          "ram": 1,
+          "disk": 40
+        },
+        {
+          "id": "vps-ir-8-2-40",
+          "min": 3517598,
+          "cpu": 8,
+          "ram": 2,
+          "disk": 40
+        },
+        {
+          "id": "vps-ir-32-4-80",
+          "min": 8800638,
+          "cpu": 32,
+          "ram": 4,
+          "disk": 80
+        }
+      ],
+      "latencyMs": [
+        19,
+        18,
+        17,
+        16,
+        17
+      ]
+    },
+    {
+      "id": "f2-germany-vps",
+      "group": "F2",
+      "q": "سرور مجازی آلمان",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "explicitEmptyReason",
+          "ok": false,
+          "detail": "missing emptyReason"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "region": "eu",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "region": "eu",
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        20,
+        20,
+        23,
+        20,
+        25
+      ]
+    },
+    {
+      "id": "f2-europe-vps-en",
+      "group": "F2",
+      "q": "vps europe",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "all"
+        }
+      ],
+      "checks": [
+        {
+          "name": "explicitEmptyReason",
+          "ok": true,
+          "detail": "non-empty"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        35,
+        30,
+        27,
+        27,
+        28
+      ]
+    },
+    {
+      "id": "f2-netherlands-docker",
+      "group": "F2",
+      "q": "سرور مجازی هلند برای داکر",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "region",
+          "want": "eu",
+          "got": "all"
+        }
+      ],
+      "checks": [
+        {
+          "name": "explicitEmptyReason",
+          "ok": true,
+          "detail": "non-empty"
+        }
+      ],
+      "groups": 75,
+      "emptyReason": null,
+      "paretoViolations": 267,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-1-1-30"
+        },
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-2-1-50"
+        },
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-2-2-30"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "workload": "docker",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-1-1-25",
+          "min": 2100000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 25
+        },
+        {
+          "id": "vps-ir-1-1-30",
+          "min": 650000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 30
+        },
+        {
+          "id": "vps-ir-4-1-40",
+          "min": 2436398,
+          "cpu": 4,
+          "ram": 1,
+          "disk": 40
+        }
+      ],
+      "latencyMs": [
+        25,
+        28,
+        37,
+        26,
+        27
+      ]
+    },
+    {
+      "id": "f2-budget-too-low",
+      "group": "F2",
+      "q": "سرور زیر ۱۰۰ هزار تومان",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 100000"
+        },
+        {
+          "name": "explicitEmptyReason",
+          "ok": false,
+          "detail": "missing emptyReason"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "maxPrice": 100000
+      },
+      "intent": {
+        "fields": {
+          "type": "vps",
+          "maxPrice": 100000
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        17,
+        18,
+        17,
+        18,
+        16
+      ]
+    },
+    {
+      "id": "f3-rial",
+      "group": "F3",
+      "q": "سرور زیر ۲۰ میلیون ریال",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 2000000,
+          "got": 20000000
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "76 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 20000000"
+        }
+      ],
+      "groups": 76,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "maxPrice": 20000000
+      },
+      "intent": {
+        "fields": {
+          "type": "vps",
+          "maxPrice": 20000000
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        32,
+        31,
+        40,
+        38,
+        31
+      ]
+    },
+    {
+      "id": "f3-max-thousand-toman",
+      "group": "F3",
+      "q": "هاست حداکثر ۵۰۰ هزار تومان",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "50 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 500000"
+        }
+      ],
+      "groups": 50,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 500000
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 500000
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        27,
+        28,
+        25,
+        23,
+        27
+      ]
+    },
+    {
+      "id": "f3-persian-decimal",
+      "group": "F3",
+      "q": "سرور تا ۱٫۵ میلیون",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "19 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 1500000"
+        }
+      ],
+      "groups": 19,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "maxPrice": 1500000
+      },
+      "intent": {
+        "fields": {
+          "type": "vps",
+          "maxPrice": 1500000
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        22,
+        24,
+        23,
+        26,
+        19
+      ]
+    },
+    {
+      "id": "f3-monthly-budget",
+      "group": "F3",
+      "q": "هاست با بودجه ماهانه ۸۰۰ هزار",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "60 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 800000"
+        }
+      ],
+      "groups": 60,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 800000
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 800000
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        24,
+        27,
+        25,
+        24,
+        25
+      ]
+    },
+    {
+      "id": "f3-less-than",
+      "group": "F3",
+      "q": "سرور کمتر از ۲ میلیون تومن",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 2000000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        27,
+        32,
+        33,
+        30,
+        29
+      ]
+    },
+    {
+      "id": "f3-at-most",
+      "group": "F3",
+      "q": "هاست نهایتاً ۳۰۰ هزار تومن",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 300000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        27,
+        30,
+        34,
+        27,
+        26
+      ]
+    },
+    {
+      "id": "f3-per-month",
+      "group": "F3",
+      "q": "سرور ماهی ۱ میلیون",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 1000000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        34,
+        34,
+        31,
+        27,
+        30
+      ]
+    },
+    {
+      "id": "f3-latin-m",
+      "group": "F3",
+      "q": "سرور زیر 2M",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 2000000,
+          "got": 2
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 2"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "maxPrice": 2
+      },
+      "intent": {
+        "fields": {
+          "type": "vps",
+          "maxPrice": 2
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        17,
+        16,
+        13,
+        16,
+        20
+      ]
+    },
+    {
+      "id": "f3-latin-k",
+      "group": "F3",
+      "q": "هاست زیر 300K",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 300000,
+          "got": 300
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 300"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 300
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 300
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        21,
+        19,
+        19,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "f4-host-500",
+      "group": "F4",
+      "q": "هاست زیر ۵۰۰",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 500000,
+          "got": 500
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 500"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 500
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 500
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        15,
+        14,
+        17,
+        16,
+        15
+      ]
+    },
+    {
+      "id": "f4-host-50",
+      "group": "F4",
+      "q": "هاست زیر ۵۰",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 50000,
+          "got": 50
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 50"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 50
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 50
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        16,
+        15,
+        19,
+        22,
+        23
+      ]
+    },
+    {
+      "id": "f4-server-2",
+      "group": "F4",
+      "q": "سرور زیر ۲",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 2000000,
+          "got": 2
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 2"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "maxPrice": 2
+      },
+      "intent": {
+        "fields": {
+          "type": "vps",
+          "maxPrice": 2
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        34,
+        19,
+        16,
+        15,
+        16
+      ]
+    },
+    {
+      "id": "f4-server-800",
+      "group": "F4",
+      "q": "سرور زیر ۸۰۰",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 800000,
+          "got": 800
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 800"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "maxPrice": 800
+      },
+      "intent": {
+        "fields": {
+          "type": "vps",
+          "maxPrice": 800
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        16,
+        15,
+        15,
+        15,
+        14
+      ]
+    },
+    {
+      "id": "f4-colloquial-toman",
+      "group": "F4",
+      "q": "هاست زیر ۲۰۰ تومن",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 200000,
+          "got": 200
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": false,
+          "detail": "0 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 200"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 200
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 200
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        17,
+        16,
+        15,
+        19,
+        15
+      ]
+    },
+    {
+      "id": "f4-large-number-no-unit",
+      "group": "F4",
+      "q": "هاست زیر 150000",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "20 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 150000"
+        }
+      ],
+      "groups": 20,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 150000
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 150000
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        49,
+        21,
+        19,
+        17,
+        67
+      ]
+    },
+    {
+      "id": "f5-two-million",
+      "group": "F5",
+      "q": "سرور زیر دو میلیون",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 2000000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        45,
+        355,
+        313,
+        110,
+        30
+      ]
+    },
+    {
+      "id": "f5-one-and-half-million",
+      "group": "F5",
+      "q": "سرور مجازی تا یک و نیم میلیون",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 1500000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        46,
+        31,
+        28,
+        27,
+        30
+      ]
+    },
+    {
+      "id": "f5-half-million",
+      "group": "F5",
+      "q": "هاست زیر نیم میلیون",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 500000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        27,
+        28,
+        40,
+        96,
+        35
+      ]
+    },
+    {
+      "id": "f5-colloquial-five-hundred",
+      "group": "F5",
+      "q": "هاست حداکثر پونصد هزار تومن",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 500000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        27,
+        26,
+        26,
+        28,
+        30
+      ]
+    },
+    {
+      "id": "f5-three-hundred-fifty",
+      "group": "F5",
+      "q": "هاست تا سیصد و پنجاه هزار",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "maxPrice",
+          "want": 350000,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": false,
+          "detail": "no maxPrice applied"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        32,
+        27,
+        31,
+        26,
+        27
+      ]
+    },
+    {
+      "id": "f5-four-gig-ram",
+      "group": "F5",
+      "q": "سرور با چهار گیگ رم",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "ram",
+          "want": 4,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "1 violations"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        25,
+        28,
+        26,
+        35,
+        31
+      ]
+    },
+    {
+      "id": "f5-two-cores-four-gig",
+      "group": "F5",
+      "q": "سرور مجازی دو هسته چهار گیگ رم",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "cpu",
+          "want": 2,
+          "got": null
+        },
+        {
+          "field": "ram",
+          "want": 4,
+          "got": null
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "1 violations"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        28,
+        29,
+        26,
+        27,
+        29
+      ]
+    },
+    {
+      "id": "f6-store-site",
+      "group": "F6",
+      "q": "هاست برای سایت فروشگاهی",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "workload",
+          "want": "wordpress",
+          "got": "all"
+        },
+        {
+          "field": "scenario",
+          "want": "store",
+          "got": "general"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "minDiskAtLeast:10",
+          "ok": false,
+          "detail": "50 groups below 10 GB (first: 0.1)"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        32,
+        32,
+        35,
+        33,
+        31
+      ]
+    },
+    {
+      "id": "f6-online-store",
+      "group": "F6",
+      "q": "هاست فروشگاه اینترنتی",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "workload",
+          "want": "wordpress",
+          "got": "all"
+        },
+        {
+          "field": "scenario",
+          "want": "store",
+          "got": "general"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "minDiskAtLeast:10",
+          "ok": false,
+          "detail": "50 groups below 10 GB (first: 0.1)"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        25,
+        37,
+        31,
+        27,
+        26
+      ]
+    },
+    {
+      "id": "f6-online-shop-en",
+      "group": "F6",
+      "q": "hosting for online shop",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "workload",
+          "want": "wordpress",
+          "got": "all"
+        },
+        {
+          "field": "scenario",
+          "want": "store",
+          "got": "general"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "minDiskAtLeast:10",
+          "ok": false,
+          "detail": "50 groups below 10 GB (first: 0.1)"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        29,
+        30,
+        25,
+        27,
+        29
+      ]
+    },
+    {
+      "id": "f6-blog",
+      "group": "F6",
+      "q": "هاست برای وبلاگ",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "workload",
+          "want": "wordpress",
+          "got": "all"
+        },
+        {
+          "field": "scenario",
+          "want": "blog",
+          "got": "general"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "minDiskAtLeast:5",
+          "ok": false,
+          "detail": "35 groups below 5 GB (first: 0.1)"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        33,
+        28,
+        31,
+        25,
+        36
+      ]
+    },
+    {
+      "id": "f6-corporate-site",
+      "group": "F6",
+      "q": "هاست سایت شرکتی",
+      "status": 200,
+      "parseOk": false,
+      "mismatches": [
+        {
+          "field": "workload",
+          "want": "wordpress",
+          "got": "all"
+        },
+        {
+          "field": "scenario",
+          "want": "business",
+          "got": "general"
+        }
+      ],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "86 groups"
+        },
+        {
+          "name": "minDiskAtLeast:5",
+          "ok": false,
+          "detail": "35 groups below 5 GB (first: 0.1)"
+        }
+      ],
+      "groups": 86,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        25,
+        26,
+        26,
+        29,
+        27
+      ]
+    },
+    {
+      "id": "f7-docker-repro",
+      "group": "F7",
+      "q": "سرور ایران برای داکر با ۴ گیگ رم زیر ۲ میلیون",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "14 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 2000000"
+        },
+        {
+          "name": "regionIs:ir",
+          "ok": true,
+          "detail": "0 groups outside ir"
+        },
+        {
+          "name": "minDiskAtLeast:25",
+          "ok": true,
+          "detail": "ok"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "26 violations"
+        }
+      ],
+      "groups": 14,
+      "emptyReason": null,
+      "paretoViolations": 26,
+      "violationExamples": [
+        {
+          "above": "vps-ir-2-4-30",
+          "below": "vps-ir-4-4-60"
+        },
+        {
+          "above": "vps-ir-2-4-40",
+          "below": "vps-ir-4-4-60"
+        },
+        {
+          "above": "vps-ir-2-4-40",
+          "below": "vps-ir-2-4-75"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "region": "ir",
+        "workload": "docker",
+        "scenario": "general",
+        "ram": 4,
+        "maxPrice": 2000000
+      },
+      "intent": {
+        "fields": {
+          "ram": 4,
+          "region": "ir",
+          "type": "vps",
+          "maxPrice": 2000000
+        },
+        "reasons": [
+          "ram"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-4-30",
+          "min": 966000,
+          "cpu": 2,
+          "ram": 4,
+          "disk": 30
+        },
+        {
+          "id": "vps-ir-2-4-40",
+          "min": 1590000,
+          "cpu": 2,
+          "ram": 4,
+          "disk": 40
+        },
+        {
+          "id": "vps-ir-1-4-40",
+          "min": 1659000,
+          "cpu": 1,
+          "ram": 4,
+          "disk": 40
+        }
+      ],
+      "latencyMs": [
+        20,
+        22,
+        22,
+        20,
+        23
+      ]
+    },
+    {
+      "id": "f7-eight-gig",
+      "group": "F7",
+      "q": "سرور با ۸ گیگ رم",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "40 groups"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "34 violations"
+        }
+      ],
+      "groups": 40,
+      "emptyReason": null,
+      "paretoViolations": 34,
+      "violationExamples": [
+        {
+          "above": "vps-ir-4-8-60",
+          "below": "vps-ir-4-10-80"
+        },
+        {
+          "above": "vps-ir-2-8-40",
+          "below": "vps-ir-4-10-80"
+        },
+        {
+          "above": "vps-ir-4-8-50",
+          "below": "vps-ir-4-10-80"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "ram": 8
+      },
+      "intent": {
+        "fields": {
+          "ram": 8,
+          "type": "vps"
+        },
+        "reasons": [
+          "ram"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-8-8-120",
+          "min": 1588500,
+          "cpu": 8,
+          "ram": 8,
+          "disk": 120
+        },
+        {
+          "id": "vps-ir-4-8-135",
+          "min": 2250000,
+          "cpu": 4,
+          "ram": 8,
+          "disk": 135
+        },
+        {
+          "id": "vps-ir-4-8-60",
+          "min": 2290000,
+          "cpu": 4,
+          "ram": 8,
+          "disk": 60
+        }
+      ],
+      "latencyMs": [
+        29,
+        29,
+        27,
+        26,
+        24
+      ]
+    },
+    {
+      "id": "f7-two-core-four-gig",
+      "group": "F7",
+      "q": "سرور مجازی ۲ هسته ۴ گیگ",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "72 groups"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "161 violations"
+        }
+      ],
+      "groups": 72,
+      "emptyReason": null,
+      "paretoViolations": 161,
+      "violationExamples": [
+        {
+          "above": "vps-ir-2-2-40",
+          "below": "vps-ir-3-3-50"
+        },
+        {
+          "above": "vps-ir-2-2-40",
+          "below": "vps-ir-4-4-60"
+        },
+        {
+          "above": "vps-ir-2-4-30",
+          "below": "vps-ir-4-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "cpu": 2
+      },
+      "intent": {
+        "fields": {
+          "cpu": 2,
+          "type": "vps"
+        },
+        "reasons": [
+          "cpu"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        },
+        {
+          "id": "vps-ir-2-2-65",
+          "min": 624000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 65
+        }
+      ],
+      "latencyMs": [
+        26,
+        27,
+        26,
+        27,
+        37
+      ]
+    },
+    {
+      "id": "f7-vps-4gb-ram",
+      "group": "F7",
+      "q": "vps 4gb ram",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "61 groups"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "100 violations"
+        }
+      ],
+      "groups": 61,
+      "emptyReason": null,
+      "paretoViolations": 100,
+      "violationExamples": [
+        {
+          "above": "vps-ir-2-4-40",
+          "below": "vps-ir-2-6-50"
+        },
+        {
+          "above": "vps-ir-2-4-40",
+          "below": "vps-ir-8-8-120"
+        },
+        {
+          "above": "vps-ir-1-4-40",
+          "below": "vps-ir-3-5-90"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "ram": 4
+      },
+      "intent": {
+        "fields": {
+          "ram": 4,
+          "type": "vps"
+        },
+        "reasons": [
+          "ram"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-4-20",
+          "min": 865000,
+          "cpu": 2,
+          "ram": 4,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-4-4-60",
+          "min": 882000,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 60
+        },
+        {
+          "id": "vps-ir-2-4-30",
+          "min": 966000,
+          "cpu": 2,
+          "ram": 4,
+          "disk": 30
+        }
+      ],
+      "latencyMs": [
+        32,
+        29,
+        29,
+        31,
+        24
+      ]
+    },
+    {
+      "id": "f7-docker-disk",
+      "group": "F7",
+      "q": "سرور داکر ۲ هسته ۴ گیگ رم ۸۰ گیگ دیسک",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "45 groups"
+        },
+        {
+          "name": "minDiskAtLeast:80",
+          "ok": true,
+          "detail": "ok"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "105 violations"
+        }
+      ],
+      "groups": 45,
+      "emptyReason": null,
+      "paretoViolations": 105,
+      "violationExamples": [
+        {
+          "above": "vps-ir-2-4-80",
+          "below": "vps-ir-4-4-80"
+        },
+        {
+          "above": "vps-ir-2-4-80",
+          "below": "vps-ir-3-5-90"
+        },
+        {
+          "above": "vps-ir-2-4-80",
+          "below": "vps-ir-3-6-105"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "workload": "docker",
+        "scenario": "general",
+        "ram": 4,
+        "cpu": 2,
+        "disk": 80
+      },
+      "intent": {
+        "fields": {
+          "ram": 4,
+          "cpu": 2,
+          "disk": 80,
+          "type": "vps"
+        },
+        "reasons": [
+          "ram",
+          "cpu",
+          "disk"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-4-80",
+          "min": 2900000,
+          "cpu": 2,
+          "ram": 4,
+          "disk": 80
+        },
+        {
+          "id": "vps-ir-3-4-80",
+          "min": 5850000,
+          "cpu": 3,
+          "ram": 4,
+          "disk": 80
+        },
+        {
+          "id": "vps-ir-4-4-80",
+          "min": 1199000,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 80
+        }
+      ],
+      "latencyMs": [
+        23,
+        24,
+        23,
+        29,
+        27
+      ]
+    },
+    {
+      "id": "reg-wordpress-store",
+      "group": "regression",
+      "q": "هاست برای فروشگاه وردپرسی",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "22 groups"
+        },
+        {
+          "name": "minDiskAtLeast:10",
+          "ok": true,
+          "detail": "ok"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "50 violations"
+        }
+      ],
+      "groups": 22,
+      "emptyReason": null,
+      "paretoViolations": 50,
+      "violationExamples": [
+        {
+          "above": "hosting-ir-shared-2-10",
+          "below": "hosting-ir-5-3-10"
+        },
+        {
+          "above": "hosting-ir-shared-2-10",
+          "below": "hosting-eu-5-3-10"
+        },
+        {
+          "above": "hosting-ir-shared-2-10",
+          "below": "hosting-eu-2-2-16"
+        }
+      ],
+      "filters": {
+        "type": "hosting",
+        "workload": "wordpress",
+        "scenario": "store"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-ir-shared-2-10",
+          "min": 1923333,
+          "cpu": null,
+          "ram": 2,
+          "disk": 10
+        },
+        {
+          "id": "hosting-ir-5-3-10",
+          "min": 199000,
+          "cpu": 5,
+          "ram": 3,
+          "disk": 10
+        },
+        {
+          "id": "hosting-eu-5-3-10",
+          "min": 449000,
+          "cpu": 5,
+          "ram": 3,
+          "disk": 10
+        }
+      ],
+      "latencyMs": [
+        24,
+        21,
+        19,
+        20,
+        21
+      ]
+    },
+    {
+      "id": "reg-liara-budget",
+      "group": "regression",
+      "q": "سرور لیارا زیر ۲ میلیون",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 2000000"
+        },
+        {
+          "name": "explicitEmptyReason",
+          "ok": false,
+          "detail": "missing emptyReason"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "provider": "liara",
+        "maxPrice": 2000000
+      },
+      "intent": {
+        "fields": {
+          "type": "vps",
+          "provider": "liara",
+          "maxPrice": 2000000
+        },
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        17,
+        15,
+        16,
+        17,
+        19
+      ]
+    },
+    {
+      "id": "reg-telegram-bot",
+      "group": "regression",
+      "q": "میخوام ربات تلگرام اجرا کنم",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "typeIs:vps",
+          "ok": true,
+          "detail": "0 groups not vps"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "1 violations"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {},
+        "reasons": [],
+        "semanticType": "vps"
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        42,
+        42,
+        34,
+        36,
+        35
+      ]
+    },
+    {
+      "id": "reg-cheap-server",
+      "group": "regression",
+      "q": "سرور ارزان",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "79 groups"
+        },
+        {
+          "name": "typeIs:vps",
+          "ok": true,
+          "detail": "0 groups not vps"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "1 violations"
+        }
+      ],
+      "groups": 79,
+      "emptyReason": null,
+      "paretoViolations": 1,
+      "violationExamples": [
+        {
+          "above": "vps-ir-1-1-25",
+          "below": "vps-ir-6-4-60"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "vps"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-1-50",
+          "min": 459000,
+          "cpu": 2,
+          "ram": 1,
+          "disk": 50
+        },
+        {
+          "id": "vps-ir-1-1-20",
+          "min": 560000,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-2-2-35",
+          "min": 618000,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 35
+        }
+      ],
+      "latencyMs": [
+        27,
+        26,
+        31,
+        30,
+        26
+      ]
+    },
+    {
+      "id": "reg-wordpress-hosting",
+      "group": "regression",
+      "q": "هاست وردپرس",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "34 groups"
+        },
+        {
+          "name": "typeIs:hosting",
+          "ok": true,
+          "detail": "0 groups not hosting"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "80 violations"
+        }
+      ],
+      "groups": 34,
+      "emptyReason": null,
+      "paretoViolations": 80,
+      "violationExamples": [
+        {
+          "above": "hosting-eu-3-2-5",
+          "below": "hosting-eu-4-4-6"
+        },
+        {
+          "above": "hosting-eu-3-2-5",
+          "below": "hosting-ir-4-4-6"
+        },
+        {
+          "above": "hosting-eu-3-2-5",
+          "below": "hosting-ir-5-3-10"
+        }
+      ],
+      "filters": {
+        "type": "hosting",
+        "workload": "wordpress",
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-6",
+          "min": 109900,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 6
+        },
+        {
+          "id": "hosting-ir-1-1-6",
+          "min": 109900,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 6
+        },
+        {
+          "id": "hosting-ir-3-2-5",
+          "min": 129000,
+          "cpu": 3,
+          "ram": 2,
+          "disk": 5
+        }
+      ],
+      "latencyMs": [
+        19,
+        23,
+        20,
+        22,
+        21
+      ]
+    },
+    {
+      "id": "reg-arabic-letters",
+      "group": "regression",
+      "q": "سرور ايران با ۸ گيگ رم",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "40 groups"
+        },
+        {
+          "name": "regionIs:ir",
+          "ok": true,
+          "detail": "0 groups outside ir"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "34 violations"
+        }
+      ],
+      "groups": 40,
+      "emptyReason": null,
+      "paretoViolations": 34,
+      "violationExamples": [
+        {
+          "above": "vps-ir-4-8-60",
+          "below": "vps-ir-4-10-80"
+        },
+        {
+          "above": "vps-ir-2-8-40",
+          "below": "vps-ir-4-10-80"
+        },
+        {
+          "above": "vps-ir-4-8-50",
+          "below": "vps-ir-4-10-80"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "region": "ir",
+        "scenario": "general",
+        "ram": 8
+      },
+      "intent": {
+        "fields": {
+          "ram": 8,
+          "region": "ir",
+          "type": "vps"
+        },
+        "reasons": [
+          "ram"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-8-8-120",
+          "min": 1588500,
+          "cpu": 8,
+          "ram": 8,
+          "disk": 120
+        },
+        {
+          "id": "vps-ir-4-8-135",
+          "min": 2250000,
+          "cpu": 4,
+          "ram": 8,
+          "disk": 135
+        },
+        {
+          "id": "vps-ir-4-8-60",
+          "min": 2290000,
+          "cpu": 4,
+          "ram": 8,
+          "disk": 60
+        }
+      ],
+      "latencyMs": [
+        22,
+        23,
+        22,
+        25,
+        25
+      ]
+    },
+    {
+      "id": "reg-latin-digits-toman",
+      "group": "regression",
+      "q": "سرور 4 گیگ رم زیر 1500000 تومن",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "6 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 1500000"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": true,
+          "detail": "0 violations"
+        }
+      ],
+      "groups": 6,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "vps",
+        "scenario": "general",
+        "ram": 4,
+        "maxPrice": 1500000
+      },
+      "intent": {
+        "fields": {
+          "ram": 4,
+          "type": "vps",
+          "maxPrice": 1500000
+        },
+        "reasons": [
+          "ram"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-2-4-20",
+          "min": 865000,
+          "cpu": 2,
+          "ram": 4,
+          "disk": 20
+        },
+        {
+          "id": "vps-ir-4-4-60",
+          "min": 882000,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 60
+        },
+        {
+          "id": "vps-ir-2-4-30",
+          "min": 966000,
+          "cpu": 2,
+          "ram": 4,
+          "disk": 30
+        }
+      ],
+      "latencyMs": [
+        21,
+        17,
+        21,
+        21,
+        19
+      ]
+    },
+    {
+      "id": "reg-zwnj-store",
+      "group": "regression",
+      "q": "هاست‌ وردپرس برای فروشگاه‌اینترنتی",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "22 groups"
+        },
+        {
+          "name": "minDiskAtLeast:10",
+          "ok": true,
+          "detail": "ok"
+        }
+      ],
+      "groups": 22,
+      "emptyReason": null,
+      "paretoViolations": 50,
+      "violationExamples": [
+        {
+          "above": "hosting-ir-shared-2-10",
+          "below": "hosting-ir-5-3-10"
+        },
+        {
+          "above": "hosting-ir-shared-2-10",
+          "below": "hosting-eu-5-3-10"
+        },
+        {
+          "above": "hosting-ir-shared-2-10",
+          "below": "hosting-eu-2-2-16"
+        }
+      ],
+      "filters": {
+        "type": "hosting",
+        "workload": "wordpress",
+        "scenario": "store"
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting"
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-ir-shared-2-10",
+          "min": 1923333,
+          "cpu": null,
+          "ram": 2,
+          "disk": 10
+        },
+        {
+          "id": "hosting-ir-5-3-10",
+          "min": 199000,
+          "cpu": 5,
+          "ram": 3,
+          "disk": 10
+        },
+        {
+          "id": "hosting-eu-5-3-10",
+          "min": 449000,
+          "cpu": 5,
+          "ram": 3,
+          "disk": 10
+        }
+      ],
+      "latencyMs": [
+        20,
+        24,
+        21,
+        23,
+        24
+      ]
+    },
+    {
+      "id": "reg-typo-server",
+      "group": "regression",
+      "q": "سرو مجازی ۴ گیگ رم",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "83 groups"
+        }
+      ],
+      "groups": 83,
+      "emptyReason": null,
+      "paretoViolations": 209,
+      "violationExamples": [
+        {
+          "above": "hosting-eu-4-4-16",
+          "below": "hosting-ir-5-5-50"
+        },
+        {
+          "above": "hosting-ir-4-4-16",
+          "below": "hosting-ir-5-5-50"
+        },
+        {
+          "above": "hosting-eu-5-4-20",
+          "below": "hosting-ir-5-5-50"
+        }
+      ],
+      "filters": {
+        "scenario": "general",
+        "ram": 4
+      },
+      "intent": {
+        "fields": {
+          "ram": 4
+        },
+        "reasons": [
+          "ram"
+        ]
+      },
+      "top": [
+        {
+          "id": "hosting-eu-4-4-0.1",
+          "min": 33250,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-4-4-0.1",
+          "min": 33250,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-4-4-1",
+          "min": 124917,
+          "cpu": 4,
+          "ram": 4,
+          "disk": 1
+        }
+      ],
+      "latencyMs": [
+        46,
+        34,
+        29,
+        31,
+        28
+      ]
+    },
+    {
+      "id": "reg-persian-digits-hosting",
+      "group": "regression",
+      "q": "هاست زیر ۱۰۰ هزار تومان",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "12 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 100000"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": true,
+          "detail": "0 violations"
+        }
+      ],
+      "groups": 12,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "type": "hosting",
+        "scenario": "general",
+        "maxPrice": 100000
+      },
+      "intent": {
+        "fields": {
+          "type": "hosting",
+          "maxPrice": 100000
+        },
+        "reasons": []
+      },
+      "top": [
+        {
+          "id": "hosting-eu-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-ir-1-1-0.1",
+          "min": 12417,
+          "cpu": 1,
+          "ram": 1,
+          "disk": 0.1
+        },
+        {
+          "id": "hosting-eu-2-2-0.1",
+          "min": 24917,
+          "cpu": 2,
+          "ram": 2,
+          "disk": 0.1
+        }
+      ],
+      "latencyMs": [
+        16,
+        17,
+        16,
+        16,
+        17
+      ]
+    },
+    {
+      "id": "reg-iran-docker-budget",
+      "group": "regression",
+      "q": "سرور ایران با ۸ گیگ رم زیر ۳ میلیون",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "nonEmpty",
+          "ok": true,
+          "detail": "10 groups"
+        },
+        {
+          "name": "allWithinBudget",
+          "ok": true,
+          "detail": "0 offers over 3000000"
+        },
+        {
+          "name": "regionIs:ir",
+          "ok": true,
+          "detail": "0 groups outside ir"
+        },
+        {
+          "name": "paretoConsistent",
+          "ok": false,
+          "detail": "2 violations"
+        }
+      ],
+      "groups": 10,
+      "emptyReason": null,
+      "paretoViolations": 2,
+      "violationExamples": [
+        {
+          "above": "vps-ir-4-8-60",
+          "below": "vps-ir-4-10-80"
+        },
+        {
+          "above": "vps-ir-2-8-40",
+          "below": "vps-ir-4-10-80"
+        }
+      ],
+      "filters": {
+        "type": "vps",
+        "region": "ir",
+        "scenario": "general",
+        "ram": 8,
+        "maxPrice": 3000000
+      },
+      "intent": {
+        "fields": {
+          "ram": 8,
+          "region": "ir",
+          "type": "vps",
+          "maxPrice": 3000000
+        },
+        "reasons": [
+          "ram"
+        ]
+      },
+      "top": [
+        {
+          "id": "vps-ir-8-8-120",
+          "min": 1588500,
+          "cpu": 8,
+          "ram": 8,
+          "disk": 120
+        },
+        {
+          "id": "vps-ir-4-8-135",
+          "min": 2250000,
+          "cpu": 4,
+          "ram": 8,
+          "disk": 135
+        },
+        {
+          "id": "vps-ir-4-8-60",
+          "min": 2290000,
+          "cpu": 4,
+          "ram": 8,
+          "disk": 60
+        }
+      ],
+      "latencyMs": [
+        19,
+        20,
+        20,
+        19,
+        17
+      ]
+    },
+    {
+      "id": "reg-gibberish",
+      "group": "regression",
+      "q": "قغفهبثضصفص",
+      "status": 200,
+      "parseOk": true,
+      "mismatches": [],
+      "checks": [
+        {
+          "name": "explicitEmptyReason",
+          "ok": false,
+          "detail": "missing emptyReason"
+        }
+      ],
+      "groups": 0,
+      "emptyReason": null,
+      "paretoViolations": 0,
+      "violationExamples": [],
+      "filters": {
+        "scenario": "general"
+      },
+      "intent": {
+        "fields": {},
+        "reasons": []
+      },
+      "top": [],
+      "latencyMs": [
+        17,
+        22,
+        22,
+        19,
+        25
+      ]
+    }
+  ]
+}
