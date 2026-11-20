@@ -96,8 +96,12 @@ test("Equal prices: more resources first, unknown resources never jump a dominat
 });
 
 test("F2: empty results explain why and offer the next step", () => {
+  // The empty state applies whenever the catalog has no VPS outside Iran.
+  const withoutForeignVps = baseline.filter(
+    (o) => !(o.type === "vps" && o.region === "eu"),
+  );
   const search = (q, extra = {}) =>
-    searchOffers(baseline, { q, traffic: 200, ip: true, ...extra });
+    searchOffers(withoutForeignVps, { q, traffic: 200, ip: true, ...extra });
   for (const q of [
     "سرور مجازی آلمان",
     "سرور خارج از ایران",

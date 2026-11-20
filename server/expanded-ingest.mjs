@@ -226,6 +226,52 @@ export function parseExpanded(source, html, stamp, aux = {}) {
       });
       break;
     case "webramz":
+      if (source.region === "eu") {
+        $(".plan").each((i, e) => {
+          const card = $(e),
+            name = card.find(".plan-name").text().trim();
+          if (!/^HCVPS-\d+$/.test(name)) return;
+          const detail = (label) =>
+            card
+              .find(".plan-details li")
+              .filter((i, row) => textOf($(row)).includes(norm(label)))
+              .find("strong");
+          if (
+            !textOf(detail("موقعیت سرور")).includes("آلمان") ||
+            !/nvme/i.test(textOf(card.find(".plan-details .disk strong"))) ||
+            number(textOf(detail("IP"))) !== 1 ||
+            !textOf(detail("ترافیک ماهانه")).includes("نامحدود")
+          )
+            throw Error("مشخصات پلن خارجی وب‌رمز قابل تأیید نیست.");
+          const price = money(textOf(card.find(".monthly-price.top"))),
+            order = card.find('a[href*="cart.php"]');
+          add(
+            {
+              id: "webramz-eu-" + name,
+              name,
+              type: "vps",
+              region: "eu",
+              disk: gb(textOf(card.find(".plan-details .disk strong"))),
+              cpu: capture(textOf(detail("پردازنده")), /^(\d+)x/i),
+              ram: gb(textOf(detail("رم"))),
+              diskType: "NVMe",
+              trafficGB: null,
+              trafficUnlimited: true,
+              ipMonthly: 0,
+              price,
+              upfront: price,
+              checkoutUrl: link(order.attr("href"), source),
+              notes: [
+                "موقعیت در منبع «آلمان / فنلاند» و دیتاسنتر Hetzner ذکر شده است؛ کشور دقیق را هنگام سفارش بررسی کن.",
+                "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است.",
+                "ترافیک ماهانهٔ نامحدود و یک IP اختصاصی در منبع درج شده‌اند.",
+              ],
+            },
+            card,
+          );
+        });
+        break;
+      }
       $(".plan").each((i, e) => {
         const card = $(e),
           name = card.find(".plan-name").text().trim();

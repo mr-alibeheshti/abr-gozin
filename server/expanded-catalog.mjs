@@ -181,13 +181,24 @@ export const expandedProviders = entries.map(
     mark: en[0],
   }),
 );
-export const expandedSources = entries.map(
-  ([id, name, en, home, desc, kind, url]) => ({
+export const expandedSources = [
+  ...entries.map(([id, name, en, home, desc, kind, url]) => ({
     id: `${id}-${kind}`,
     providerId: id,
     name: `تعرفهٔ ${kind === "vps" ? "سرور" : "هاست"} ${name}`,
     url,
     method: id === "mihanhosting" ? "html-and-feed" : "html",
     refreshStrategy: "استخراج تعرفه و مشخصات از منبع رسمی",
-  }),
-);
+  })),
+  // Foreign VPS from the official page of a provider already in the catalog.
+  // The page states «آلمان / فنلاند» (Hetzner), so the offers use region eu.
+  {
+    id: "webramz-vps-eu",
+    providerId: "webramz",
+    name: "تعرفهٔ سرور مجازی آلمان/فنلاند وب‌رمز",
+    url: "https://webramz.com/server/vps/germany",
+    method: "html",
+    refreshStrategy: "استخراج تعرفه و مشخصات از منبع رسمی",
+    region: "eu",
+  },
+];

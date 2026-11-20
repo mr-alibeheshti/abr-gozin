@@ -90,7 +90,7 @@ Chat sends the conversation, structured needs, search filters, and a shortlist o
 
 ## Data provenance and pricing
 
-The included catalog covers **205 plans or calculated configurations from 22 independent providers**, based on 23 official pricing pages or public feeds. Twelve entries are calculated ArvanCloud configurations rather than advertised plan names. Counts describe the included catalog and can change after refresh.
+The included catalog covers **209 plans or calculated configurations from 22 independent providers**, based on 24 official pricing pages or public feeds. Twelve entries are calculated ArvanCloud configurations rather than advertised plan names. Counts describe the included catalog and can change after refresh.
 
 | Provider     | Plans / configurations | Official pricing source                                                                                                            |
 | ------------ | ---------------------: | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -115,9 +115,9 @@ The included catalog covers **205 plans or calculated configurations from 22 ind
 | MihanHosting |                      4 | [WordPress hosting](https://mihanhosting.ir/host-wordpress/)                                                                       |
 | MehrHost     |                     30 | [Hosting](https://mehrhost.com/)                                                                                                   |
 | SabaHost     |                      3 | [WordPress hosting](https://saba.host/hosts/wordpress-hosting)                                                                     |
-| Webramz      |                      4 | [Iran VPS](https://webramz.com/server/vps/iran)                                                                                    |
+| Webramz      |                      8 | [Iran VPS](https://webramz.com/server/vps/iran) · [Germany/Finland VPS](https://webramz.com/server/vps/germany)                    |
 
-Initial sources were reviewed or extracted on October 9, 2026; SabaHost and Webramz were added on October 16, 2026. Live refreshes have their own verification timestamps. Failed extraction preserves prior confirmed prices and dates, with a visible source error. A recent export timestamp does not establish that every tariff is fresh.
+Initial sources were reviewed or extracted on October 9, 2026; SabaHost and Webramz were added on October 16, 2026; Webramz's Germany/Finland VPS page, the catalog's first VPS outside Iran, on November 20, 2026. Live refreshes have their own verification timestamps. Failed extraction preserves prior confirmed prices and dates, with a visible source error. A recent export timestamp does not establish that every tariff is fresh.
 
 ### Reading an estimate
 
@@ -128,7 +128,7 @@ Initial sources were reviewed or extracted on October 9, 2026; SabaHost and Webr
 - Workload floors are Abrgozin's initial shortlisting policies, separate from official software minimums and performance guarantees. Optional data/growth/backups inputs add an explicit 25% disk headroom policy. See [workload sizing](docs/workload-sizing.md).
 - Unknown required capacity cannot establish a match. GPU requests have no verified catalog data and yield no matches. The current catalog also has no dedicated-server plans; that selection displays an empty state.
 
-Offer notes retain provider-specific caveats: IranHost publishes rounded million-toman prices; MihanHosting does not distinguish Iran from Europe in its feed; Webdade's PAYG notice conflicts with a table allowance, so that allowance is not credited; sold-out MihanWebHost plans are excluded. SabaHost uses `data-monthly` rather than the default annual discount. Disk MB values use a 1000-based conversion; RAM from MihanWebHost and AzarOnline uses 1024.
+Offer notes retain provider-specific caveats: IranHost publishes rounded million-toman prices; MihanHosting does not distinguish Iran from Europe in its feed; Webdade's PAYG notice conflicts with a table allowance, so that allowance is not credited; sold-out MihanWebHost plans are excluded; Webramz's foreign VPS page names «آلمان / فنلاند» (Hetzner) without a per-plan country, so those plans use the `eu` region. SabaHost uses `data-monthly` rather than the default annual discount. Disk MB values use a 1000-based conversion; RAM from MihanWebHost and AzarOnline uses 1024.
 
 Provider logos are local assets with provenance in `public/logos/sources.json`. ArvanCloud's mark comes from a recorded Wikimedia version because direct retrieval was restricted. Missing images fall back to a provider identifier.
 
