@@ -246,11 +246,10 @@ test("country search: results when the catalog has them, an honest empty state o
   const host = search("هاست ترکیه");
   assert.equal(host.groups.length, 0);
   assert.equal(host.emptyReason, "no-country-in-catalog");
-  assert.deepEqual(host.emptyContext, {
-    country: "TR",
-    region: "other",
-    regionOffers: 0,
-  });
+  assert.deepEqual(
+    { ...host.emptyContext, europeOffers: host.emptyContext.europeOffers > 0 },
+    { country: "TR", region: "other", regionOffers: 0, europeOffers: true },
+  );
   const jp = search("سرور ژاپن");
   assert.equal(jp.emptyReason, "no-country-in-catalog");
   assert.equal(jp.emptyContext.region, "other");

@@ -827,6 +827,12 @@ export function searchOffers(offers, p, semantic = {}) {
             o.region === region &&
             (!category || serviceCategory(o.type) === category),
         ).length,
+        // Europe as the fallback next step when the region has nothing.
+        europeOffers: offers.filter(
+          (o) =>
+            o.region === "eu" &&
+            (!category || serviceCategory(o.type) === category),
+        ).length,
       };
     } else if (requirements.blockers.length)
       emptyReason = "requirements-blocked";
