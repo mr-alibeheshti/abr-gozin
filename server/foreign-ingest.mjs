@@ -519,6 +519,101 @@ export function parseForeign(source, html, stamp) {
       });
       break;
     }
+    case "webdade": {
+      const page = textOf($("body"));
+      if (!page.includes("ماهانه / تومان") || !page.includes("یک عدد ipv4"))
+        throw Error("واحد، دوره یا IP صفحهٔ وب‌داده قابل تأیید نیست.");
+      $(".whmpress_price").each((i, e) => {
+        let c = $(e);
+        for (let j = 0; j < 7 && !/\d+\s*هسته/.test(textOf(c)); j++)
+          c = c.parent();
+        const s = textOf(c),
+          href = c.find("a[href]").last().attr("href");
+        // Comparison rows hold no order link.
+        if (!/^(g11|lite)/.test(s) || !href) return;
+        const sizes = [...s.matchAll(/(\d+)\s*گیگ/g)].map((m) => Number(m[1])),
+          traffic = s.match(/([\d.]+\s*tb)@/)?.[1],
+          slug = new URL(href, source.url).pathname
+            .split("/")
+            .filter(Boolean)
+            .pop();
+        if (sizes.length !== 2) return;
+        add(
+          {
+            id: `webdade-nl-${slug}`,
+            name:
+              (s.startsWith("lite") ? "Lite " : "G11 ") +
+              (s.match(/^(?:g11 نسل جدید \d{4}|lite)\s+(\S+)/)?.[1] || slug),
+            type: "vps",
+            cpu: capture(s, /(\d+)\s*هسته/),
+            ram: sizes[0],
+            disk: sizes[1],
+            diskType: /nvme/.test(s)
+              ? "NVMe"
+              : /ssd/.test(s)
+                ? "SSD"
+                : "نامشخص",
+            trafficGB: traffic ? gb(traffic) : null,
+            ipMonthly: 0,
+            price: number($(e).text()),
+            checkoutUrl: link(href, source),
+            notes: [
+              "دیتاسنتر Leaseweb آمستردام طبق صفحهٔ رسمی؛ قیمت ماهانه به تومان است.",
+              "ترافیک مازاد در صفحه به یورو (هر ترابایت ۱ یورو، معادل ریالی روز) اعلام شده و تبدیل نشده است.",
+            ],
+          },
+          c,
+        );
+      });
+      break;
+    }
+    case "hostnegar": {
+      const page = textOf($("body")),
+        stated =
+          page.match(/موقعیت سرور ((?:[^ ]+\s*[،,و]\s*)*[^ ]+)/)?.[1] || "",
+        countries = countriesIn(stated);
+      if (!countries.length)
+        throw Error("موقعیت سرورهای هاست‌نگار قابل تأیید نیست.");
+      $("h3")
+        .filter((i, e) => /^سرور مجازی - /.test($(e).text().trim()))
+        .each((i, e) => {
+          let c = $(e);
+          for (let j = 0; j < 6 && !/ماهیانه.*سفارش/.test(textOf(c)); j++)
+            c = c.parent();
+          const s = textOf(c),
+            name = $(e).text().trim(),
+            monthly = capture(s, /ماهیانه\s*([\d,]+)\s*ریال/),
+            setup = capture(s, /راه اندازی\s*([\d,]+)\s*ریال/),
+            href = c.find("a[href]").last().attr("href");
+          if (!monthly) throw Error("قیمت ماهانهٔ ریالی هاست‌نگار پیدا نشد.");
+          const pid = new URL(href, source.url).searchParams.get("pid");
+          for (const code of countries)
+            add(
+              {
+                id: `hostnegar-${pid}-${code.toLowerCase()}`,
+                name,
+                type: "vps",
+                countries: [code],
+                cpu: capture(s, /هسته cpu\s*(\d+)/),
+                ram: capture(s, /حافظه رم\s*(\d+)\s*gb/),
+                disk: capture(s, /میزان فضا\s*(\d+)\s*gb/),
+                diskType: /هارد nvme/.test(s) ? "NVMe" : "نامشخص",
+                trafficGB: null,
+                trafficUnlimited: s.includes("پهنای باند نامحدود"),
+                ipMonthly:
+                  capture(s, /ip اختصاصی\s*(\d+)\s*عدد/) === 1 ? 0 : null,
+                price: monthly / 10,
+                checkoutUrl: link(href, source),
+                notes: [
+                  `موقعیت در صفحه «${stated}» است و هنگام سفارش انتخاب می‌شود.`,
+                  `قیمت ریالی ماهانه به تومان تبدیل شده است.${setup ? ` هزینهٔ یک‌بارهٔ راه‌اندازی ${(setup / 10).toLocaleString("en-US")} تومان در برآورد ماهانه نیامده است.` : ""}`,
+                ],
+              },
+              c,
+            );
+        });
+      break;
+    }
     case "onlineserver":
       $("article")
         .filter((i, e) => $(e).find('h3[class*="planName"]').length > 0)

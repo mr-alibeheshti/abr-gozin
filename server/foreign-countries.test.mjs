@@ -32,6 +32,8 @@ test("every foreign page parses its recorded fixture into the seeded offers", ()
     azaronline: "azaronline.com",
     webramz: "webramz.com",
     iranhost: "iranhost.com",
+    webdade: "webdade.com",
+    hostnegar: "hostnegar.com",
   };
   let total = 0;
   for (const s of foreignSources) {
@@ -69,7 +71,7 @@ test("every foreign page parses its recorded fixture into the seeded offers", ()
       assert.ok(o.verifiedAt, o.id);
     }
   }
-  assert.equal(total, 231);
+  assert.equal(total, 250);
   // Turkey is never labelled Europe.
   assert.ok(
     baseline
@@ -192,6 +194,20 @@ test("foreign extractors read the published toman prices and billing periods", (
     ],
     [2, 2, 40, 1000, 2000000, 12, "other"],
   );
+  // Webdade Netherlands (monthly toman) and HostNegar (monthly rial → toman,
+  // one offer per stated country).
+  const wd = by("webdade-vps-nl", "webdade-nl-netherlands-starter");
+  assert.deepEqual(
+    [wd.cpu, wd.ram, wd.disk, wd.trafficGB, wd.price, wd.trafficRate],
+    [1, 1, 20, 20000, 2365100, null],
+  );
+  const hn = parse("hostnegar-vps-foreign").filter(
+    (o) => o.name === "سرور مجازی - استارت",
+  );
+  assert.deepEqual(hn.map((o) => o.country).sort(), ["DE", "FR", "NL"]);
+  assert.ok(
+    hn.every((o) => o.price === 4233500 && o.ram === 3 && o.ipMonthly === 0),
+  );
   // The Iran parser still reads only the Iran cards of the same page.
   const ca = by("azaronline-vps-ca", "azaronline-ca-linux-1");
   assert.deepEqual([ca.trafficGB, ca.trafficUnlimited], [null, false]);
@@ -225,6 +241,8 @@ test("foreign extractors refuse pages they cannot verify instead of guessing", (
   );
   refuse("azaronline-vps-de", "در صورت خرید سالانه", "در صورت خرید ماهانه");
   refuse("webramz-vps-fr", "موقعیت سرور", "محل سرور");
+  refuse("webdade-vps-nl", "ماهانه / تومان", "ماهانه / یورو");
+  refuse("hostnegar-vps-foreign", "موقعیت سرور هلند", "سرور");
   // Bertina's card price must equal its structured data.
   refuse("bertina-vps-de", '"price":9090000', '"price":8090000');
   // A «from» price varies by location and is not a tariff.

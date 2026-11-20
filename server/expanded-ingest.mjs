@@ -68,6 +68,7 @@ const checkoutHosts = new Set([
   "www.talahost.com",
   "talahost.com",
   "my.hostnegar.com",
+  "support.hostnegar.com",
   "hostnegar.com",
   "portal.mihanhosting.ir",
   "mehrhost.com",
