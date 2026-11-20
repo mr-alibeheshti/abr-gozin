@@ -99,20 +99,24 @@ test("Natural-language requirements combine with provider, RAM and budget select
   );
 });
 
-test("Resources are binding minima and sufficient plans rank by proximity before price", () => {
-  const data = searchOffers(
-    [
-      plan("exact", { price: 900000 }),
-      plan("near-disk", { disk: 45, price: 200000 }),
-      plan("near-ram", { ram: 8, price: 1000 }),
-      plan("smaller", { ram: 2 }),
-      plan("far", { ram: 16, price: 500 }),
-      plan("unknown", { ram: null }),
-    ],
-    params,
-  );
+test("Resources are binding minima; the cheapest sufficient plan ranks first and fit keeps proximity", () => {
+  const offers = [
+    plan("exact", { price: 900000 }),
+    plan("near-disk", { disk: 45, price: 200000 }),
+    plan("near-ram", { ram: 8, price: 1000 }),
+    plan("smaller", { ram: 2 }),
+    plan("far", { ram: 16, price: 500 }),
+    plan("unknown", { ram: null }),
+  ];
+  const data = searchOffers(offers, params);
   assert.deepEqual(
     data.groups.map((g) => g.offers[0].id),
+    ["far", "near-ram", "near-disk", "exact"],
+  );
+  assert.deepEqual(
+    searchOffers(offers, { ...params, sort: "fit" }).groups.map(
+      (g) => g.offers[0].id,
+    ),
     ["exact", "near-disk", "near-ram", "far"],
   );
   assert.equal(data.totalOffers, 4);
@@ -121,7 +125,7 @@ test("Resources are binding minima and sufficient plans rank by proximity before
   assert.ok(data.groups.every((g) => g.ram >= 4 && g.cpu >= 2 && g.disk >= 40));
 });
 
-test("Equal relative resource proximity uses the selected price order", () => {
+test("Fit and legacy sorts break equal proximity by price; the default is cheapest first", () => {
   const offers = [
     plan("double-ram", { ram: 8, price: 100000 }),
     plan("double-disk", { disk: 80, price: 200000 }),
@@ -130,6 +134,12 @@ test("Equal relative resource proximity uses the selected price order", () => {
   ];
   assert.deepEqual(
     searchOffers(offers, { ...params, sort: "price" }).groups.map(
+      (g) => g.offers[0].id,
+    ),
+    ["double-ram", "double-disk", "double-cpu", "closest"],
+  );
+  assert.deepEqual(
+    searchOffers(offers, { ...params, sort: "fit" }).groups.map(
       (g) => g.offers[0].id,
     ),
     ["closest", "double-ram", "double-disk", "double-cpu"],
@@ -188,23 +198,34 @@ test("Explicit selections override text; a cleared resource can override a text-
   const offers = [plan("four"), plan("eight", { ram: 8 })];
   const selected = searchOffers(offers, { q: "سرور ۸ گیگ رم", ram: 4 });
   assert.equal(selected.groups.length, 2);
-  assert.equal(selected.groups[0].ram, 4);
+  assert.equal(selected.filters.ram, 4);
+  // Same price: the 8 GB plan dominates, so it ranks first by default.
+  assert.equal(selected.groups[0].ram, 8);
+  assert.equal(
+    searchOffers(offers, { q: "سرور ۸ گیگ رم", ram: 4, sort: "fit" }).groups[0]
+      .ram,
+    4,
+  );
   const cleared = searchOffers(offers, { q: "سرور ۸ گیگ رم", ram: "all" });
   assert.equal(cleared.groups.length, 2);
   assert.deepEqual(cleared.resourceFilters, {});
 });
 
 test("Without an equal match all larger plans remain eligible and unknown required resources are excluded", () => {
-  const data = searchOffers(
-    [
-      plan("close"),
-      plan("unknown", { ram: null }),
-      plan("larger", { disk: 200 }),
-    ],
-    { ...params, ram: 3 },
-  );
+  const candidates = [
+    plan("close"),
+    plan("unknown", { ram: null }),
+    plan("larger", { disk: 200 }),
+  ];
+  const data = searchOffers(candidates, { ...params, ram: 3 });
   assert.deepEqual(
     data.groups.map((g) => g.offers[0].id),
+    ["larger", "close"],
+  );
+  assert.deepEqual(
+    searchOffers(candidates, { ...params, ram: 3, sort: "fit" }).groups.map(
+      (g) => g.offers[0].id,
+    ),
     ["close", "larger"],
   );
   assert.deepEqual(data.similarGroups, []);
@@ -229,6 +250,16 @@ test("Structured workloads constrain every offer and rank by workload capacity r
     const result = searchOffers(offers, { ...params, type: "all", workload });
     assert.deepEqual(
       result.groups.flatMap((g) => g.offers.map((o) => o.id)),
+      ["near-server", "server"],
+    );
+    const fit = searchOffers(offers, {
+      ...params,
+      type: "all",
+      workload,
+      sort: "fit",
+    });
+    assert.deepEqual(
+      fit.groups.flatMap((g) => g.offers.map((o) => o.id)),
       ["server", "near-server"],
     );
     const unrestricted = searchOffers(offers, { type: "all", workload });
@@ -260,25 +291,34 @@ test("Structured workloads constrain every offer and rank by workload capacity r
 });
 
 test("Multiple selected providers are ORed while resources, location and budget remain binding", () => {
-  const data = searchOffers(
-    [
-      plan("liara", { providerId: "liara" }),
-      plan("arvan", { providerId: "arvan" }),
-      plan("excluded", { providerId: "iranserver" }),
-      plan("foreign", { providerId: "liara", region: "eu" }),
-      plan("expensive", { providerId: "arvan", price: 500000 }),
-      plan("similar", { providerId: "arvan", ram: 8 }),
-    ],
-    { ...params, provider: ["liara", "arvan"], maxPrice: 200000 },
-  );
-  assert.deepEqual(data.groups[0].offers.map((o) => o.id).sort(), [
-    "arvan",
-    "liara",
-  ]);
-  assert.deepEqual(
-    data.groups.slice(1).flatMap((g) => g.offers.map((o) => o.id)),
-    ["similar"],
-  );
+  const offers = [
+    plan("liara", { providerId: "liara" }),
+    plan("arvan", { providerId: "arvan" }),
+    plan("excluded", { providerId: "iranserver" }),
+    plan("foreign", { providerId: "liara", region: "eu" }),
+    plan("expensive", { providerId: "arvan", price: 500000 }),
+    plan("similar", { providerId: "arvan", ram: 8 }),
+  ];
+  const selection = {
+    ...params,
+    provider: ["liara", "arvan"],
+    maxPrice: 200000,
+  };
+  for (const [sort, first, rest] of [
+    // Same price: the 8 GB plan dominates the 4 GB configuration.
+    ["price", ["similar"], ["arvan", "liara"]],
+    ["fit", ["arvan", "liara"], ["similar"]],
+  ]) {
+    const data = searchOffers(offers, { ...selection, sort });
+    assert.deepEqual(data.groups[0].offers.map((o) => o.id).sort(), first);
+    assert.deepEqual(
+      data.groups
+        .slice(1)
+        .flatMap((g) => g.offers.map((o) => o.id))
+        .sort(),
+      rest,
+    );
+  }
 });
 test("Descending and ascending prices order the displayed minimum for each configuration", () => {
   const offers = [
@@ -319,7 +359,7 @@ test("Dedicated servers never enter hosting or VPS results, and an empty dedicat
   );
 });
 
-test("WordPress floors exclude tiny or unknown plans and rank eligible plans by proximity", () => {
+test("WordPress floors exclude tiny or unknown plans; fit ranks eligible plans by proximity", () => {
   const offers = [
     plan("tiny", { type: "hosting", disk: 0.1 }),
     plan("blog", { type: "hosting", disk: 6, ram: 1 }),
@@ -329,6 +369,14 @@ test("WordPress floors exclude tiny or unknown plans and rank eligible plans by 
   const result = searchOffers(offers, { workload: "wordpress", disk: 6 });
   assert.deepEqual(
     result.groups.flatMap((g) => g.offers.map((o) => o.id)),
+    ["store", "blog"],
+  );
+  assert.deepEqual(
+    searchOffers(offers, {
+      workload: "wordpress",
+      disk: 6,
+      sort: "fit",
+    }).groups.flatMap((g) => g.offers.map((o) => o.id)),
     ["blog", "store"],
   );
   assert.ok(
@@ -375,6 +423,14 @@ test("Capacity planning, explicit bounds, GPU and minimum mode remain binding", 
   const floored = searchOffers(offers, { workload: "docker", disk: 20 });
   assert.deepEqual(
     floored.groups.map((g) => g.offers[0].id),
+    ["eighty", "forty"],
+  );
+  assert.deepEqual(
+    searchOffers(offers, {
+      workload: "docker",
+      disk: 20,
+      sort: "fit",
+    }).groups.map((g) => g.offers[0].id),
     ["forty", "eighty"],
   );
   assert.deepEqual(floored.requirements.conflicts, []);

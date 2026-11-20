@@ -1,0 +1,1401 @@
+{
+  "model": "Xenova/paraphrase-multilingual-MiniLM-L12-v2 (q8)",
+  "current": {
+    "threshold": 0.4,
+    "margin": 0.03,
+    "coverage": 0.5274725274725275,
+    "precision": 0.875,
+    "falsePositiveRateNone": 0.08333333333333333,
+    "assigned": 48,
+    "correct": 42
+  },
+  "queries": 91,
+  "labels": {
+    "vps": 34,
+    "hosting": 33,
+    "none": 24
+  },
+  "bestAtPrecision95": null,
+  "rows": [
+    {
+      "threshold": 0.3,
+      "margin": 0,
+      "coverage": 0.6813186813186813,
+      "precision": 0.7741935483870968,
+      "falsePositiveRateNone": 0.20833333333333334,
+      "assigned": 62,
+      "correct": 48
+    },
+    {
+      "threshold": 0.3,
+      "margin": 0.02,
+      "coverage": 0.6483516483516484,
+      "precision": 0.7966101694915254,
+      "falsePositiveRateNone": 0.20833333333333334,
+      "assigned": 59,
+      "correct": 47
+    },
+    {
+      "threshold": 0.3,
+      "margin": 0.03,
+      "coverage": 0.6043956043956044,
+      "precision": 0.8363636363636363,
+      "falsePositiveRateNone": 0.20833333333333334,
+      "assigned": 55,
+      "correct": 46
+    },
+    {
+      "threshold": 0.3,
+      "margin": 0.05,
+      "coverage": 0.5934065934065934,
+      "precision": 0.8333333333333334,
+      "falsePositiveRateNone": 0.20833333333333334,
+      "assigned": 54,
+      "correct": 45
+    },
+    {
+      "threshold": 0.3,
+      "margin": 0.08,
+      "coverage": 0.5604395604395604,
+      "precision": 0.8431372549019608,
+      "falsePositiveRateNone": 0.16666666666666666,
+      "assigned": 51,
+      "correct": 43
+    },
+    {
+      "threshold": 0.35,
+      "margin": 0,
+      "coverage": 0.6373626373626373,
+      "precision": 0.7758620689655172,
+      "falsePositiveRateNone": 0.16666666666666666,
+      "assigned": 58,
+      "correct": 45
+    },
+    {
+      "threshold": 0.35,
+      "margin": 0.02,
+      "coverage": 0.6043956043956044,
+      "precision": 0.8,
+      "falsePositiveRateNone": 0.16666666666666666,
+      "assigned": 55,
+      "correct": 44
+    },
+    {
+      "threshold": 0.35,
+      "margin": 0.03,
+      "coverage": 0.5714285714285714,
+      "precision": 0.8461538461538461,
+      "falsePositiveRateNone": 0.16666666666666666,
+      "assigned": 52,
+      "correct": 44
+    },
+    {
+      "threshold": 0.35,
+      "margin": 0.05,
+      "coverage": 0.5604395604395604,
+      "precision": 0.8431372549019608,
+      "falsePositiveRateNone": 0.16666666666666666,
+      "assigned": 51,
+      "correct": 43
+    },
+    {
+      "threshold": 0.35,
+      "margin": 0.08,
+      "coverage": 0.5384615384615384,
+      "precision": 0.8571428571428571,
+      "falsePositiveRateNone": 0.125,
+      "assigned": 49,
+      "correct": 42
+    },
+    {
+      "threshold": 0.4,
+      "margin": 0,
+      "coverage": 0.5714285714285714,
+      "precision": 0.8269230769230769,
+      "falsePositiveRateNone": 0.08333333333333333,
+      "assigned": 52,
+      "correct": 43
+    },
+    {
+      "threshold": 0.4,
+      "margin": 0.02,
+      "coverage": 0.5384615384615384,
+      "precision": 0.8571428571428571,
+      "falsePositiveRateNone": 0.08333333333333333,
+      "assigned": 49,
+      "correct": 42
+    },
+    {
+      "threshold": 0.4,
+      "margin": 0.03,
+      "coverage": 0.5274725274725275,
+      "precision": 0.875,
+      "falsePositiveRateNone": 0.08333333333333333,
+      "assigned": 48,
+      "correct": 42
+    },
+    {
+      "threshold": 0.4,
+      "margin": 0.05,
+      "coverage": 0.5164835164835165,
+      "precision": 0.8723404255319149,
+      "falsePositiveRateNone": 0.08333333333333333,
+      "assigned": 47,
+      "correct": 41
+    },
+    {
+      "threshold": 0.4,
+      "margin": 0.08,
+      "coverage": 0.5054945054945055,
+      "precision": 0.8695652173913043,
+      "falsePositiveRateNone": 0.08333333333333333,
+      "assigned": 46,
+      "correct": 40
+    },
+    {
+      "threshold": 0.45,
+      "margin": 0,
+      "coverage": 0.4945054945054945,
+      "precision": 0.8666666666666667,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 45,
+      "correct": 39
+    },
+    {
+      "threshold": 0.45,
+      "margin": 0.02,
+      "coverage": 0.4835164835164835,
+      "precision": 0.8636363636363636,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 44,
+      "correct": 38
+    },
+    {
+      "threshold": 0.45,
+      "margin": 0.03,
+      "coverage": 0.4725274725274725,
+      "precision": 0.8837209302325582,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 43,
+      "correct": 38
+    },
+    {
+      "threshold": 0.45,
+      "margin": 0.05,
+      "coverage": 0.46153846153846156,
+      "precision": 0.8809523809523809,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 42,
+      "correct": 37
+    },
+    {
+      "threshold": 0.45,
+      "margin": 0.08,
+      "coverage": 0.45054945054945056,
+      "precision": 0.8780487804878049,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 41,
+      "correct": 36
+    },
+    {
+      "threshold": 0.5,
+      "margin": 0,
+      "coverage": 0.42857142857142855,
+      "precision": 0.8717948717948718,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 39,
+      "correct": 34
+    },
+    {
+      "threshold": 0.5,
+      "margin": 0.02,
+      "coverage": 0.4175824175824176,
+      "precision": 0.868421052631579,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 38,
+      "correct": 33
+    },
+    {
+      "threshold": 0.5,
+      "margin": 0.03,
+      "coverage": 0.4065934065934066,
+      "precision": 0.8918918918918919,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 37,
+      "correct": 33
+    },
+    {
+      "threshold": 0.5,
+      "margin": 0.05,
+      "coverage": 0.3956043956043956,
+      "precision": 0.8888888888888888,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 36,
+      "correct": 32
+    },
+    {
+      "threshold": 0.5,
+      "margin": 0.08,
+      "coverage": 0.38461538461538464,
+      "precision": 0.8857142857142857,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 35,
+      "correct": 31
+    },
+    {
+      "threshold": 0.55,
+      "margin": 0,
+      "coverage": 0.2967032967032967,
+      "precision": 0.8888888888888888,
+      "falsePositiveRateNone": 0,
+      "assigned": 27,
+      "correct": 24
+    },
+    {
+      "threshold": 0.55,
+      "margin": 0.02,
+      "coverage": 0.2857142857142857,
+      "precision": 0.8846153846153846,
+      "falsePositiveRateNone": 0,
+      "assigned": 26,
+      "correct": 23
+    },
+    {
+      "threshold": 0.55,
+      "margin": 0.03,
+      "coverage": 0.27472527472527475,
+      "precision": 0.92,
+      "falsePositiveRateNone": 0,
+      "assigned": 25,
+      "correct": 23
+    },
+    {
+      "threshold": 0.55,
+      "margin": 0.05,
+      "coverage": 0.26373626373626374,
+      "precision": 0.9166666666666666,
+      "falsePositiveRateNone": 0,
+      "assigned": 24,
+      "correct": 22
+    },
+    {
+      "threshold": 0.55,
+      "margin": 0.08,
+      "coverage": 0.26373626373626374,
+      "precision": 0.9166666666666666,
+      "falsePositiveRateNone": 0,
+      "assigned": 24,
+      "correct": 22
+    },
+    {
+      "threshold": 0.6,
+      "margin": 0,
+      "coverage": 0.21978021978021978,
+      "precision": 0.9,
+      "falsePositiveRateNone": 0,
+      "assigned": 20,
+      "correct": 18
+    },
+    {
+      "threshold": 0.6,
+      "margin": 0.02,
+      "coverage": 0.2087912087912088,
+      "precision": 0.8947368421052632,
+      "falsePositiveRateNone": 0,
+      "assigned": 19,
+      "correct": 17
+    },
+    {
+      "threshold": 0.6,
+      "margin": 0.03,
+      "coverage": 0.1978021978021978,
+      "precision": 0.9444444444444444,
+      "falsePositiveRateNone": 0,
+      "assigned": 18,
+      "correct": 17
+    },
+    {
+      "threshold": 0.6,
+      "margin": 0.05,
+      "coverage": 0.1978021978021978,
+      "precision": 0.9444444444444444,
+      "falsePositiveRateNone": 0,
+      "assigned": 18,
+      "correct": 17
+    },
+    {
+      "threshold": 0.6,
+      "margin": 0.08,
+      "coverage": 0.1978021978021978,
+      "precision": 0.9444444444444444,
+      "falsePositiveRateNone": 0,
+      "assigned": 18,
+      "correct": 17
+    }
+  ],
+  "modelOnly": {
+    "queries": 58,
+    "labels": {
+      "vps": 19,
+      "hosting": 15,
+      "none": 24
+    },
+    "current": {
+      "threshold": 0.4,
+      "margin": 0.03,
+      "coverage": 0.3620689655172414,
+      "precision": 0.8571428571428571,
+      "falsePositiveRateNone": 0.08333333333333333,
+      "assigned": 21,
+      "correct": 18
+    },
+    "bestAtPrecision95": null,
+    "rows": [
+      {
+        "threshold": 0.3,
+        "margin": 0,
+        "coverage": 0.5689655172413793,
+        "precision": 0.696969696969697,
+        "falsePositiveRateNone": 0.20833333333333334,
+        "assigned": 33,
+        "correct": 23
+      },
+      {
+        "threshold": 0.3,
+        "margin": 0.02,
+        "coverage": 0.5344827586206896,
+        "precision": 0.7419354838709677,
+        "falsePositiveRateNone": 0.20833333333333334,
+        "assigned": 31,
+        "correct": 23
+      },
+      {
+        "threshold": 0.3,
+        "margin": 0.03,
+        "coverage": 0.4827586206896552,
+        "precision": 0.7857142857142857,
+        "falsePositiveRateNone": 0.20833333333333334,
+        "assigned": 28,
+        "correct": 22
+      },
+      {
+        "threshold": 0.3,
+        "margin": 0.05,
+        "coverage": 0.46551724137931033,
+        "precision": 0.7777777777777778,
+        "falsePositiveRateNone": 0.20833333333333334,
+        "assigned": 27,
+        "correct": 21
+      },
+      {
+        "threshold": 0.3,
+        "margin": 0.08,
+        "coverage": 0.41379310344827586,
+        "precision": 0.7916666666666666,
+        "falsePositiveRateNone": 0.16666666666666666,
+        "assigned": 24,
+        "correct": 19
+      },
+      {
+        "threshold": 0.35,
+        "margin": 0,
+        "coverage": 0.5,
+        "precision": 0.6896551724137931,
+        "falsePositiveRateNone": 0.16666666666666666,
+        "assigned": 29,
+        "correct": 20
+      },
+      {
+        "threshold": 0.35,
+        "margin": 0.02,
+        "coverage": 0.46551724137931033,
+        "precision": 0.7407407407407407,
+        "falsePositiveRateNone": 0.16666666666666666,
+        "assigned": 27,
+        "correct": 20
+      },
+      {
+        "threshold": 0.35,
+        "margin": 0.03,
+        "coverage": 0.43103448275862066,
+        "precision": 0.8,
+        "falsePositiveRateNone": 0.16666666666666666,
+        "assigned": 25,
+        "correct": 20
+      },
+      {
+        "threshold": 0.35,
+        "margin": 0.05,
+        "coverage": 0.41379310344827586,
+        "precision": 0.7916666666666666,
+        "falsePositiveRateNone": 0.16666666666666666,
+        "assigned": 24,
+        "correct": 19
+      },
+      {
+        "threshold": 0.35,
+        "margin": 0.08,
+        "coverage": 0.3793103448275862,
+        "precision": 0.8181818181818182,
+        "falsePositiveRateNone": 0.125,
+        "assigned": 22,
+        "correct": 18
+      },
+      {
+        "threshold": 0.4,
+        "margin": 0,
+        "coverage": 0.39655172413793105,
+        "precision": 0.782608695652174,
+        "falsePositiveRateNone": 0.08333333333333333,
+        "assigned": 23,
+        "correct": 18
+      },
+      {
+        "threshold": 0.4,
+        "margin": 0.02,
+        "coverage": 0.3620689655172414,
+        "precision": 0.8571428571428571,
+        "falsePositiveRateNone": 0.08333333333333333,
+        "assigned": 21,
+        "correct": 18
+      },
+      {
+        "threshold": 0.4,
+        "margin": 0.03,
+        "coverage": 0.3620689655172414,
+        "precision": 0.8571428571428571,
+        "falsePositiveRateNone": 0.08333333333333333,
+        "assigned": 21,
+        "correct": 18
+      },
+      {
+        "threshold": 0.4,
+        "margin": 0.05,
+        "coverage": 0.3448275862068966,
+        "precision": 0.85,
+        "falsePositiveRateNone": 0.08333333333333333,
+        "assigned": 20,
+        "correct": 17
+      },
+      {
+        "threshold": 0.4,
+        "margin": 0.08,
+        "coverage": 0.3275862068965517,
+        "precision": 0.8421052631578947,
+        "falsePositiveRateNone": 0.08333333333333333,
+        "assigned": 19,
+        "correct": 16
+      },
+      {
+        "threshold": 0.45,
+        "margin": 0,
+        "coverage": 0.3103448275862069,
+        "precision": 0.8888888888888888,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 18,
+        "correct": 16
+      },
+      {
+        "threshold": 0.45,
+        "margin": 0.02,
+        "coverage": 0.3103448275862069,
+        "precision": 0.8888888888888888,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 18,
+        "correct": 16
+      },
+      {
+        "threshold": 0.45,
+        "margin": 0.03,
+        "coverage": 0.3103448275862069,
+        "precision": 0.8888888888888888,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 18,
+        "correct": 16
+      },
+      {
+        "threshold": 0.45,
+        "margin": 0.05,
+        "coverage": 0.29310344827586204,
+        "precision": 0.8823529411764706,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 17,
+        "correct": 15
+      },
+      {
+        "threshold": 0.45,
+        "margin": 0.08,
+        "coverage": 0.27586206896551724,
+        "precision": 0.875,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 16,
+        "correct": 14
+      },
+      {
+        "threshold": 0.5,
+        "margin": 0,
+        "coverage": 0.27586206896551724,
+        "precision": 0.875,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 16,
+        "correct": 14
+      },
+      {
+        "threshold": 0.5,
+        "margin": 0.02,
+        "coverage": 0.27586206896551724,
+        "precision": 0.875,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 16,
+        "correct": 14
+      },
+      {
+        "threshold": 0.5,
+        "margin": 0.03,
+        "coverage": 0.27586206896551724,
+        "precision": 0.875,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 16,
+        "correct": 14
+      },
+      {
+        "threshold": 0.5,
+        "margin": 0.05,
+        "coverage": 0.25862068965517243,
+        "precision": 0.8666666666666667,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 15,
+        "correct": 13
+      },
+      {
+        "threshold": 0.5,
+        "margin": 0.08,
+        "coverage": 0.2413793103448276,
+        "precision": 0.8571428571428571,
+        "falsePositiveRateNone": 0.041666666666666664,
+        "assigned": 14,
+        "correct": 12
+      },
+      {
+        "threshold": 0.55,
+        "margin": 0,
+        "coverage": 0.13793103448275862,
+        "precision": 0.875,
+        "falsePositiveRateNone": 0,
+        "assigned": 8,
+        "correct": 7
+      },
+      {
+        "threshold": 0.55,
+        "margin": 0.02,
+        "coverage": 0.13793103448275862,
+        "precision": 0.875,
+        "falsePositiveRateNone": 0,
+        "assigned": 8,
+        "correct": 7
+      },
+      {
+        "threshold": 0.55,
+        "margin": 0.03,
+        "coverage": 0.13793103448275862,
+        "precision": 0.875,
+        "falsePositiveRateNone": 0,
+        "assigned": 8,
+        "correct": 7
+      },
+      {
+        "threshold": 0.55,
+        "margin": 0.05,
+        "coverage": 0.1206896551724138,
+        "precision": 0.8571428571428571,
+        "falsePositiveRateNone": 0,
+        "assigned": 7,
+        "correct": 6
+      },
+      {
+        "threshold": 0.55,
+        "margin": 0.08,
+        "coverage": 0.1206896551724138,
+        "precision": 0.8571428571428571,
+        "falsePositiveRateNone": 0,
+        "assigned": 7,
+        "correct": 6
+      },
+      {
+        "threshold": 0.6,
+        "margin": 0,
+        "coverage": 0.06896551724137931,
+        "precision": 0.75,
+        "falsePositiveRateNone": 0,
+        "assigned": 4,
+        "correct": 3
+      },
+      {
+        "threshold": 0.6,
+        "margin": 0.02,
+        "coverage": 0.06896551724137931,
+        "precision": 0.75,
+        "falsePositiveRateNone": 0,
+        "assigned": 4,
+        "correct": 3
+      },
+      {
+        "threshold": 0.6,
+        "margin": 0.03,
+        "coverage": 0.06896551724137931,
+        "precision": 0.75,
+        "falsePositiveRateNone": 0,
+        "assigned": 4,
+        "correct": 3
+      },
+      {
+        "threshold": 0.6,
+        "margin": 0.05,
+        "coverage": 0.06896551724137931,
+        "precision": 0.75,
+        "falsePositiveRateNone": 0,
+        "assigned": 4,
+        "correct": 3
+      },
+      {
+        "threshold": 0.6,
+        "margin": 0.08,
+        "coverage": 0.06896551724137931,
+        "precision": 0.75,
+        "falsePositiveRateNone": 0,
+        "assigned": 4,
+        "correct": 3
+      }
+    ]
+  },
+  "scores": [
+    {
+      "q": "سرور مجازی لینوکس",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.7556,
+      "hosting": 0.5191,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "می خواهم کد برنامه ام همیشه آنلاین اجرا شود",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.515,
+      "hosting": 0.4384,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "راه اندازی بک اند اپ موبایل",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.8062,
+      "hosting": 0.2946,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "اجرای ربات تلگرام به صورت دائمی",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.5286,
+      "hosting": 0.333,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "میخوام ربات تلگرام اجرا کنم",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.5313,
+      "hosting": 0.2716,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "یه جا برای اجرای اسکریپت پایتون که همیشه روشن باشه",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.2511,
+      "hosting": 0.2526,
+      "predictedCurrent": null
+    },
+    {
+      "q": "دیپلوی پروژه جنگو",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.4798,
+      "hosting": 0.2305,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "اجرای کانتینر داکر",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.4129,
+      "hosting": 0.1605,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "سرور برای ماینکرفت",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.6219,
+      "hosting": 0.6185,
+      "predictedCurrent": null
+    },
+    {
+      "q": "دسترسی روت و ssh",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.4816,
+      "hosting": 0.3342,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "راه اندازی دیتابیس postgres جدا",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.5789,
+      "hosting": 0.529,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "اجرای مدل هوش مصنوعی روی cpu",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.5442,
+      "hosting": 0.3487,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "کرون جاب و ورکر صف",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.326,
+      "hosting": 0.1955,
+      "predictedCurrent": null
+    },
+    {
+      "q": "I need a server to run my Node.js API",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.4787,
+      "hosting": 0.3731,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "deploy a docker compose stack",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.5014,
+      "hosting": 0.3155,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "linux vps with root access",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.5842,
+      "hosting": 0.4073,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "run a discord bot 24/7",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.3397,
+      "hosting": 0.3646,
+      "predictedCurrent": null
+    },
+    {
+      "q": "میزبانی api بک اند",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.4206,
+      "hosting": 0.5693,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "اجرای n8n برای اتوماسیون",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.438,
+      "hosting": 0.2647,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "سرور برای کراولر و اسکرپر",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.5812,
+      "hosting": 0.6013,
+      "predictedCurrent": null
+    },
+    {
+      "q": "ماشین مجازی با رم بالا",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.5083,
+      "hosting": 0.2611,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "سرور ابری برای استارتاپ",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.7635,
+      "hosting": 0.5093,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "اجرای redis و rabbitmq",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.383,
+      "hosting": 0.2535,
+      "predictedCurrent": null
+    },
+    {
+      "q": "برنامه نویسی روی سرور با دسترسی کامل",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.6788,
+      "hosting": 0.4941,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "نصب گیت لب شخصی",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.2388,
+      "hosting": 0.1805,
+      "predictedCurrent": null
+    },
+    {
+      "q": "یه جا میخوام که کدم ۲۴ ساعته روشن بمونه",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.2508,
+      "hosting": 0.2115,
+      "predictedCurrent": null
+    },
+    {
+      "q": "اجرای ربات اینستاگرام",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.2108,
+      "hosting": 0.2775,
+      "predictedCurrent": null
+    },
+    {
+      "q": "اجرای بازی چندنفره آنلاین برای دوستام",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.4198,
+      "hosting": 0.4204,
+      "predictedCurrent": null
+    },
+    {
+      "q": "استقرار اپلیکیشن spring boot",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.3626,
+      "hosting": 0.1165,
+      "predictedCurrent": null
+    },
+    {
+      "q": "ماشین لینوکسی با دسترسی کامل",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.5833,
+      "hosting": 0.3709,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "deploy my go microservice",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.4278,
+      "hosting": 0.3342,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "self-host nextcloud",
+      "label": "vps",
+      "modelOnly": false,
+      "vps": 0.3973,
+      "hosting": 0.5327,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "اجرای مدل زبانی متن‌باز",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.495,
+      "hosting": 0.2542,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "اجرای سرویس وب‌سوکت برای چت",
+      "label": "vps",
+      "modelOnly": true,
+      "vps": 0.475,
+      "hosting": 0.6135,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "هاست وردپرس",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3031,
+      "hosting": 0.8488,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "یک سایت وردپرس دارم و برای آن هاست می خواهم",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.2611,
+      "hosting": 1,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "میزبانی وب سایت شرکتی",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.4429,
+      "hosting": 0.5585,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "وبلاگ شخصی راه بندازم",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.2044,
+      "hosting": 0.7484,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "فروشگاه اینترنتی ووکامرس",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3416,
+      "hosting": 0.4475,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "هاست با سی پنل",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.2321,
+      "hosting": 0.2196,
+      "predictedCurrent": null
+    },
+    {
+      "q": "هاست دایرکت ادمین",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.2714,
+      "hosting": 0.2561,
+      "predictedCurrent": null
+    },
+    {
+      "q": "سایت معرفی کسب و کار کوچک",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.2417,
+      "hosting": 0.2071,
+      "predictedCurrent": null
+    },
+    {
+      "q": "میخوام یه سایت ساده برای رستورانم داشته باشم",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.3048,
+      "hosting": 0.5177,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "سایت پورتفولیو شخصی",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.2665,
+      "hosting": 0.2262,
+      "predictedCurrent": null
+    },
+    {
+      "q": "هاست لینوکس php",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.5127,
+      "hosting": 0.871,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "میزبانی سایت خبری",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.2958,
+      "hosting": 0.2664,
+      "predictedCurrent": null
+    },
+    {
+      "q": "انتقال سایت جوملا",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.221,
+      "hosting": 0.271,
+      "predictedCurrent": null
+    },
+    {
+      "q": "هاست دانلود",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.4954,
+      "hosting": 0.3536,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "cheap wordpress hosting",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3115,
+      "hosting": 0.7586,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "shared hosting with cpanel",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3928,
+      "hosting": 0.6028,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "web hosting for my blog",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3509,
+      "hosting": 0.7967,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "host for a small business website",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3651,
+      "hosting": 0.6172,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "سایت فروشگاهی کوچک",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3687,
+      "hosting": 0.55,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "هاست ارزان برای سایت دانشجویی",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.3513,
+      "hosting": 0.4788,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "میزبانی سایت با ایمیل",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.4114,
+      "hosting": 0.5669,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "هاست برای سایت آموزشی",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.4878,
+      "hosting": 0.651,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "راه اندازی سایت با وردپرس",
+      "label": "hosting",
+      "modelOnly": false,
+      "vps": 0.2934,
+      "hosting": 0.898,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "سایت لندینگ محصول",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.3603,
+      "hosting": 0.334,
+      "predictedCurrent": null
+    },
+    {
+      "q": "جای سایتم رو عوض کنم و کنترل پنل داشته باشم",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.2676,
+      "hosting": 0.5671,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "میخوام سایت شخصیمو آنلاین کنم",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.2811,
+      "hosting": 0.7265,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "جای ارزون برای یه سایت html ساده",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.2113,
+      "hosting": 0.6419,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "سایت مدرسه با جوملا",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.2746,
+      "hosting": 0.3304,
+      "predictedCurrent": null
+    },
+    {
+      "q": "انتقال سایت از یه شرکت دیگه که سی پنل داره",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.3244,
+      "hosting": 0.345,
+      "predictedCurrent": null
+    },
+    {
+      "q": "سایت آموزشگاه زبان",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.4238,
+      "hosting": 0.4043,
+      "predictedCurrent": null
+    },
+    {
+      "q": "put my portfolio website online",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.2702,
+      "hosting": 0.5176,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "cheap place for a static website",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.3119,
+      "hosting": 0.5433,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "فضای وب برای سایت دانشگاهی",
+      "label": "hosting",
+      "modelOnly": true,
+      "vps": 0.3549,
+      "hosting": 0.6289,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "قغفهبثضصفص",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.0465,
+      "hosting": 0.0737,
+      "predictedCurrent": null
+    },
+    {
+      "q": "asdkjhqwe",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.3947,
+      "hosting": 0.1684,
+      "predictedCurrent": null
+    },
+    {
+      "q": "سلام",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2737,
+      "hosting": 0.1956,
+      "predictedCurrent": null
+    },
+    {
+      "q": "hello",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2848,
+      "hosting": 0.196,
+      "predictedCurrent": null
+    },
+    {
+      "q": "قیمت دلار امروز",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.096,
+      "hosting": 0.151,
+      "predictedCurrent": null
+    },
+    {
+      "q": "آب و هوای تهران",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2402,
+      "hosting": 0.1182,
+      "predictedCurrent": null
+    },
+    {
+      "q": "خرید گوشی سامسونگ",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.5106,
+      "hosting": 0.0756,
+      "predictedCurrent": "vps"
+    },
+    {
+      "q": "بهترین رستوران تهران",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2104,
+      "hosting": 0.2345,
+      "predictedCurrent": null
+    },
+    {
+      "q": "۱۲۳۴۵۶",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2026,
+      "hosting": 0.1476,
+      "predictedCurrent": null
+    },
+    {
+      "q": "کتاب داستان کودکانه",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.1876,
+      "hosting": 0.1365,
+      "predictedCurrent": null
+    },
+    {
+      "q": "how to cook pasta",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.1197,
+      "hosting": 0.011,
+      "predictedCurrent": null
+    },
+    {
+      "q": "بلیط هواپیما مشهد",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.067,
+      "hosting": 0.027,
+      "predictedCurrent": null
+    },
+    {
+      "q": "تعمیر یخچال",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.1633,
+      "hosting": 0.0928,
+      "predictedCurrent": null
+    },
+    {
+      "q": "lorem ipsum dolor",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.3208,
+      "hosting": 0.2374,
+      "predictedCurrent": null
+    },
+    {
+      "q": "فیلم سینمایی جدید",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.1907,
+      "hosting": 0.1012,
+      "predictedCurrent": null
+    },
+    {
+      "q": "ترجمه متن انگلیسی",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2017,
+      "hosting": 0.0906,
+      "predictedCurrent": null
+    },
+    {
+      "q": "زززززز",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.1416,
+      "hosting": 0.103,
+      "predictedCurrent": null
+    },
+    {
+      "q": "؟؟؟",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.1535,
+      "hosting": 0.1106,
+      "predictedCurrent": null
+    },
+    {
+      "q": "اخبار فوتبال",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2424,
+      "hosting": 0.1813,
+      "predictedCurrent": null
+    },
+    {
+      "q": "ثبت دامنه ir",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.2882,
+      "hosting": 0.4427,
+      "predictedCurrent": "hosting"
+    },
+    {
+      "q": "قیمت طلا",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.1111,
+      "hosting": 0.0675,
+      "predictedCurrent": null
+    },
+    {
+      "q": "دانلود آهنگ جدید",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.26,
+      "hosting": 0.1423,
+      "predictedCurrent": null
+    },
+    {
+      "q": "خرید لپ تاپ ایسوس",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.3594,
+      "hosting": 0.2905,
+      "predictedCurrent": null
+    },
+    {
+      "q": "وام مسکن",
+      "label": "none",
+      "modelOnly": true,
+      "vps": 0.0808,
+      "hosting": 0.0925,
+      "predictedCurrent": null
+    }
+  ]
+}

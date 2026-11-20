@@ -20,9 +20,9 @@ For example, a user can search in Persian:
 
 ## Product walkthrough
 
-1. **Describe the need.** Natural-language search extracts service type, workload, resources, location, provider, and budget where available.
+1. **Describe the need.** Natural-language search extracts service type, workload, resources, location, provider, and budget where available. It reads Persian number words («دو میلیون», «یک و نیم میلیون»), rial/toman/thousand/million units, and foreign or negated locations («خارج از ایران» maps to the catalog's only foreign region, Europe). Provider names such as «ایران‌سرور» select the provider, not a location. A site purpose («فروشگاهی», «وبلاگ», «سایت شرکتی») applies the matching WordPress floors. A budget without a unit («زیر ۵۰۰») is read against the catalog's price range and shown as an assumption the user can edit.
 2. **Refine the shortlist.** Choose minimum CPU, RAM, and disk; location; one or more providers; budget; traffic; and IPv4. Explicit manual selections take precedence over query-derived values.
-3. **Inspect comparable configurations.** Offers are grouped by service type, country, and nominal CPU/RAM/disk capacity. Minimum-resource matches rank by proximity to the requirement, with price breaking ties. Without resource constraints, price is the primary order.
+3. **Inspect comparable configurations.** Offers are grouped by service type, country, and nominal CPU/RAM/disk capacity. By default, configurations that meet every constraint rank by the cheapest estimated monthly cost, then by more CPU/RAM/disk: a plan that is both cheaper and at least as strong is never ranked below a weaker, pricier one. «نزدیک‌ترین به نیاز» (`sort=fit`) keeps the previous order by proximity to the requirement. Empty results state why (for example, no VPS outside Iran in the catalog, or a budget below the cheapest match) and offer a one-click next step.
 4. **Understand the estimate.** Offer details show the official source, verification date, billing period, known traffic/IP costs, and warnings about unspecified charges. Changing traffic or IPv4 recalculates the estimate.
 5. **Compare and keep options.** Save configurations, compare up to three side by side, download a comparison CSV, or copy a search link. Browser choices persist in SQLite and are associated with the same browser's session cookie.
 6. **Ask the assistant.** Gemini gathers project needs and budget before suggesting catalog offers. Applying its filters requires an explicit button click.
@@ -156,7 +156,20 @@ npm test
 npm run build
 ```
 
-The suite covers pricing, normalization, resource/budget constraints, Persian numerals, source extraction, atomic updates, session persistence, refresh scheduling, API validation, chat safeguards and failures, and the real local semantic model.
+The suite covers pricing, normalization, resource/budget constraints, Persian numerals and number words, query units and locations, ranking invariants, source extraction, atomic updates, session persistence, refresh scheduling, API validation, chat safeguards and failures, and the real local semantic model.
+
+Search quality is measured against a running instance, local or production:
+
+```sh
+# 63 golden queries: parse accuracy, result checks, zero-result rate,
+# Pareto violations and p50/p95 latency (5 runs per query).
+node scripts/eval-search.mjs --base http://127.0.0.1:4321 --out eval/results-local.json
+
+# Intent classifier threshold/margin sweep over 91 labeled queries.
+node scripts/eval-intent.mjs
+```
+
+The golden set is `eval/golden-queries.json`; recorded runs are in `eval/`.
 
 Install the [Postman CLI](https://learning.postman.com/docs/postman-cli/postman-cli-installation/) before running the integration suite. Existing Gemini and pricing simulations use loopback ports **4908, 4909, and 4910**, without a real Gemini key. Extraction tests serve recorded official HTML fixtures over HTTP. Passing simulations establish behavior against those fixtures and simulated responses, not current external-provider availability.
 

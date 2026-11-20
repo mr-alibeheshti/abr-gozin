@@ -1,5 +1,6 @@
 import baseline from "./baseline.json" with { type: "json" };
 import { providers } from "./catalog.mjs";
+import { paretoViolations } from "./pareto.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
@@ -158,7 +159,7 @@ test("API validates requests, isolates sessions, persists choices, and uses offi
   ).json();
   assert.deepEqual(legacyMode.groups, minimum.groups);
   assert.equal(legacyMode.filters.resourceMode, "minimum");
-  for (const sort of ["price", "price-desc"]) {
+  for (const sort of ["fit", "price-desc"]) {
     const ranked = await (
       await get("/api/search?type=vps&ram=4&sort=" + sort)
     ).json();
@@ -168,8 +169,18 @@ test("API validates requests, isolates sessions, persists choices, and uses offi
         b = ranked.groups[i];
       assert.ok(a.ram <= b.ram, "closest RAM precedes price");
       if (a.ram === b.ram)
-        assert.ok(sort === "price" ? a.min <= b.min : a.min >= b.min);
+        assert.ok(sort === "fit" ? a.min <= b.min : a.min >= b.min);
     }
+  }
+  for (const path of [
+    "/api/search?type=vps&ram=4",
+    "/api/search?type=vps&ram=4&sort=price",
+  ]) {
+    const ranked = await (await get(path)).json();
+    assert.ok(ranked.groups.length > 1);
+    for (let i = 1; i < ranked.groups.length; i++)
+      assert.ok(ranked.groups[i - 1].min <= ranked.groups[i].min);
+    assert.deepEqual(paretoViolations(ranked.groups), []);
   }
   const cleared = await (
     await get(
