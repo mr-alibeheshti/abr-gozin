@@ -127,9 +127,17 @@ type SearchResult = {
   resourceFilters: Partial<Record<ResourceField, number>>;
   requirements: Requirements;
   totalOffers: number;
-  intent: { fields: Record<string, string | number>; semanticType?: string };
+  intent: {
+    fields: Record<string, string | number>;
+    semanticType?: string;
+    budgetAssumed?: boolean;
+    budgetUnit?: string;
+    budgetText?: string;
+  };
   filters: Record<string, unknown>;
   model: Model;
+  emptyReason?: string | null;
+  emptyContext?: { cheapest?: number; maxPrice?: number } | null;
 };
 type Choices = { saved: string[]; compared: string[] };
 type Filters = {
@@ -362,8 +370,8 @@ export default function App() {
           k === "provider"
             ? initial.getAll(k).join(",")
             : k === "sort"
-              ? initial.get(k) === "price-desc"
-                ? "price-desc"
+              ? ["fit", "price-desc"].includes(initial.get(k) || "")
+                ? String(initial.get(k))
                 : "price"
               : initial.get(k) || v,
         ]),
@@ -391,6 +399,7 @@ export default function App() {
   const toastTimer = useRef<number | undefined>(undefined);
   const resultsRef = useRef<HTMLDivElement>(null);
   const providerPicker = useRef<HTMLDetailsElement>(null);
+  const filtersPanel = useRef<HTMLDetailsElement>(null);
   const provider = (id: string) => providers.find((p) => p.id === id);
   useEffect(() => {
     const dismiss = (event: PointerEvent) => {
@@ -607,6 +616,15 @@ export default function App() {
     setRevision((r) => r + 1);
   }
   const applied = results?.filters || {};
+  const emptyReason = results?.emptyReason;
+  const cheapest = results?.emptyContext?.cheapest;
+  // A unit-less budget («زیر ۵۰۰») shows how it was read and stays editable.
+  const budgetAssumed = Boolean(results?.intent.budgetAssumed);
+  const budgetLabel = `تا ${fa(Number(applied.maxPrice))} تومان در ماه${budgetAssumed ? " (برداشت از عبارت)" : ""}`;
+  function editBudget() {
+    if (filtersPanel.current) filtersPanel.current.open = true;
+    window.setTimeout(() => document.getElementById("budget")?.focus(), 0);
+  }
   const appliedLabels = [
     ...(applied.type && applied.type !== "all"
       ? [
@@ -617,7 +635,7 @@ export default function App() {
               : "هاست",
         ]
       : []),
-    ...(applied.region && applied.region !== "all"
+    ...(applied.region && !["all", "any"].includes(String(applied.region))
       ? [region(String(applied.region))]
       : []),
     ...(["ram", "cpu", "disk"] as ResourceField[])
@@ -626,9 +644,7 @@ export default function App() {
         (key) =>
           `حداقل ${fa(Number(applied[key]))} ${key === "cpu" ? "هسته" : key === "ram" ? "گیگ رم" : "گیگ دیسک"}`,
       ),
-    ...(applied.maxPrice !== undefined
-      ? [`تا ${fa(Number(applied.maxPrice))} تومان در ماه`]
-      : []),
+    ...(applied.maxPrice !== undefined ? [budgetLabel] : []),
     ...(Array.isArray(applied.provider)
       ? applied.provider
       : String(applied.provider || "").split(",")
@@ -1016,7 +1032,7 @@ export default function App() {
                   )}
                 </div>
               )}
-              <details className="search-filters">
+              <details className="search-filters" ref={filtersPanel}>
                 <summary>
                   <SlidersHorizontal size={19} />
                   <span>
@@ -1101,10 +1117,22 @@ export default function App() {
                             <option value="all">
                               {filters.q &&
                               applied.region &&
-                              applied.region !== "all"
+                              !["all", "any"].includes(String(applied.region))
                                 ? `از عبارت: ${region(String(applied.region))}`
                                 : "همهٔ موقعیت‌ها"}
                             </option>
+                            {(filters.region === "any" ||
+                              Boolean(
+                                filters.q &&
+                                applied.region &&
+                                !["all", "any"].includes(
+                                  String(applied.region),
+                                ),
+                              )) && (
+                              <option value="any">
+                                همهٔ موقعیت‌ها؛ بدون موقعیت عبارت
+                              </option>
+                            )}
                             <option value="ir">ایران</option>
                             <option value="eu">اروپا</option>
                             <option value="unknown">موقعیت اعلام‌نشده</option>
@@ -1432,7 +1460,8 @@ export default function App() {
                             value={filters.sort}
                             onChange={(e) => update("sort", e.target.value)}
                           >
-                            <option value="price">کمترین هزینه</option>
+                            <option value="price">ارزان‌ترین پلنِ کافی</option>
+                            <option value="fit">نزدیک‌ترین به نیاز</option>
                             <option value="price-desc">بیشترین هزینه</option>
                           </select>
                         </label>
@@ -1474,11 +1503,23 @@ export default function App() {
               {!loading && !error && appliedLabels.length > 0 && (
                 <div className="applied-filters" role="status">
                   <span>فیلترهای اعمال‌شده:</span>
-                  {appliedLabels.map((label) => (
-                    <span className="applied-filter" key={label}>
-                      {label}
-                    </span>
-                  ))}
+                  {appliedLabels.map((label) =>
+                    label === budgetLabel && budgetAssumed ? (
+                      <button
+                        type="button"
+                        className="applied-filter applied-filter-edit"
+                        key={label}
+                        onClick={editBudget}
+                        title={`عبارت «${(results?.intent.budgetText || "").replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)])}» این‌طور برداشت شد؛ برای تغییر، سقف هزینه را انتخاب کن.`}
+                      >
+                        {label}
+                      </button>
+                    ) : (
+                      <span className="applied-filter" key={label}>
+                        {label}
+                      </span>
+                    ),
+                  )}
                   {results?.intent.semanticType && (
                     <small>
                       <Sparkles size={13} /> نوع سرویس از مفهوم عبارت تشخیص داده
@@ -1571,27 +1612,68 @@ export default function App() {
                       <h3>
                         {view === "saved"
                           ? "هنوز چیزی ذخیره نکرده‌ای"
-                          : filters.type === "dedicated"
-                            ? "هنوز پلن سرور اختصاصی نداریم"
-                            : "پلنی با این شرایط پیدا نشد"}
+                          : emptyReason === "no-foreign-vps-in-catalog"
+                            ? "در کاتالوگ فعلی، سرور مجازی خارج از ایران نداریم"
+                            : emptyReason === "budget-too-low"
+                              ? "با این سقف بودجه پلنی پیدا نشد"
+                              : filters.type === "dedicated" ||
+                                  emptyReason === "no-dedicated-in-catalog"
+                                ? "هنوز پلن سرور اختصاصی نداریم"
+                                : "پلنی با این شرایط پیدا نشد"}
                       </h3>
                       <p>
                         {view === "saved"
                           ? "کنار پیکربندی‌های موردعلاقه‌ات، نشان ذخیره را بزن."
-                          : filters.type === "dedicated"
-                            ? "کاتالوگ فعلی شامل هاست و سرور مجازی است. پلن اختصاصی پس از دریافت و تأیید منبع رسمی اضافه می‌شود."
-                            : "حداقل منابع یا سقف بودجه را تغییر بده."}
+                          : emptyReason === "no-foreign-vps-in-catalog"
+                            ? "منابع رسمی فعلی ابرگزین فقط سرور مجازی داخل ایران را دارند. فیلتر موقعیت را بردار یا هاست‌های خارج از ایران را ببین."
+                            : emptyReason === "budget-too-low" && cheapest
+                              ? `ارزان‌ترین گزینه‌ای که بقیهٔ شرایطت را دارد حدود ${formatPrice(cheapest)} تومان در ماه است.`
+                              : filters.type === "dedicated" ||
+                                  emptyReason === "no-dedicated-in-catalog"
+                                ? "کاتالوگ فعلی شامل هاست و سرور مجازی است. پلن اختصاصی پس از دریافت و تأیید منبع رسمی اضافه می‌شود."
+                                : "حداقل منابع یا سقف بودجه را تغییر بده."}
                       </p>
-                      {!results?.similarGroups.length && (
+                      {view !== "saved" &&
+                      emptyReason === "no-foreign-vps-in-catalog" ? (
+                        <div className="empty-actions">
+                          <button
+                            className="primary"
+                            onClick={() => update("region", "any")}
+                          >
+                            حذف فیلتر موقعیت <ArrowLeft size={17} />
+                          </button>
+                          <button
+                            className="secondary"
+                            onClick={() => {
+                              update("type", "hosting");
+                              update("region", "eu");
+                            }}
+                          >
+                            دیدن هاست‌های خارج
+                          </button>
+                        </div>
+                      ) : view !== "saved" &&
+                        emptyReason === "budget-too-low" &&
+                        cheapest ? (
                         <button
                           className="primary"
-                          onClick={() => {
-                            go("discover");
-                            reset();
-                          }}
+                          onClick={() => update("maxPrice", String(cheapest))}
                         >
-                          دیدن همهٔ سرویس‌ها <ArrowLeft size={17} />
+                          دیدن گزینه‌ها تا {formatPrice(cheapest)} تومان{" "}
+                          <ArrowLeft size={17} />
                         </button>
+                      ) : (
+                        !results?.similarGroups.length && (
+                          <button
+                            className="primary"
+                            onClick={() => {
+                              go("discover");
+                              reset();
+                            }}
+                          >
+                            دیدن همهٔ سرویس‌ها <ArrowLeft size={17} />
+                          </button>
+                        )
                       )}
                     </div>
                   )
