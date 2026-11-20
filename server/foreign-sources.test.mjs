@@ -43,29 +43,42 @@ test("F2: Webramz's official Germany/Finland VPS page yields verified eu offers"
   );
 });
 
-test("F2: foreign VPS queries now return the Webramz eu plans", () => {
+test("F2: foreign VPS queries return verified European plans, Webramz included", () => {
   for (const q of ["سرور مجازی آلمان", "سرور خارج از ایران", "vps europe"]) {
     const result = searchOffers(baseline, { q, traffic: 200, ip: true });
     assert.ok(result.groups.length > 0, q);
     assert.equal(result.emptyReason, null, q);
     assert.ok(
-      result.groups.every(
-        (g) =>
-          g.type === "vps" &&
-          g.region === "eu" &&
-          g.offers.every((o) => o.providerId === "webramz"),
+      result.groups.every((g) => g.type === "vps" && g.region === "eu"),
+      q,
+    );
+    assert.ok(
+      result.groups.some((g) =>
+        g.offers.some((o) => o.providerId === "webramz"),
       ),
       q,
     );
   }
-  // Docker floors (25 GB disk) still bind foreign plans.
+  // «آلمان» keeps only plans whose official page names Germany (Webramz
+  // names «آلمان / فنلاند»).
+  const germany = searchOffers(baseline, { q: "سرور مجازی آلمان" });
+  assert.equal(germany.filters.country, "DE");
+  assert.ok(
+    germany.groups.every((g) =>
+      g.offers.every((o) => o.countries.includes("DE")),
+    ),
+  );
+  // Docker floors (25 GB disk) still bind foreign plans; «هلند» is the
+  // Netherlands only.
   const docker = searchOffers(baseline, {
     q: "سرور مجازی هلند برای داکر",
     traffic: 200,
     ip: true,
   });
-  assert.deepEqual(
-    docker.groups.map((g) => g.disk),
-    [30, 40, 50],
+  assert.ok(docker.groups.length > 0);
+  assert.ok(
+    docker.groups.every(
+      (g) => g.disk >= 25 && g.offers.every((o) => o.country === "NL"),
+    ),
   );
 });

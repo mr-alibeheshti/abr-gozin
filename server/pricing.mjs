@@ -5,6 +5,7 @@ import {
   meetsRequirements,
 } from "./workloads.mjs";
 import { paretoOrder } from "./pareto.mjs";
+import { findCountry, regionOf, locate, inCountry } from "./countries.mjs";
 export const digits = (s) =>
   String(s)
     .replace(/[۰-۹]/g, (c) => "۰۱۲۳۴۵۶۷۸۹".indexOf(c))
@@ -346,6 +347,14 @@ export function analyzeQuery(query) {
   // Foreign and negated forms first: «خارج از ایران» contains «ایران».
   if (FOREIGN.test(q)) fields.region = "eu";
   else if (IRAN.test(q)) fields.region = "ir";
+  // A named country is more specific and sets its region: «ترکیه» is
+  // `other`, never `eu`. Provider names were removed above, so «ایران‌سرور»
+  // or «ایران هاست» never set a location by themselves.
+  const country = findCountry(q);
+  if (country) {
+    fields.country = country;
+    fields.region = regionOf(country);
+  }
   if (/سرور اختصاصی|dedicated/.test(q)) fields.type = "dedicated";
   else if (VPS_WORKLOAD.test(q)) fields.type = "vps";
   else if (WORDPRESS.test(q)) fields.type = "hosting";
@@ -543,6 +552,8 @@ const moreResources = (a, b) => {
   return 0;
 };
 export function searchOffers(offers, p, semantic = {}) {
+  // Rows recorded before countries existed still get `country`/`countries`.
+  offers = offers.map(locate);
   const analysis = analyzeQuery(p.q || "");
   const intent = { fields: { ...analysis.fields }, reasons: analysis.reasons },
     filters = { ...p, resourceMode: "minimum" };
@@ -553,6 +564,12 @@ export function searchOffers(offers, p, semantic = {}) {
       (filters[k] === "all" && !["cpu", "ram", "disk"].includes(k))
     )
       filters[k] = v;
+  // Location precedence: an explicit country, then an explicit region
+  // (including `any`, which ignores the text), then the text.
+  if (p.country) {
+    filters.country = p.country;
+    filters.region = regionOf(p.country);
+  } else if (p.region && p.region !== "all") delete filters.country;
   if (!filters.workload || filters.workload === "all") {
     const inferred = inferWorkload(analysis.text);
     // Explicit service selection wins over an incompatible text workload.
@@ -642,10 +659,12 @@ export function searchOffers(offers, p, semantic = {}) {
               ? filters.type
               : "hosting")
           : serviceCategory(o.type) !== "hosting")) &&
-      (!filters.region ||
-        filters.region === "all" ||
-        filters.region === "any" ||
-        o.region === filters.region) &&
+      (filters.country
+        ? inCountry(o, filters.country)
+        : !filters.region ||
+          filters.region === "all" ||
+          filters.region === "any" ||
+          o.region === filters.region) &&
       (!selectedProviders.length || selectedProviders.includes(o.providerId)) &&
       (!p.saved || p.saved.includes(groupKey(o))),
   );
@@ -715,8 +734,18 @@ export function searchOffers(offers, p, semantic = {}) {
     const eligible = [...grouped.values()]
       .map((g) => {
         g.offers.sort((a, b) => a.estimate.total - b.estimate.total);
+        const countries = [
+          ...new Set(g.offers.flatMap((o) => o.countries)),
+        ].sort();
         return {
           ...g,
+          // Every country the group's offers name; `country` when they agree.
+          countries,
+          country: g.offers.every(
+            (o) => o.country && o.country === g.offers[0].country,
+          )
+            ? g.offers[0].country
+            : null,
           min: g.offers[0].estimate.total,
           max: g.offers.at(-1).estimate.total,
           providerCount: new Set(g.offers.map((x) => x.providerId)).size,
@@ -778,7 +807,29 @@ export function searchOffers(offers, p, semantic = {}) {
       )
     )
       emptyReason = "no-foreign-vps-in-catalog";
-    else if (requirements.blockers.length) emptyReason = "requirements-blocked";
+    else if (
+      filters.country &&
+      !offers.some(
+        (o) =>
+          inCountry(o, filters.country) &&
+          (!category || serviceCategory(o.type) === category),
+      )
+    ) {
+      // Nothing of this service type in that country: say so, and tell the
+      // UI whether the country's region has alternatives to offer.
+      const region = regionOf(filters.country);
+      emptyReason = "no-country-in-catalog";
+      emptyContext = {
+        country: filters.country,
+        region,
+        regionOffers: offers.filter(
+          (o) =>
+            o.region === region &&
+            (!category || serviceCategory(o.type) === category),
+        ).length,
+      };
+    } else if (requirements.blockers.length)
+      emptyReason = "requirements-blocked";
     else if (overBudget.length) {
       emptyReason = "budget-too-low";
       emptyContext = {

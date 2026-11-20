@@ -2,6 +2,7 @@ import { load } from "cheerio";
 import { createHash } from "node:crypto";
 import { sources, makeOffer, arvanOffers } from "./catalog.mjs";
 import { parseExpanded, auxiliaryURLs } from "./expanded-ingest.mjs";
+import { parseForeign } from "./foreign-ingest.mjs";
 import { number, norm } from "./pricing.mjs";
 export function parseLiara(html, stamp) {
   const $ = load(html),
@@ -334,8 +335,9 @@ export async function refreshSources(
         const hash = createHash("sha256")
           .update(html + Object.values(aux).join("\n"))
           .digest("hex");
-        const offers =
-          source.id === "liara"
+        const offers = source.parser
+          ? parseForeign(source, html, checkedAt)
+          : source.id === "liara"
             ? parseLiara(html, checkedAt)
             : source.id === "iranserver-vps"
               ? parseIranserver(html, checkedAt)

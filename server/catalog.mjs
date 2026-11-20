@@ -1,4 +1,5 @@
 import { expandedProviders, expandedSources } from "./expanded-catalog.mjs";
+import { foreignSources } from "./foreign-catalog.mjs";
 export const providers = [
   {
     id: "arvan",
@@ -75,7 +76,7 @@ export const sources = [
   },
 ];
 providers.push(...expandedProviders);
-sources.push(...expandedSources);
+sources.push(...expandedSources, ...foreignSources);
 export const stamp = "2026-10-09T17:17:44.000Z";
 export const defaults = {
   trafficGB: null,

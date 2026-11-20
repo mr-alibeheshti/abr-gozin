@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { providers } from "./catalog.mjs";
+import { countryCodes } from "./countries.mjs";
 import { workloadTypes, scenarioIds, validScenario } from "./workloads.mjs";
 
 export const providerIds = providers.map((p) => p.id);
@@ -22,7 +23,20 @@ export const searchParams = z
     backupCopies: z.coerce.number().int().min(0).max(30).optional(),
     gpu: z.enum(["true", "false"]).default("false"),
     // `any` explicitly ignores a location named in `q`; `all` lets the text decide.
-    region: z.enum(["all", "any", "ir", "eu", "unknown"]).default("all"),
+    // `other` is a known location outside Iran and Europe (e.g. Turkey, USA).
+    region: z
+      .enum(["all", "any", "ir", "eu", "other", "unknown"])
+      .default("all"),
+    // ISO 3166-1 alpha-2 country; it wins over `region` and over the text.
+    country: z
+      .preprocess(
+        (value) =>
+          typeof value === "string" && value.trim()
+            ? value.trim().toUpperCase()
+            : undefined,
+        z.enum(countryCodes).optional(),
+      )
+      .optional(),
     provider: z
       .preprocess(
         (value) => (typeof value === "string" ? value.split(",") : value),

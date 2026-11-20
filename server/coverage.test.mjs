@@ -55,7 +55,8 @@ test("22 distinct providers each have usable plans, official provenance and stab
     }
   }
   assert.equal(all.length, 164);
-  assert.equal(baseline.length, 209);
+  // 209 domestic/legacy rows plus 183 foreign offers (foreign-sources.test.mjs).
+  assert.equal(baseline.length, 392);
 });
 test("Currency, compact MB/TB, annual equivalents and capacity are not misrepresented", () => {
   assert.equal(number("۱٫۲۸"), 1.28);

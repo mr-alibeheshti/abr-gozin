@@ -13,8 +13,8 @@ export function textOf(node) {
         : (e.children || []).map(walk).join(" ");
   return norm(node.toArray().map(walk).join(" ")).replace(/٫/g, ".");
 }
-const capture = (s, re) => number(s.match(re)?.[1]);
-const gb = (s) => {
+export const capture = (s, re) => number(s.match(re)?.[1]);
+export const gb = (s) => {
   const n = number(s);
   if (n === null) return null;
   return /(?:مگابایت|mb(?:$|\s))/i.test(s)
@@ -23,7 +23,7 @@ const gb = (s) => {
       ? n * 1000
       : n;
 };
-const money = (s) => {
+export const money = (s) => {
   const m = norm(s)
     .replace(/٫/g, ".")
     .match(/([\d.,٬،]+)\s*(میلیون|هزار)?\s*تومان/);
@@ -40,6 +40,7 @@ const billing = (p) =>
         ? "quarterly"
         : "monthly";
 const checkoutHosts = new Set([
+  "hub.iranserver.com",
   "client.saba.host",
   "my.webramz.com",
   "my.parsvds.com",
@@ -72,7 +73,7 @@ const checkoutHosts = new Set([
   "mehrhost.com",
   "my.mehrhost.com",
 ]);
-const link = (href, source) => {
+export const link = (href, source) => {
   try {
     const u = new URL(href, source.url);
     return u.protocol === "https:" &&
@@ -85,7 +86,7 @@ const link = (href, source) => {
     return source.url;
   }
 };
-function finish(source, stamp, result) {
+export function finish(source, stamp, result) {
   if (!result.length)
     throw Error("پلن معتبر در صفحهٔ رسمی پیدا نشد؛ دادهٔ قبلی حفظ شد.");
   const seen = new Map();

@@ -2,6 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import baseline from "./baseline.json" with { type: "json" };
+import { locate } from "./countries.mjs";
 export function createStore(path = process.env.DATA_DIR || resolve("data")) {
   mkdirSync(path, { recursive: true });
   const db = new DatabaseSync(resolve(path, "abrgozin.sqlite"));
@@ -65,7 +66,10 @@ export function createStore(path = process.env.DATA_DIR || resolve("data")) {
         version = current;
         parsed = null;
       }
-      return (parsed ??= selectOffers.all().map((x) => JSON.parse(x.record)));
+      // Rows recorded before countries existed gain `country`/`countries`.
+      return (parsed ??= selectOffers
+        .all()
+        .map((x) => locate(JSON.parse(x.record))));
     },
     offer: (id) => {
       let x = db.prepare("SELECT record FROM offers WHERE id=?").get(id);
