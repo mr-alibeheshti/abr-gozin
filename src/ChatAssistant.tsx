@@ -43,6 +43,7 @@ export type ChatFilters = {
   type: string;
   workload: string;
   region: string;
+  country?: string | null;
   provider: string[];
   ram: number | null;
   cpu: number | null;

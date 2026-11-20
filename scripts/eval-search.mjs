@@ -61,6 +61,14 @@ export function runCheck(name, data) {
       const other = groups.filter((g) => g.region !== arg);
       return { ok: other.length === 0, detail: `${other.length} groups outside ${arg}` };
     }
+    case "countryIs": {
+      // Offers must name the country, or name none (a page that only says
+      // «اروپا»); offers from responses without countries fail.
+      const other = offers.filter(
+        (o) => !(Array.isArray(o.countries) && (o.countries.includes(arg) || o.countries.length === 0)),
+      );
+      return { ok: other.length === 0, detail: `${other.length} offers outside ${arg}` };
+    }
     case "typeIs": {
       const other = groups.filter((g) => g.type !== arg);
       return { ok: other.length === 0, detail: `${other.length} groups not ${arg}` };
@@ -140,7 +148,7 @@ async function main() {
       violationExamples: violations.slice(0, 3),
       filters: data
         ? Object.fromEntries(
-            ["type", "region", "workload", "scenario", "provider", "ram", "cpu", "disk", "maxPrice"]
+            ["type", "region", "country", "workload", "scenario", "provider", "ram", "cpu", "disk", "maxPrice"]
               .filter((k) => !unset(data.filters?.[k]))
               .map((k) => [k, data.filters[k]]),
           )

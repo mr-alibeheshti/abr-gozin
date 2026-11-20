@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "notes": "Golden queries for GET /api/search. `expect` lists only the parsed filters that matter (compared with response.filters); null means the field must stay unset. `checks` are result-level properties evaluated by scripts/eval-search.mjs. Known failures F1-F7 come from the 2026-11-20 review.",
+  "notes": "Golden queries for GET /api/search. `expect` lists only the parsed filters that matter (compared with response.filters); null means the field must stay unset. `checks` are result-level properties evaluated by scripts/eval-search.mjs. Known failures F1-F7 come from the 2026-11-20 review. Group F11 (2026-11-20, evening) covers country names: `country` is the ISO code in response.filters; `countryIs:XX` requires every returned offer to name that country, or to name no country (a European plan whose page only says «اروپا»).",
   "queries": [
     {"id": "f1-outside-iran", "group": "F1", "q": "سرور خارج از ایران", "expect": {"type": "vps", "region": "eu"}, "checks": ["regionIs:eu", "explicitEmptyReason"]},
     {"id": "f1-abroad-hosting", "group": "F1", "q": "هاست خارج کشور", "expect": {"type": "hosting", "region": "eu"}, "checks": ["nonEmpty", "regionIs:eu", "typeIs:hosting"]},
@@ -64,6 +64,22 @@
     {"id": "reg-typo-server", "group": "regression", "q": "سرو مجازی ۴ گیگ رم", "expect": {"ram": 4}, "checks": ["nonEmpty"]},
     {"id": "reg-persian-digits-hosting", "group": "regression", "q": "هاست زیر ۱۰۰ هزار تومان", "expect": {"type": "hosting", "maxPrice": 100000}, "checks": ["nonEmpty", "allWithinBudget", "paretoConsistent"]},
     {"id": "reg-iran-docker-budget", "group": "regression", "q": "سرور ایران با ۸ گیگ رم زیر ۳ میلیون", "expect": {"type": "vps", "region": "ir", "ram": 8, "maxPrice": 3000000}, "checks": ["nonEmpty", "allWithinBudget", "regionIs:ir", "paretoConsistent"]},
-    {"id": "reg-gibberish", "group": "regression", "q": "قغفهبثضصفص", "expect": {}, "checks": ["explicitEmptyReason"]}
+    {"id": "reg-gibberish", "group": "regression", "q": "قغفهبثضصفص", "expect": {}, "checks": ["explicitEmptyReason"]},
+    {"id": "f11-turkey-vps", "group": "F11", "q": "سرور ترکیه", "expect": {"type": "vps", "region": "other", "country": "TR"}, "checks": ["nonEmpty", "regionIs:other", "countryIs:TR", "paretoConsistent"]},
+    {"id": "f11-usa-vps", "group": "F11", "q": "سرور آمریکا", "expect": {"type": "vps", "region": "other", "country": "US"}, "checks": ["nonEmpty", "regionIs:other", "countryIs:US", "paretoConsistent"]},
+    {"id": "f11-finland-vps", "group": "F11", "q": "سرور مجازی فنلاند", "expect": {"type": "vps", "region": "eu", "country": "FI"}, "checks": ["nonEmpty", "regionIs:eu", "countryIs:FI", "paretoConsistent"]},
+    {"id": "f11-france-vps-en", "group": "F11", "q": "vps france", "expect": {"type": "vps", "region": "eu", "country": "FR"}, "checks": ["nonEmpty", "regionIs:eu", "countryIs:FR"]},
+    {"id": "f11-netherlands-vps", "group": "F11", "q": "سرور هلند", "expect": {"type": "vps", "region": "eu", "country": "NL"}, "checks": ["nonEmpty", "countryIs:NL"]},
+    {"id": "f11-uk-vps", "group": "F11", "q": "سرور انگلیس", "expect": {"type": "vps", "region": "eu", "country": "GB"}, "checks": ["nonEmpty", "countryIs:GB"]},
+    {"id": "f11-canada-vps", "group": "F11", "q": "سرور کانادا", "expect": {"type": "vps", "region": "other", "country": "CA"}, "checks": ["nonEmpty", "countryIs:CA"]},
+    {"id": "f11-uae-vps", "group": "F11", "q": "سرور امارات", "expect": {"type": "vps", "region": "other", "country": "AE"}, "checks": ["nonEmpty", "countryIs:AE"]},
+    {"id": "f11-germany-ram-en", "group": "F11", "q": "vps germany 4gb ram", "expect": {"type": "vps", "region": "eu", "country": "DE", "ram": 4}, "checks": ["nonEmpty", "countryIs:DE", "paretoConsistent"]},
+    {"id": "f11-germany-budget", "group": "F11", "q": "سرور آلمان زیر ۲ میلیون", "expect": {"type": "vps", "region": "eu", "country": "DE", "maxPrice": 2000000}, "checks": ["nonEmpty", "allWithinBudget", "countryIs:DE", "paretoConsistent"]},
+    {"id": "f11-provider-iranserver-germany", "group": "F11", "q": "ایرانسرور آلمان", "expect": {"provider": "iranserver", "region": "eu", "country": "DE"}, "checks": ["nonEmpty", "countryIs:DE"]},
+    {"id": "f11-turkey-docker", "group": "F11", "q": "سرور ترکیه برای داکر", "expect": {"type": "vps", "region": "other", "country": "TR", "workload": "docker"}, "checks": ["nonEmpty", "minDiskAtLeast:25", "countryIs:TR"]},
+    {"id": "f11-usa-en", "group": "F11", "q": "server in usa", "expect": {"type": "vps", "region": "other", "country": "US"}, "checks": ["nonEmpty", "countryIs:US"]},
+    {"id": "f11-france-hosting", "group": "F11", "q": "هاست فرانسه", "expect": {"type": "hosting", "region": "eu", "country": "FR"}, "checks": ["nonEmpty", "typeIs:hosting", "countryIs:FR"]},
+    {"id": "f11-turkey-hosting-empty", "group": "F11", "q": "هاست ترکیه", "expect": {"type": "hosting", "region": "other", "country": "TR"}, "checks": ["explicitEmptyReason"]},
+    {"id": "f11-japan-empty", "group": "F11", "q": "سرور ژاپن", "expect": {"type": "vps", "region": "other", "country": "JP"}, "checks": ["explicitEmptyReason"]}
   ]
 }

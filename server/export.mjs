@@ -49,6 +49,8 @@ export function catalogCSV(offers, providers) {
     "source_url",
     "order_url",
     "notes",
+    // Appended last so existing column positions stay stable.
+    "countries",
   ];
   const rows = offers.map((o) => [
     names.get(o.providerId),
@@ -73,6 +75,7 @@ export function catalogCSV(offers, providers) {
     o.url,
     o.checkoutUrl,
     o.notes.join(" | "),
+    (o.countries || (o.country ? [o.country] : [])).join("/"),
   ]);
   return (
     "\ufeff" +

@@ -6,6 +6,7 @@ import { providers, sources } from "./catalog.mjs";
 import { catalogDocument, catalogCSV } from "./export.mjs";
 import { createStore } from "./store.mjs";
 import { searchOffers, groupKey, needsIntentModel } from "./pricing.mjs";
+import { catalogCountries } from "./countries.mjs";
 import { searchParams as params } from "./filters.mjs";
 import { createRefreshWorker } from "./refresh-worker.mjs";
 import { createSemanticEngine } from "./semantic.mjs";
@@ -87,6 +88,8 @@ app.get("/api/catalog", (req, res) =>
     workloadGuide,
     sizingRevision,
     offers: store.offers(),
+    // Countries that currently have offers, for the location filter.
+    countries: catalogCountries(store.offers()),
     status: store.status(),
     model: engine.status,
   }),

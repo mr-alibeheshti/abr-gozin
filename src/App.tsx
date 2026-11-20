@@ -64,6 +64,8 @@ type Offer = {
   diskType: string;
   price: number;
   region: string;
+  country?: string | null;
+  countries?: string[];
   period: number;
   billing: string;
   trafficGB: number | null;
@@ -85,6 +87,8 @@ type Group = {
   serviceType: string;
   type: string;
   region: string;
+  country?: string | null;
+  countries?: string[];
   cpu: number | null;
   ram: number | null;
   disk: number;
@@ -105,6 +109,12 @@ type Provider = {
   url: string;
 };
 type Source = { id: string; providerId: string; name: string; url: string };
+type CatalogCountry = {
+  code: string;
+  name: string;
+  region: string;
+  offers: number;
+};
 type Status = {
   id: string;
   state: string;
@@ -137,7 +147,14 @@ type SearchResult = {
   filters: Record<string, unknown>;
   model: Model;
   emptyReason?: string | null;
-  emptyContext?: { cheapest?: number; maxPrice?: number } | null;
+  emptyContext?: {
+    cheapest?: number;
+    maxPrice?: number;
+    country?: string;
+    region?: string;
+    regionOffers?: number;
+    europeOffers?: number;
+  } | null;
 };
 type Choices = { saved: string[]; compared: string[] };
 type Filters = {
@@ -153,6 +170,7 @@ type Filters = {
   type: string;
   workload: string;
   region: string;
+  country: string;
   provider: string;
   cpu: string;
   ram: string;
@@ -175,7 +193,52 @@ const datetime = (s: string) =>
     timeZone: "Asia/Tehran",
   }).format(new Date(s));
 const region = (s: string) =>
-  s === "ir" ? "ایران" : s === "eu" ? "اروپا" : "نامشخص";
+  s === "ir"
+    ? "ایران"
+    : s === "eu"
+      ? "اروپا"
+      : s === "other"
+        ? "سایر کشورها"
+        : "نامشخص";
+const countryNames: Record<string, string> = {
+  IR: "ایران",
+  DE: "آلمان",
+  FI: "فنلاند",
+  FR: "فرانسه",
+  NL: "هلند",
+  GB: "انگلستان",
+  SE: "سوئد",
+  PL: "لهستان",
+  IT: "ایتالیا",
+  ES: "اسپانیا",
+  CH: "سوئیس",
+  AT: "اتریش",
+  TR: "ترکیه",
+  US: "آمریکا",
+  CA: "کانادا",
+  AE: "امارات",
+  AM: "ارمنستان",
+  JP: "ژاپن",
+  SG: "سنگاپور",
+  MY: "مالزی",
+  IN: "هند",
+};
+const countryName = (code: string) => countryNames[code] || code;
+// Where an offer is: the countries its official page names, else its region.
+const place = (x: { region: string; countries?: string[] }) =>
+  x.countries?.length
+    ? x.countries.map(countryName).join("، ")
+    : x.region === "eu"
+      ? "اروپا؛ کشور اعلام‌نشده"
+      : region(x.region);
+const placeOf = (g: Group) => {
+  const named = [...new Set(g.offers.flatMap((o) => o.countries || []))];
+  if (!named.length) return place(g.offers[0] || g);
+  return (
+    named.map(countryName).join("، ") +
+    (g.offers.some((o) => !o.countries?.length) ? "، کشور اعلام‌نشده" : "")
+  );
+};
 const resourceLabels: Record<ResourceField, string> = {
   ram: "حافظهٔ RAM",
   disk: "فضای دیسک",
@@ -201,6 +264,7 @@ const defaults: Filters = {
   type: "all",
   workload: "all",
   region: "all",
+  country: "",
   provider: "",
   cpu: "",
   ram: "",
@@ -383,6 +447,7 @@ export default function App() {
   const [ip, setIp] = useState(initial.get("ip") !== "false");
   const [providers, setProviders] = useState<Provider[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
+  const [countries, setCountries] = useState<CatalogCountry[]>([]);
   const [statuses, setStatuses] = useState<Status[]>([]);
   const [choices, setChoices] = useState<Choices>({ saved: [], compared: [] });
   const [busyChoice, setBusyChoice] = useState(false);
@@ -424,6 +489,7 @@ export default function App() {
           providers: Provider[];
           workloadGuide: WorkloadGuide[];
           sources: Source[];
+          countries?: CatalogCountry[];
           status: Status[];
           model: Model;
         }>("/api/catalog");
@@ -433,6 +499,7 @@ export default function App() {
           setProviders(data.providers);
           setGuides(data.workloadGuide);
           setSources(data.sources);
+          setCountries(data.countries || []);
           setStatuses(data.status);
           setReady(true);
         }
@@ -552,6 +619,14 @@ export default function App() {
       return { ...f, [k]: v };
     });
   }
+  // One location control: a country (from the catalog) or a region.
+  function setLocation(value: string) {
+    setFilters((f) =>
+      value.startsWith("country:")
+        ? { ...f, country: value.slice(8), region: "all" }
+        : { ...f, region: value, country: "" },
+    );
+  }
   function go(next: View) {
     window.scrollTo({ top: 0, behavior: "instant" });
     setView(next);
@@ -616,7 +691,33 @@ export default function App() {
     setRevision((r) => r + 1);
   }
   const applied = results?.filters || {};
+  const appliedPlace = applied.country
+    ? countryName(String(applied.country))
+    : applied.region && !["all", "any"].includes(String(applied.region))
+      ? region(String(applied.region))
+      : "";
   const emptyReason = results?.emptyReason;
+  const emptyCountry = results?.emptyContext?.country;
+  // Next step for a country without plans: its region, else Europe.
+  const emptyRegion = results?.emptyContext?.regionOffers
+    ? results.emptyContext.region
+    : results?.emptyContext?.europeOffers
+      ? "eu"
+      : undefined;
+  const emptyService =
+    applied.type === "vps"
+      ? "سرور مجازی"
+      : applied.type === "hosting"
+        ? "هاست"
+        : applied.type === "dedicated"
+          ? "سرور اختصاصی"
+          : "پلنی در";
+  const emptyPlural =
+    applied.type === "vps"
+      ? "سرورهای"
+      : applied.type === "hosting"
+        ? "هاست‌های"
+        : "پلن‌های";
   const cheapest = results?.emptyContext?.cheapest;
   // A unit-less budget («زیر ۵۰۰») shows how it was read and stays editable.
   const budgetAssumed = Boolean(results?.intent.budgetAssumed);
@@ -635,9 +736,11 @@ export default function App() {
               : "هاست",
         ]
       : []),
-    ...(applied.region && !["all", "any"].includes(String(applied.region))
-      ? [region(String(applied.region))]
-      : []),
+    ...(applied.country
+      ? [countryName(String(applied.country))]
+      : applied.region && !["all", "any"].includes(String(applied.region))
+        ? [region(String(applied.region))]
+        : []),
     ...(["ram", "cpu", "disk"] as ResourceField[])
       .filter((key) => Number(applied[key]) > 0)
       .map(
@@ -689,7 +792,7 @@ export default function App() {
           o.cpu ?? "نامشخص",
           o.ram ?? "نامشخص",
           o.disk,
-          region(o.region),
+          place(o),
           o.estimate.total,
           o.price,
           o.verifiedAt,
@@ -759,7 +862,7 @@ export default function App() {
               {title(g)}
             </button>
             <span className="location">
-              <MapPin size={12} /> {region(g.region)} <i />{" "}
+              <MapPin size={12} /> {placeOf(g)} <i />{" "}
               {g.type !== "hosting" ? "منابع قابل مقایسه" : "میزبانی وب"}
             </span>
           </div>
@@ -767,7 +870,9 @@ export default function App() {
         <div className="resources">
           <span>
             <Cpu size={15} />
-            <strong>{g.cpu ? fa(g.cpu) : "اشتراکی"}</strong>
+            <strong>
+              {g.cpu ? fa(g.cpu) : g.type === "hosting" ? "اشتراکی" : "نامشخص"}
+            </strong>
             <small>{g.cpu ? "هسته" : "CPU"}</small>
           </span>
           <span>
@@ -1111,31 +1216,57 @@ export default function App() {
                           <span>موقعیت سرویس</span>
                           <select
                             id="region"
-                            value={filters.region}
-                            onChange={(e) => update("region", e.target.value)}
+                            value={
+                              filters.country
+                                ? `country:${filters.country}`
+                                : filters.region
+                            }
+                            onChange={(e) => setLocation(e.target.value)}
                           >
                             <option value="all">
-                              {filters.q &&
-                              applied.region &&
-                              !["all", "any"].includes(String(applied.region))
-                                ? `از عبارت: ${region(String(applied.region))}`
+                              {filters.q && appliedPlace
+                                ? `از عبارت: ${appliedPlace}`
                                 : "همهٔ موقعیت‌ها"}
                             </option>
                             {(filters.region === "any" ||
-                              Boolean(
-                                filters.q &&
-                                applied.region &&
-                                !["all", "any"].includes(
-                                  String(applied.region),
-                                ),
-                              )) && (
+                              Boolean(filters.q && appliedPlace)) && (
                               <option value="any">
                                 همهٔ موقعیت‌ها؛ بدون موقعیت عبارت
                               </option>
                             )}
-                            <option value="ir">ایران</option>
-                            <option value="eu">اروپا</option>
-                            <option value="unknown">موقعیت اعلام‌نشده</option>
+                            <optgroup label="کشور">
+                              <option value="ir">ایران</option>
+                              {[
+                                ...countries.filter((c) => c.code !== "IR"),
+                                ...(filters.country &&
+                                !countries.some(
+                                  (c) => c.code === filters.country,
+                                )
+                                  ? [
+                                      {
+                                        code: filters.country,
+                                        name: countryName(filters.country),
+                                        region: "",
+                                        offers: 0,
+                                      },
+                                    ]
+                                  : []),
+                              ].map((c) => (
+                                <option
+                                  key={c.code}
+                                  value={`country:${c.code}`}
+                                >
+                                  {c.name}
+                                </option>
+                              ))}
+                            </optgroup>
+                            <optgroup label="منطقه">
+                              <option value="eu">اروپا؛ همهٔ کشورها</option>
+                              <option value="other">
+                                سایر کشورها؛ خارج از ایران و اروپا
+                              </option>
+                              <option value="unknown">موقعیت اعلام‌نشده</option>
+                            </optgroup>
                           </select>
                         </label>
                       </div>
@@ -1614,31 +1745,36 @@ export default function App() {
                           ? "هنوز چیزی ذخیره نکرده‌ای"
                           : emptyReason === "no-foreign-vps-in-catalog"
                             ? "در کاتالوگ فعلی، سرور مجازی خارج از ایران نداریم"
-                            : emptyReason === "budget-too-low"
-                              ? "با این سقف بودجه پلنی پیدا نشد"
-                              : filters.type === "dedicated" ||
-                                  emptyReason === "no-dedicated-in-catalog"
-                                ? "هنوز پلن سرور اختصاصی نداریم"
-                                : "پلنی با این شرایط پیدا نشد"}
+                            : emptyReason === "no-country-in-catalog" &&
+                                emptyCountry
+                              ? `در کاتالوگ فعلی، ${emptyService} ${countryName(emptyCountry)} نداریم`
+                              : emptyReason === "budget-too-low"
+                                ? "با این سقف بودجه پلنی پیدا نشد"
+                                : filters.type === "dedicated" ||
+                                    emptyReason === "no-dedicated-in-catalog"
+                                  ? "هنوز پلن سرور اختصاصی نداریم"
+                                  : "پلنی با این شرایط پیدا نشد"}
                       </h3>
                       <p>
                         {view === "saved"
                           ? "کنار پیکربندی‌های موردعلاقه‌ات، نشان ذخیره را بزن."
                           : emptyReason === "no-foreign-vps-in-catalog"
                             ? "منابع رسمی فعلی ابرگزین فقط سرور مجازی داخل ایران را دارند. فیلتر موقعیت را بردار یا هاست‌های خارج از ایران را ببین."
-                            : emptyReason === "budget-too-low" && cheapest
-                              ? `ارزان‌ترین گزینه‌ای که بقیهٔ شرایطت را دارد حدود ${formatPrice(cheapest)} تومان در ماه است.`
-                              : filters.type === "dedicated" ||
-                                  emptyReason === "no-dedicated-in-catalog"
-                                ? "کاتالوگ فعلی شامل هاست و سرور مجازی است. پلن اختصاصی پس از دریافت و تأیید منبع رسمی اضافه می‌شود."
-                                : "حداقل منابع یا سقف بودجه را تغییر بده."}
+                            : emptyReason === "no-country-in-catalog"
+                              ? `برای این کشور هنوز منبع رسمی با قیمت تومانی در ابرگزین نیست. فیلتر موقعیت را بردار${emptyRegion ? ` یا ${emptyPlural} ${region(emptyRegion)} را ببین` : ""}.`
+                              : emptyReason === "budget-too-low" && cheapest
+                                ? `ارزان‌ترین گزینه‌ای که بقیهٔ شرایطت را دارد حدود ${formatPrice(cheapest)} تومان در ماه است.`
+                                : filters.type === "dedicated" ||
+                                    emptyReason === "no-dedicated-in-catalog"
+                                  ? "کاتالوگ فعلی شامل هاست و سرور مجازی است. پلن اختصاصی پس از دریافت و تأیید منبع رسمی اضافه می‌شود."
+                                  : "حداقل منابع یا سقف بودجه را تغییر بده."}
                       </p>
                       {view !== "saved" &&
                       emptyReason === "no-foreign-vps-in-catalog" ? (
                         <div className="empty-actions">
                           <button
                             className="primary"
-                            onClick={() => update("region", "any")}
+                            onClick={() => setLocation("any")}
                           >
                             حذف فیلتر موقعیت <ArrowLeft size={17} />
                           </button>
@@ -1646,11 +1782,29 @@ export default function App() {
                             className="secondary"
                             onClick={() => {
                               update("type", "hosting");
-                              update("region", "eu");
+                              setLocation("eu");
                             }}
                           >
                             دیدن هاست‌های خارج
                           </button>
+                        </div>
+                      ) : view !== "saved" &&
+                        emptyReason === "no-country-in-catalog" ? (
+                        <div className="empty-actions">
+                          <button
+                            className="primary"
+                            onClick={() => setLocation("any")}
+                          >
+                            حذف فیلتر موقعیت <ArrowLeft size={17} />
+                          </button>
+                          {emptyRegion && (
+                            <button
+                              className="secondary"
+                              onClick={() => setLocation(emptyRegion)}
+                            >
+                              دیدن {emptyPlural} {region(emptyRegion)}
+                            </button>
+                          )}
                         </div>
                       ) : view !== "saved" &&
                         emptyReason === "budget-too-low" &&
@@ -1763,7 +1917,7 @@ export default function App() {
                             </span>
                             <strong>{title(g)}</strong>
                             <small>
-                              {region(g.region)} ·{" "}
+                              {placeOf(g)} ·{" "}
                               {g.type === "dedicated"
                                 ? "سرور اختصاصی"
                                 : g.type === "vps"
@@ -2083,7 +2237,7 @@ export default function App() {
           <div className="offer-modal-heading">
             <span className="eyebrow">پیشنهادهای ارائه‌دهنده‌ها</span>
             <h2>
-              {title(current)} <small>{region(current.region)}</small>
+              {title(current)} <small>{placeOf(current)}</small>
             </h2>
             <p>
               {current.cpu
@@ -2213,7 +2367,7 @@ function OfferCard({
                 : o.type === "vps"
                   ? "سرور مجازی"
                   : "هاست اشتراکی"}{" "}
-            · {o.diskType}
+            · {o.diskType} · {place(o)}
           </span>
         </div>
         {lowest && multiple && (
