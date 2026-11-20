@@ -171,7 +171,7 @@ node scripts/eval-search.mjs --base http://127.0.0.1:4321 --out eval/results-loc
 node scripts/eval-intent.mjs
 ```
 
-The golden set is `eval/golden-queries.json`; recorded runs are in `eval/`.
+The golden set is `eval/golden-queries.json`; recorded runs are in `eval/`, and [docs/eval-report.md](docs/eval-report.md) summarizes the before/after measurements on production (in Persian).
 
 Install the [Postman CLI](https://learning.postman.com/docs/postman-cli/postman-cli-installation/) before running the integration suite. Existing Gemini and pricing simulations use loopback ports **4908, 4909, and 4910**, without a real Gemini key. Extraction tests serve recorded official HTML fixtures over HTTP. Passing simulations establish behavior against those fixtures and simulated responses, not current external-provider availability.
 
