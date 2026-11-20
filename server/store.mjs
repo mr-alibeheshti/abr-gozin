@@ -49,13 +49,24 @@ export function createStore(path = process.env.DATA_DIR || resolve("data")) {
       }),
     );
   }
+  // Parsed offers are cached until the table may have changed: replace()
+  // clears the cache, and PRAGMA data_version detects commits by any other
+  // connection (another container or the refresh CLI shares this file).
+  // Callers must treat the returned array and offers as read-only.
+  let parsed = null,
+    version = null;
+  const dataVersion = db.prepare("PRAGMA data_version");
+  const selectOffers = db.prepare("SELECT record FROM offers");
   return {
     db,
-    offers: () =>
-      db
-        .prepare("SELECT record FROM offers")
-        .all()
-        .map((x) => JSON.parse(x.record)),
+    offers() {
+      const current = dataVersion.get().data_version;
+      if (current !== version) {
+        version = current;
+        parsed = null;
+      }
+      return (parsed ??= selectOffers.all().map((x) => JSON.parse(x.record)));
+    },
     offer: (id) => {
       let x = db.prepare("SELECT record FROM offers WHERE id=?").get(id);
       return x ? JSON.parse(x.record) : null;
@@ -93,6 +104,8 @@ export function createStore(path = process.env.DATA_DIR || resolve("data")) {
       } catch (e) {
         db.exec("ROLLBACK");
         throw e;
+      } finally {
+        parsed = null;
       }
     },
     choices: (session) => {

@@ -200,6 +200,15 @@
     {
       "threshold": 0.5,
       "margin": 0,
+      "coverage": 0.43956043956043955,
+      "precision": 0.875,
+      "falsePositiveRateNone": 0.041666666666666664,
+      "assigned": 40,
+      "correct": 35
+    },
+    {
+      "threshold": 0.5,
+      "margin": 0.02,
       "coverage": 0.42857142857142855,
       "precision": 0.8717948717948718,
       "falsePositiveRateNone": 0.041666666666666664,
@@ -208,16 +217,16 @@
     },
     {
       "threshold": 0.5,
-      "margin": 0.02,
+      "margin": 0.03,
       "coverage": 0.4175824175824176,
-      "precision": 0.868421052631579,
+      "precision": 0.8947368421052632,
       "falsePositiveRateNone": 0.041666666666666664,
       "assigned": 38,
-      "correct": 33
+      "correct": 34
     },
     {
       "threshold": 0.5,
-      "margin": 0.03,
+      "margin": 0.05,
       "coverage": 0.4065934065934066,
       "precision": 0.8918918918918919,
       "falsePositiveRateNone": 0.041666666666666664,
@@ -226,21 +235,12 @@
     },
     {
       "threshold": 0.5,
-      "margin": 0.05,
+      "margin": 0.08,
       "coverage": 0.3956043956043956,
       "precision": 0.8888888888888888,
       "falsePositiveRateNone": 0.041666666666666664,
       "assigned": 36,
       "correct": 32
-    },
-    {
-      "threshold": 0.5,
-      "margin": 0.08,
-      "coverage": 0.38461538461538464,
-      "precision": 0.8857142857142857,
-      "falsePositiveRateNone": 0.041666666666666664,
-      "assigned": 35,
-      "correct": 31
     },
     {
       "threshold": 0.55,
@@ -777,8 +777,8 @@
       "q": "I need a server to run my Node.js API",
       "label": "vps",
       "modelOnly": false,
-      "vps": 0.4787,
-      "hosting": 0.3731,
+      "vps": 0.5004,
+      "hosting": 0.4016,
       "predictedCurrent": "vps"
     },
     {
@@ -873,8 +873,8 @@
       "q": "یه جا میخوام که کدم ۲۴ ساعته روشن بمونه",
       "label": "vps",
       "modelOnly": true,
-      "vps": 0.2508,
-      "hosting": 0.2115,
+      "vps": 0.2482,
+      "hosting": 0.1965,
       "predictedCurrent": null
     },
     {
@@ -1273,8 +1273,8 @@
       "q": "۱۲۳۴۵۶",
       "label": "none",
       "modelOnly": true,
-      "vps": 0.2026,
-      "hosting": 0.1476,
+      "vps": 0.2494,
+      "hosting": 0.1432,
       "predictedCurrent": null
     },
     {

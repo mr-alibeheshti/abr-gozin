@@ -30,17 +30,19 @@ For example, a user can search in Persian:
 
 ## Architecture and AI
 
-| Layer        | Implementation                                                                                       |
-| ------------ | ---------------------------------------------------------------------------------------------------- |
-| Interface    | React 19, TypeScript, Vite, Persian RTL layout, local fonts and provider logos                       |
-| Server       | Express 5 on Node.js 24+                                                                             |
-| Persistence  | Node's built-in SQLite: catalog, sources, choices, price history, and refresh schedule               |
-| Extraction   | Cheerio and provider-specific parsers for official HTML and public price feeds                       |
-| Local search | Quantized multilingual MiniLM through Hugging Face Transformers, plus explicit Persian query parsing |
-| Assistant    | Server-side Gemini; optional Cloudflare AI Gateway or HTTP CONNECT proxy                             |
-| Validation   | Zod schemas, server-calculated prices, and catalog-backed recommendation IDs                         |
+| Layer        | Implementation                                                                                                                                         |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Interface    | React 19, TypeScript, Vite, Persian RTL layout, local fonts and provider logos                                                                         |
+| Server       | Express 5 on Node.js 24+                                                                                                                               |
+| Persistence  | Node's built-in SQLite: catalog, sources, choices, price history, and refresh schedule                                                                 |
+| Extraction   | Cheerio and provider-specific parsers for official HTML and public price feeds                                                                         |
+| Local search | Persian rule-based query parser, plus a local multilingual embedding model (MiniLM, int8, Hugging Face Transformers) for service-intent classification |
+| Assistant    | Gemini consultation with server-side validation; optional Cloudflare AI Gateway or HTTP CONNECT proxy                                                  |
+| Validation   | Zod schemas, server-calculated prices, and catalog-backed recommendation IDs                                                                           |
 
-The local semantic model classifies service intent. It does **not** generate prices or replace resource and budget constraints. Parsing supports Persian and Arabic numerals and formatted or decimal toman budgets. If the model is loading or unavailable, specification and keyword search remain available and the actual model status is exposed. Local search does not require a Gemini key.
+In one line: a **local multilingual embedding model (MiniLM, int8) for service-intent classification + a Persian rule-based query parser + Gemini consultation with server-side validation (catalog-grounded offer IDs, server-computed prices).** It is not semantic search over offers.
+
+The rule-based parser extracts resources, budget, location, provider, workload and site purpose. The embedding model only decides whether an otherwise ambiguous query is about a VPS or web hosting, and it runs only when its scores can change the result. It does **not** retrieve or rank offers, generate prices, or replace resource and budget constraints. Parsing supports Persian and Arabic numerals, number words, and rial/toman units. If the model is loading or unavailable, specification and keyword search remain available and the actual model status is exposed. Local search does not require a Gemini key.
 
 Gemini interprets the conversation and structured needs. The server validates its filters, searches the catalog, enforces workload/resource requirements, and calculates prices and links itself. Suggestions are gated until consultation is complete; a language model cannot invent offer IDs or bypass sizing requirements.
 
@@ -156,7 +158,7 @@ npm test
 npm run build
 ```
 
-The suite covers pricing, normalization, resource/budget constraints, Persian numerals and number words, query units and locations, ranking invariants, source extraction, atomic updates, session persistence, refresh scheduling, API validation, chat safeguards and failures, and the real local semantic model.
+The suite covers pricing, normalization, resource/budget constraints, Persian numerals and number words, query units and locations, ranking invariants, source extraction, atomic updates, session persistence, refresh scheduling, API validation, chat safeguards and failures, and the real local intent model.
 
 Search quality is measured against a running instance, local or production:
 
@@ -173,7 +175,7 @@ The golden set is `eval/golden-queries.json`; recorded runs are in `eval/`.
 
 Install the [Postman CLI](https://learning.postman.com/docs/postman-cli/postman-cli-installation/) before running the integration suite. Existing Gemini and pricing simulations use loopback ports **4908, 4909, and 4910**, without a real Gemini key. Extraction tests serve recorded official HTML fixtures over HTTP. Passing simulations establish behavior against those fixtures and simulated responses, not current external-provider availability.
 
-The semantic integration test allows about ten seconds for model readiness. On a fresh machine, let the first application startup finish downloading and initializing the model before running the suite; a cold download can exceed that window. Later runs reuse the cache.
+The intent-model integration test allows about ten seconds for model readiness. On a fresh machine, let the first application startup finish downloading and initializing the model before running the suite; a cold download can exceed that window. Later runs reuse the cache.
 
 Browser verification should include natural-language search, manual-filter precedence, save/reload, comparison, CSV download, search links, offer details, billing periods, source errors, chat completion, Escape handling, keyboard use, and desktop/mobile layouts. A successful build or health response alone does not verify a live Gemini conversation.
 
