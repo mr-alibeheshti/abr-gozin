@@ -6756,5 +6756,141 @@
     },
     "sourceHash": "f8283c832135a3d8cac18b13c179c5869ca5b8945de959d46fbed20c5ec04e15",
     "sourceFetchedAt": "2026-10-16T14:28:45.607Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 1,
+    "ram": 1,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T14:37:46.000Z",
+    "notes": [
+      "موقعیت در منبع «آلمان / فنلاند» و دیتاسنتر Hetzner ذکر شده است؛ کشور دقیق را هنگام سفارش بررسی کن.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است.",
+      "ترافیک ماهانهٔ نامحدود و یک IP اختصاصی در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-eu",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/germany",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=310",
+    "id": "webramz-eu-HCVPS-20",
+    "name": "HCVPS-20",
+    "type": "vps",
+    "disk": 20,
+    "trafficUnlimited": true,
+    "price": 2205000,
+    "upfront": 2205000,
+    "evidence": {
+      "text": "hcvps-20 2,205,000 تومان ماهانه 12,900,000 تومان شش ماهه 25,800,000 تومان سالانه 20gb nvme هارد پرسرعت nvme ترافیک ماهانه نامحدود رم اختصاصی 1gb تعداد پردازنده 1x ~2ghz ip اختصاصی 1 عدد dns اختصاصی رایگان منابع اختصاصی kernel, cpu, ram کرنل اختصاصی yes سیستم عامل لینوکس دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور آلمان / فنلاند دیتاسنتر hetzner ماهانه سالانه 2 میلیون و 205 هزار تومان 12 میلیون و 900 هزار تومان 26,460,000 تومان 25 میلیون و 800 هزار تومان ثبت سفارش"
+    }
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 2,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T14:37:46.000Z",
+    "notes": [
+      "موقعیت در منبع «آلمان / فنلاند» و دیتاسنتر Hetzner ذکر شده است؛ کشور دقیق را هنگام سفارش بررسی کن.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است.",
+      "ترافیک ماهانهٔ نامحدود و یک IP اختصاصی در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-eu",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/germany",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=312",
+    "id": "webramz-eu-HCVPS-30",
+    "name": "HCVPS-30",
+    "type": "vps",
+    "disk": 30,
+    "trafficUnlimited": true,
+    "price": 2867000,
+    "upfront": 2867000,
+    "evidence": {
+      "text": "محبوب ترین hcvps-30 2,867,000 تومان ماهانه 18,198,000 تومان شش ماهه 36,396,000 تومان سالانه 30gb nvme هارد پرسرعت nvme ترافیک ماهانه نامحدود رم اختصاصی 2gb تعداد پردازنده 2x ~2ghz ip اختصاصی 1 عدد dns اختصاصی رایگان منابع اختصاصی kernel, cpu, ram کرنل اختصاصی yes سیستم عامل لینوکس/ویندوز دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور آلمان / فنلاند دیتاسنتر hetzner ماهانه سالانه 2 میلیون و 867 هزار تومان 18 میلیون و 198 هزار تومان 34,404,000 تومان 36 میلیون و 396 هزار تومان ثبت سفارش"
+    }
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 3,
+    "ram": 3,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T14:37:46.000Z",
+    "notes": [
+      "موقعیت در منبع «آلمان / فنلاند» و دیتاسنتر Hetzner ذکر شده است؛ کشور دقیق را هنگام سفارش بررسی کن.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است.",
+      "ترافیک ماهانهٔ نامحدود و یک IP اختصاصی در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-eu",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/germany",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=313",
+    "id": "webramz-eu-HCVPS-40",
+    "name": "HCVPS-40",
+    "type": "vps",
+    "disk": 40,
+    "trafficUnlimited": true,
+    "price": 3726000,
+    "upfront": 3726000,
+    "evidence": {
+      "text": "ارزنده ترین hcvps-40 3,726,000 تومان ماهانه 25,686,000 تومان شش ماهه 51,372,000 تومان سالانه 40gb nvme هارد پرسرعت nvme ترافیک ماهانه نامحدود رم اختصاصی 3gb تعداد پردازنده 3x ~2ghz ip اختصاصی 1 عدد dns اختصاصی رایگان منابع اختصاصی kernel, cpu, ram کرنل اختصاصی yes سیستم عامل لینوکس/ویندوز دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور آلمان / فنلاند دیتاسنتر hetzner ماهانه سالانه 3 میلیون و 726 هزار تومان 25 میلیون و 686 هزار تومان 44,712,000 تومان 51 میلیون و 372 هزار تومان ثبت سفارش"
+    }
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 4,
+    "ram": 4,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T14:37:46.000Z",
+    "notes": [
+      "موقعیت در منبع «آلمان / فنلاند» و دیتاسنتر Hetzner ذکر شده است؛ کشور دقیق را هنگام سفارش بررسی کن.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است.",
+      "ترافیک ماهانهٔ نامحدود و یک IP اختصاصی در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-eu",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/germany",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=314",
+    "id": "webramz-eu-HCVPS-50",
+    "name": "HCVPS-50",
+    "type": "vps",
+    "disk": 50,
+    "trafficUnlimited": true,
+    "price": 4844000,
+    "upfront": 4844000,
+    "evidence": {
+      "text": "hcvps-50 4,844,000 تومان ماهانه 46,266,000 تومان شش ماهه 92,532,000 تومان سالانه 50gb nvme هارد پرسرعت nvme ترافیک ماهانه نامحدود رم اختصاصی 4gb تعداد پردازنده 4x ~2ghz ip اختصاصی 1 عدد dns اختصاصی رایگان منابع اختصاصی kernel, cpu, ram کرنل اختصاصی yes سیستم عامل لینوکس/ویندوز دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور آلمان / فنلاند دیتاسنتر hetzner ماهانه سالانه 4 میلیون و 844 هزار تومان 46 میلیون و 266 هزار تومان 58,128,000 تومان 92 میلیون و 532 هزار تومان ثبت سفارش"
+    }
   }
 ]
