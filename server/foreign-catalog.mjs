@@ -195,6 +195,25 @@ export const foreignSources = [
     ),
   ),
   page(
+    "webramz-vps-fr",
+    "webramz",
+    "تعرفهٔ سرور مجازی فرانسه وب‌رمز",
+    "https://webramz.com/server/vps/france",
+    "FR",
+    "فرانسه",
+    "webramz",
+  ),
+  // IranHost lists its Canada plans on the same page as its Iran plans.
+  page(
+    "iranhost-vps-ca",
+    "iranhost",
+    "تعرفهٔ سرور مجازی کانادا ایران‌هاست",
+    "https://iranhost.com/server/vps/",
+    "CA",
+    "سرور مجازی",
+    "iranhost",
+  ),
+  page(
     "onlineserver-vps-tr",
     "onlineserver",
     "تعرفهٔ سرور مجازی ترکیه آنلاین سرور",

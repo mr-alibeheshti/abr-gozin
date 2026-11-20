@@ -431,6 +431,94 @@ export function parseForeign(source, html, stamp) {
       });
       break;
     }
+    case "webramz":
+      $(".plan").each((i, e) => {
+        const card = $(e),
+          name = card.find(".plan-name").text().trim();
+        if (!/^OCVPS-\d+$/.test(name)) return;
+        const detail = (label) =>
+          textOf(
+            card
+              .find(".plan-details li")
+              .filter((i, row) => textOf($(row)).startsWith(norm(label)))
+              .find("strong"),
+          );
+        const disk = textOf(card.find(".plan-details .disk strong")),
+          monthly = textOf(card.find(".monthly-price.top"));
+        if (
+          !detail("موقعیت سرور").includes(norm(place)) ||
+          number(detail("ip")) !== 1 ||
+          !detail("ترافیک ماهانه").includes("نامحدود") ||
+          !monthly.includes("ماهانه")
+        )
+          throw Error("مشخصات پلن خارجی وب‌رمز قابل تأیید نیست.");
+        add(
+          {
+            id: `webramz-${source.country.toLowerCase()}-${name}`,
+            name,
+            type: "vps",
+            cpu: capture(detail("تعداد پردازنده"), /^(\d+)x/),
+            ram: gb(detail("حجم رم")),
+            disk: gb(disk),
+            diskType: /nvme/.test(disk)
+              ? "NVMe"
+              : /ssd/.test(disk)
+                ? "SSD"
+                : "نامشخص",
+            trafficGB: null,
+            trafficUnlimited: true,
+            ipMonthly: 0,
+            price: money(monthly),
+            checkoutUrl: link(
+              card.find('a[href*="cart.php"]').attr("href"),
+              source,
+            ),
+            notes: [
+              `موقعیت سرور در منبع «${place}» و دیتاسنتر ${detail("دیتاسنتر").toUpperCase()} است.`,
+              "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است. ترافیک نامحدود و یک IP در منبع درج شده‌اند.",
+            ],
+          },
+          card,
+        );
+      });
+      break;
+    case "iranhost": {
+      if (!textOf($("body")).includes("کانادا"))
+        throw Error("سرورهای کانادای ایران‌هاست در صفحه نیست.");
+      $(".plan-card").each((i, e) => {
+        const c = $(e),
+          name = c.find(".card-code").text().trim();
+        if (!/^VPS-CA-/.test(name)) return;
+        const s = textOf(c.find(".plan-desc")),
+          large = textOf(c.find(".card-price-large")),
+          traffic = s.match(/([\d.]+\s*[tg]b)\s*traffic/)?.[1];
+        if (!large.includes("1 ساله") || !large.includes("تومان در ماه"))
+          throw Error("دورهٔ ایران‌هاست قابل تأیید نیست");
+        add(
+          {
+            id: "iranhost-" + name,
+            name,
+            type: "vps",
+            cpu: capture(s, /(\d+)\s*cpu\s*core/),
+            ram: capture(s, /(\d+)\s*gb\s*ram/),
+            disk: capture(s, /(\d+)\s*gb\s*nvme/),
+            diskType: "NVMe",
+            trafficGB: traffic ? gb(traffic) : null,
+            price: money(
+              textOf(c.find(".card-price-large .card-price")) + " تومان",
+            ),
+            period: 12,
+            checkoutUrl: source.url,
+            notes: [
+              "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+              "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است.",
+            ],
+          },
+          c,
+        );
+      });
+      break;
+    }
     case "onlineserver":
       $("article")
         .filter((i, e) => $(e).find('h3[class*="planName"]').length > 0)

@@ -13791,6 +13791,466 @@
   {
     "trafficGB": null,
     "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "SSD",
+    "period": 1,
+    "cpu": 1,
+    "ram": 2,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت سرور در منبع «فرانسه» و دیتاسنتر OVH است.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است. ترافیک نامحدود و یک IP در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-fr",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/france",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=316",
+    "countries": [
+      "FR"
+    ],
+    "id": "webramz-fr-OCVPS-20",
+    "name": "OCVPS-20",
+    "type": "vps",
+    "disk": 20,
+    "trafficUnlimited": true,
+    "price": 2381000,
+    "upfront": 2381000,
+    "evidence": {
+      "text": "محبوب ترین ocvps-20 2,381,000 تومان ماهانه 14,286,000 تومان شش ماهه 26,191,000 تومان سالانه 20gb ssd هارد پرسرعت ssd cluster ترافیک ماهانه نامحدود حجم رم 2gb تعداد پردازنده 1x ~2ghz ip ولید 1 عدد پورت شبکه 100 mbps dns اختصاصی رایگان مجازی ساز openstack منابع اختصاصی kernel, cpu, ram سیستم عامل لینوکس دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور فرانسه دیتاسنتر ovh امکان فول بکاپ دارد هزینه راه اندازی رایگان ماهانه سالانه 2 میلیون و 381 هزار تومان 14 میلیون و 286 هزار تومان 28,572,000 تومان 26 میلیون و 191 هزار تومان ثبت سفارش"
+    },
+    "country": "FR",
+    "sourceHash": "4c52f8ecff8a05689a3cfef12b960c5945c0c88d6181e47d77f9184852274529",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 1,
+    "ram": 3,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت سرور در منبع «فرانسه» و دیتاسنتر OVH است.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است. ترافیک نامحدود و یک IP در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-fr",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/france",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=317",
+    "countries": [
+      "FR"
+    ],
+    "id": "webramz-fr-OCVPS-40",
+    "name": "OCVPS-40",
+    "type": "vps",
+    "disk": 40,
+    "trafficUnlimited": true,
+    "price": 3969000,
+    "upfront": 3969000,
+    "evidence": {
+      "text": "ارزنده ترین ocvps-40 3,969,000 تومان ماهانه 23,814,000 تومان شش ماهه 43,659,000 تومان سالانه 40gb nvme هارد پرسرعت nvme cluster ترافیک ماهانه نامحدود حجم رم 3gb تعداد پردازنده 1x ~2ghz ip ولید 1 عدد پورت شبکه 250 mbps dns اختصاصی رایگان مجازی ساز openstack منابع اختصاصی kernel, cpu, ram سیستم عامل لینوکس دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور فرانسه دیتاسنتر ovh امکان فول بکاپ دارد هزینه راه اندازی رایگان ماهانه سالانه 3 میلیون و 969 هزار تومان 23 میلیون و 814 هزار تومان 47,628,000 تومان 43 میلیون و 659 هزار تومان ثبت سفارش"
+    },
+    "country": "FR",
+    "sourceHash": "4c52f8ecff8a05689a3cfef12b960c5945c0c88d6181e47d77f9184852274529",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 2,
+    "ram": 4,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت سرور در منبع «فرانسه» و دیتاسنتر OVH است.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است. ترافیک نامحدود و یک IP در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-fr",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/france",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=318",
+    "countries": [
+      "FR"
+    ],
+    "id": "webramz-fr-OCVPS-80",
+    "name": "OCVPS-80",
+    "type": "vps",
+    "disk": 80,
+    "trafficUnlimited": true,
+    "price": 8335000,
+    "upfront": 8335000,
+    "evidence": {
+      "text": "ocvps-80 8,335,000 تومان ماهانه 50,010,000 تومان شش ماهه 91,685,000 تومان سالانه 80gb nvme هارد پرسرعت nvme cluster ترافیک ماهانه نامحدود حجم رم 4gb تعداد پردازنده 2x ~2ghz ip ولید 1 عدد پورت شبکه 500 mbps dns اختصاصی رایگان مجازی ساز openstack منابع اختصاصی kernel, cpu, ram کرنل اختصاصی yes سیستم عامل لینوکس دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور فرانسه دیتاسنتر ovh امکان فول بکاپ دارد هزینه راه اندازی رایگان ماهانه سالانه 8 میلیون و 335 هزار تومان 50 میلیون و 10 هزار تومان 100,020,000 تومان 91 میلیون و 685 هزار تومان ثبت سفارش"
+    },
+    "country": "FR",
+    "sourceHash": "4c52f8ecff8a05689a3cfef12b960c5945c0c88d6181e47d77f9184852274529",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
+    "ipMonthly": 0,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 1,
+    "cpu": 4,
+    "ram": 8,
+    "region": "eu",
+    "billing": "monthly",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "موقعیت سرور در منبع «فرانسه» و دیتاسنتر OVH است.",
+      "تعرفه مربوط به پرداخت ماهانه است؛ تخفیف دوره‌های بلندتر لحاظ نشده است. ترافیک نامحدود و یک IP در منبع درج شده‌اند."
+    ],
+    "custom": false,
+    "sourceId": "webramz-vps-fr",
+    "providerId": "webramz",
+    "url": "https://webramz.com/server/vps/france",
+    "checkoutUrl": "https://my.webramz.com/cart.php?a=add&pid=319",
+    "countries": [
+      "FR"
+    ],
+    "id": "webramz-fr-OCVPS-160",
+    "name": "OCVPS-160",
+    "type": "vps",
+    "disk": 160,
+    "trafficUnlimited": true,
+    "price": 15479000,
+    "upfront": 15479000,
+    "evidence": {
+      "text": "ocvps-160 15,479,000 تومان ماهانه 92,874,000 تومان شش ماهه 170,269,000 تومان سالانه 160gb nvme هارد پرسرعت nvme cluster ترافیک ماهانه نامحدود حجم رم 8gb تعداد پردازنده 4x ~2ghz ip ولید 1 عدد پورت شبکه 1 gbps dns اختصاصی رایگان مجازی ساز openstack منابع اختصاصی kernel, cpu, ram سیستم عامل لینوکس دسترسی vnc / reboot مانیتورینگ سرور رایگان موقعیت سرور فرانسه دیتاسنتر ovh امکان فول بکاپ دارد هزینه راه اندازی رایگان ماهانه سالانه 15 میلیون و 479 هزار تومان 92 میلیون و 874 هزار تومان 185,748,000 تومان 170 میلیون و 269 هزار تومان ثبت سفارش"
+    },
+    "country": "FR",
+    "sourceHash": "4c52f8ecff8a05689a3cfef12b960c5945c0c88d6181e47d77f9184852274529",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 1000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 2,
+    "ram": 2,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-2-2-40",
+    "name": "VPS-CA-2-2-40",
+    "type": "vps",
+    "disk": 40,
+    "price": 2000000,
+    "upfront": 24000000,
+    "evidence": {
+      "text": "vps-ca-2-2-40 2.5 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 2.0 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 40gb nvme | 2core cpu | 2gb ram | ترافیک ماهیانه 1tb 2gb ram 2 cpu core 40gb nvme disk 1tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 1000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 2,
+    "ram": 4,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-2-4-80",
+    "name": "VPS-CA-2-4-80",
+    "type": "vps",
+    "disk": 80,
+    "price": 2900000,
+    "upfront": 34800000,
+    "evidence": {
+      "text": "vps-ca-2-4-80 3.6 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 2.9 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 80gb nvme | 2core cpu | 4gb ram | ترافیک ماهیانه 1tb 4gb ram 2 cpu core 80gb nvme disk 1tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 2000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 4,
+    "ram": 4,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-4-4-80",
+    "name": "VPS-CA-4-4-80",
+    "type": "vps",
+    "disk": 80,
+    "price": 3800000,
+    "upfront": 45600000,
+    "evidence": {
+      "text": "vps-ca-4-4-80 4.8 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 3.8 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 80gb nvme | 4core cpu | 4gb ram | ترافیک ماهیانه 2tb 4gb ram 4 cpu core 80gb nvme disk 2tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 2000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 4,
+    "ram": 8,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-4-8-120",
+    "name": "VPS-CA-4-8-120",
+    "type": "vps",
+    "disk": 120,
+    "price": 5600000,
+    "upfront": 67200000,
+    "evidence": {
+      "text": "محبوب ترین vps-ca-4-8-120 7.0 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 5.6 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 120gb nvme | 4core cpu | 8gb ram | ترافیک ماهیانه 2tb 8gb ram 4 cpu core 120gb nvme disk 2tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 4000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 8,
+    "ram": 8,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-8-8-160",
+    "name": "VPS-CA-8-8-160",
+    "type": "vps",
+    "disk": 160,
+    "price": 7400000,
+    "upfront": 88800000,
+    "evidence": {
+      "text": "vps-ca-8-8-160 9.3 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 7.4 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 160gb nvme | 8core cpu | 8gb ram | ترافیک ماهیانه 4tb 8gb ram 8 cpu core 160gb nvme disk 4tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 5000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 8,
+    "ram": 16,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-8-16-320",
+    "name": "VPS-CA-8-16-320",
+    "type": "vps",
+    "disk": 320,
+    "price": 14600000,
+    "upfront": 175200000,
+    "evidence": {
+      "text": "vps-ca-8-16-320 18.3 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 14.6 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 320gb nvme | 8core cpu | 16gb ram | ترافیک ماهیانه 5tb 16gb ram 8 cpu core 320gb nvme disk 5tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 10000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 12,
+    "ram": 24,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-12-24-480",
+    "name": "VPS-CA-12-24-480",
+    "type": "vps",
+    "disk": 480,
+    "price": 29300000,
+    "upfront": 351600000,
+    "evidence": {
+      "text": "vps-ca-12-24-480 36.7 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 29.3 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 24gb ram 12 cpu core 480gb nvme disk 10tb traffic سیستم عامل لینوکس و ویندوز 24gb ram 12 cpu core 480gb nvme disk 10tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": 12000,
+    "trafficRate": null,
+    "ipMonthly": null,
+    "vatRate": null,
+    "diskType": "NVMe",
+    "period": 12,
+    "cpu": 16,
+    "ram": 32,
+    "region": "other",
+    "billing": "annual",
+    "mode": "crawl",
+    "verifiedAt": "2026-11-20T16:01:03.000Z",
+    "notes": [
+      "قیمت منتشرشده به میلیون تومان گرد شده و معادل ماهانه در پرداخت یک‌ساله است. مبلغ نهایی باید در پنل فروشنده تأیید شود.",
+      "کد پلن VPS-CA در صفحهٔ «سرورهای مجازی ایران و کانادا» آمده است؛ سهمیهٔ ترافیک از جزئیات خود پلن است."
+    ],
+    "custom": false,
+    "sourceId": "iranhost-vps-ca",
+    "providerId": "iranhost",
+    "url": "https://iranhost.com/server/vps/",
+    "checkoutUrl": "https://iranhost.com/server/vps/",
+    "countries": [
+      "CA"
+    ],
+    "id": "iranhost-VPS-CA-16-32-640",
+    "name": "VPS-CA-16-32-640",
+    "type": "vps",
+    "disk": 640,
+    "price": 33800000,
+    "upfront": 405600000,
+    "evidence": {
+      "text": "vps-ca-16-32-640 42.2 میلیون تومان در ماه 20% تخفیف در صورت پرداخت 1 ساله 33.8 میلیون تومان در ماه ثبت سفارش هزینه راه اندازی: رایگان 640gb nvme | 16core cpu | 32gb ram | ترافیک ماهیانه 12tb 32gb ram 16 cpu core 640gb nvme disk 12tb traffic سیستم عامل لینوکس و ویندوز"
+    },
+    "country": "CA",
+    "sourceHash": "41d7e4f95429ad39fa5b4f40aeffe470ec663234362bc74478d7c0f6fb13d874",
+    "sourceFetchedAt": "2026-11-20T16:01:03.000Z"
+  },
+  {
+    "trafficGB": null,
+    "trafficRate": null,
     "ipMonthly": null,
     "vatRate": null,
     "diskType": "نامشخص",

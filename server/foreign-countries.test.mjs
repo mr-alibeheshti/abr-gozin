@@ -30,6 +30,8 @@ test("every foreign page parses its recorded fixture into the seeded offers", ()
     serverir: "server.ir",
     onlineserver: "onlineserver.ir",
     azaronline: "azaronline.com",
+    webramz: "webramz.com",
+    iranhost: "iranhost.com",
   };
   let total = 0;
   for (const s of foreignSources) {
@@ -67,7 +69,7 @@ test("every foreign page parses its recorded fixture into the seeded offers", ()
       assert.ok(o.verifiedAt, o.id);
     }
   }
-  assert.equal(total, 219);
+  assert.equal(total, 231);
   // Turkey is never labelled Europe.
   assert.ok(
     baseline
@@ -171,6 +173,26 @@ test("foreign extractors read the published toman prices and billing periods", (
     by("azaronline-vps-ae", "azaronline-ae-linux-1").trafficGB,
     1000,
   );
+  // Webramz France (OVH) and IranHost Canada (annual-only, rounded).
+  const wfr = by("webramz-vps-fr", "webramz-fr-OCVPS-20");
+  assert.deepEqual(
+    [wfr.cpu, wfr.ram, wfr.disk, wfr.price, wfr.country],
+    [1, 2, 20, 2381000, "FR"],
+  );
+  const ihca = by("iranhost-vps-ca", "iranhost-VPS-CA-2-2-40");
+  assert.deepEqual(
+    [
+      ihca.cpu,
+      ihca.ram,
+      ihca.disk,
+      ihca.trafficGB,
+      ihca.price,
+      ihca.period,
+      ihca.region,
+    ],
+    [2, 2, 40, 1000, 2000000, 12, "other"],
+  );
+  // The Iran parser still reads only the Iran cards of the same page.
   const ca = by("azaronline-vps-ca", "azaronline-ca-linux-1");
   assert.deepEqual([ca.trafficGB, ca.trafficUnlimited], [null, false]);
 });
@@ -202,6 +224,7 @@ test("foreign extractors refuse pages they cannot verify instead of guessing", (
     "ترافیک ماهانه 1 ترابایت",
   );
   refuse("azaronline-vps-de", "در صورت خرید سالانه", "در صورت خرید ماهانه");
+  refuse("webramz-vps-fr", "موقعیت سرور", "محل سرور");
   // Bertina's card price must equal its structured data.
   refuse("bertina-vps-de", '"price":9090000', '"price":8090000');
   // A «from» price varies by location and is not a tariff.
