@@ -27,3 +27,26 @@ export function paretoViolations(groups) {
         found.push({ above: groups[i].id, below: groups[j].id });
   return found;
 }
+
+// Input sorted by `min` ascending. A violation needs A.min <= B.min with B
+// ranked first, so it can only occur between equal prices. Within each
+// equal-price block, repeatedly take the first group no remaining group
+// dominates. Only partially unknown resources can form a dominance cycle; the
+// block then keeps its incoming order for the rest.
+export function paretoOrder(sorted) {
+  const out = [];
+  for (let i = 0; i < sorted.length;) {
+    let j = i;
+    while (j < sorted.length && sorted[j].min === sorted[i].min) j++;
+    const block = sorted.slice(i, j);
+    while (block.length) {
+      let k = block.findIndex(
+        (g) => !block.some((h) => h !== g && dominates(h, g)),
+      );
+      if (k < 0) k = 0;
+      out.push(block.splice(k, 1)[0]);
+    }
+    i = j;
+  }
+  return out;
+}

@@ -43,8 +43,11 @@ export const searchParams = z
     maxPrice: z.coerce.number().min(0).max(1000000000).optional(),
     traffic: z.coerce.number().min(0).max(10000).default(200),
     ip: z.enum(["true", "false"]).default("true"),
-    // Legacy links keep their ordering; the interface exposes price only.
-    sort: z.enum(["price", "price-desc", "providers", "ram"]).default("price"),
+    // `price` (default): cheapest plan meeting every constraint. `fit`: closest
+    // resources first. Legacy links keep their previous ordering.
+    sort: z
+      .enum(["price", "fit", "price-desc", "providers", "ram"])
+      .default("price"),
     saved: z.enum(["true", "false"]).optional(),
   })
   .superRefine((p, ctx) => {

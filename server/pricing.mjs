@@ -4,6 +4,7 @@ import {
   requirementsFor,
   meetsRequirements,
 } from "./workloads.mjs";
+import { paretoOrder } from "./pareto.mjs";
 export const digits = (s) =>
   String(s)
     .replace(/[۰-۹]/g, (c) => "۰۱۲۳۴۵۶۷۸۹".indexOf(c))
@@ -145,6 +146,15 @@ export function estimate(o, { traffic = 200, ip = true } = {}) {
 export const groupKey = (o) =>
   `${o.type}-${o.region}-${o.cpu ?? "shared"}-${o.ram ?? "shared"}-${o.disk}`;
 export { workloadTypes } from "./workloads.mjs";
+const resourceKeys = ["cpu", "ram", "disk"];
+// More of every resource first; unknown sorts below any declared amount.
+const moreResources = (a, b) => {
+  for (const key of resourceKeys) {
+    const d = (b[key] ?? -1) - (a[key] ?? -1);
+    if (d) return d;
+  }
+  return 0;
+};
 export function searchOffers(offers, p, semantic = {}) {
   const intent = parseQuery(p.q || ""),
     filters = { ...p, resourceMode: "minimum" };
@@ -310,7 +320,7 @@ export function searchOffers(offers, p, semantic = {}) {
       providerCount: new Set(g.offers.map((x) => x.providerId)).size,
     };
   });
-  const sortGroups = (a, b) =>
+  const legacyOrder = (a, b) =>
     p.sort === "price-desc"
       ? b.min - a.min || a.id.localeCompare(b.id)
       : p.sort === "providers"
@@ -319,26 +329,40 @@ export function searchOffers(offers, p, semantic = {}) {
           ? (b.ram || 0) - (a.ram || 0)
           : a.min - b.min;
   const requested = Object.entries(targets);
-  const groups = candidates
+  const eligible = candidates
     .filter((g) =>
       requested.every(
         ([field, value]) => g[field] != null && g[field] >= value,
       ),
     )
-    .map((g) => ({
-      ...g,
-      differences: [],
-      // Relative surplus treats CPU, GB of RAM and GB of disk comparably.
-      distance: requested.reduce(
-        (sum, [field, value]) => sum + Math.log2(g[field] / value),
-        0,
-      ),
-    }))
-    .sort(
-      (a, b) =>
-        a.distance - b.distance || sortGroups(a, b) || a.id.localeCompare(b.id),
-    )
-    .map(({ distance, ...g }) => g);
+    .map((g) => ({ ...g, differences: [] }));
+  // Relative surplus treats CPU, GB of RAM and GB of disk comparably.
+  const distance = (g) =>
+    requested.reduce(
+      (sum, [field, value]) => sum + Math.log2(g[field] / value),
+      0,
+    );
+  // Default: the cheapest plan that meets every constraint, then more
+  // resources, then id; equal-price ties never rank a dominated plan above
+  // the plan that dominates it (0 Pareto violations). `fit` keeps the previous
+  // proximity order; legacy sorts keep their old order.
+  const groups =
+    !p.sort || p.sort === "price"
+      ? paretoOrder(
+          eligible.sort(
+            (a, b) =>
+              a.min - b.min || moreResources(a, b) || a.id.localeCompare(b.id),
+          ),
+        )
+      : eligible
+          .map((g) => ({ g, distance: distance(g) }))
+          .sort(
+            (a, b) =>
+              a.distance - b.distance ||
+              (p.sort === "fit" ? a.g.min - b.g.min : legacyOrder(a.g, b.g)) ||
+              a.g.id.localeCompare(b.g.id),
+          )
+          .map(({ g }) => g);
   return {
     groups,
     // Retained response fields keep existing API consumers compatible.
