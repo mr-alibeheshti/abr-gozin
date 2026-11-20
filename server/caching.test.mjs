@@ -1,7 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { createSemanticEngine } from "./semantic.mjs";
+import { createStore } from "./store.mjs";
 
 async function fakeEngine(cacheLimit) {
   const seen = [];
@@ -44,4 +48,29 @@ test("F9: intent cache uses normalized keys, LRU recency and in-flight dedup", a
   await assert.rejects(engine.scores("boom"));
   await assert.rejects(engine.scores("boom"));
   assert.equal(inferred().filter((x) => x === "boom").length, 2);
+});
+
+test("F9: parsed offers are cached and invalidated by replace() and other connections", (t) => {
+  const path = mkdtempSync(join(tmpdir(), "abrgozin-cache-"));
+  const a = createStore(path),
+    b = createStore(path);
+  t.after(() => {
+    a.db.close();
+    b.db.close();
+    rmSync(path, { recursive: true, force: true });
+  });
+  const first = a.offers();
+  assert.equal(a.offers(), first, "second read reuses the parsed array");
+  const source = first[0].sourceId;
+  const kept = first.filter((o) => o.sourceId === source);
+  a.replace(source, kept.slice(1));
+  const afterOwn = a.offers();
+  assert.notEqual(afterOwn, first);
+  assert.equal(afterOwn.length, first.length - 1);
+  // The legacy container and the refresh CLI write through other connections.
+  b.replace(source, kept);
+  const afterOther = a.offers();
+  assert.notEqual(afterOther, afterOwn);
+  assert.equal(afterOther.length, first.length);
+  assert.equal(a.offer(kept[0].id).id, kept[0].id);
 });
